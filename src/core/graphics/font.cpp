@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "font.h"
 
 Font::Font(LPD3DXFONT& fD3D, const std::string &fontName, int height, uint8_t weight, bool italic)

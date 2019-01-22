@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "resourceManager.h"
 #include "context.h"
 

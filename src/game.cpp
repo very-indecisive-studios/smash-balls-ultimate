@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include <windows.h>
 #include <Mmsystem.h>
 #include <iostream>

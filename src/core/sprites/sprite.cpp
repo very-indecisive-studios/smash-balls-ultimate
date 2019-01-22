@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "core/sprites/sprite.h"
 #include "core/graphics/graphicsRenderer.h"
 #include "context.h"

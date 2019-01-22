@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include <algorithm>
 #include "graphicsRenderer.h"
 #include "core/gameException.h"

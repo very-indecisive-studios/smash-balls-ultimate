@@ -1,3 +1,4 @@
+#include "pch.h"
 
 #define _CRTDBG_MAP_ALLOC       // for detecting memory leaks
 #define WIN32_LEAN_AND_MEAN

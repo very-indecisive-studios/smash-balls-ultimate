@@ -15,6 +15,7 @@
     <ClCompile Include="src\core\audio\audio.cpp" />
     <ClCompile Include="src\core\scene\scene.cpp" />
     <ClCompile Include="src\core\scene\sceneManager.cpp" />
+    <ClCompile Include="src\pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\constants.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="src\core\scene\scene.h" />
     <ClInclude Include="src\core\scene\sceneManager.h" />
     <ClInclude Include="src\resources.h" />
+    <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

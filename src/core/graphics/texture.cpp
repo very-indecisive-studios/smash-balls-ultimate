@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "texture.h"
 
 Texture::Texture(LPDIRECT3DTEXTURE9 &tD3D, int w, int h)

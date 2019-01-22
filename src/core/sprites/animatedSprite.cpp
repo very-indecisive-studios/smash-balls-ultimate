@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "animatedSprite.h"
 #include "context.h"
 #include "core/graphics/texture.h"
