@@ -14,8 +14,7 @@ Game::Game()
 {}
 
 Game::~Game()
-{
-}
+{}
 
 void Game::Initialize()
 {
