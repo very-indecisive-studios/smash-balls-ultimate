@@ -1,6 +1,7 @@
 #pragma once
 
 #include "scene.h"
+#include "mainMenuScene.h"
 
 class SceneManager
 {

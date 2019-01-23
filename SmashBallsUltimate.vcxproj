@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="src\core\audio\audio.cpp" />
     <ClCompile Include="src\core\graphics\font.cpp" />
+    <ClCompile Include="src\core\scene\mainMenuScene.cpp" />
     <ClCompile Include="src\core\sprites\animatedSprite.cpp" />
     <ClCompile Include="src\context.cpp" />
     <ClCompile Include="src\core\text\text.cpp" />
@@ -108,9 +109,7 @@
     <ClCompile Include="src\core\scene\sceneManager.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="src\winmain.cpp" />
   </ItemGroup>
@@ -120,6 +119,7 @@
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\core\audio\audio.h" />
     <ClInclude Include="src\core\graphics\font.h" />
+    <ClInclude Include="src\core\scene\mainMenuScene.h" />
     <ClInclude Include="src\core\sprites\animatedSprite.h" />
     <ClInclude Include="src\context.h" />
     <ClInclude Include="src\core\text\text.h" />

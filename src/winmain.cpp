@@ -59,6 +59,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// Initialize game.
 	Context::Get()->GetGame()->Initialize();
 
+	// Initialize input.
+	Context::Get()->GetInputManager()->Initialize(hwnd, false);
+
 	// Main message loop.
 	MSG msg;
 	int done = 0;
@@ -104,7 +107,7 @@ LRESULT WINAPI WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	// Let input manager process any input messages.
 	if (
 		Context::Get() != nullptr && 
-		Context::Get()->GetInputManager()->ProccessKeyMessage(msg, wParam)
+		Context::Get()->GetInputManager()->ProccessKeyMessage(msg, wParam, lParam)
 	)
 	{
 		return 0;

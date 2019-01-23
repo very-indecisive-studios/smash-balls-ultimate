@@ -14,11 +14,37 @@ InputManager::InputManager()
 	newLine = true;                     // start new line
 	textIn = "";                        // clear textIn
 	charIn = 0;                         // clear charIn
+
+	 // mouse data
+	mouseX = 0;                         // screen X
+	mouseY = 0;                         // screen Y
+	mouseRawX = 0;                      // high-definition X
+	mouseRawY = 0;                      // high-definition Y
+	mouseLButton = false;               // true if left mouse button is down
+	mouseMButton = false;               // true if middle mouse button is down
+	mouseRButton = false;               // true if right mouse button is down
+	mouseX1Button = false;              // true if X1 mouse button is down
+	mouseX2Button = false;              // true if X2 mouse button is down
 }
 
 InputManager::~InputManager() { }
 
-bool InputManager::ProccessKeyMessage(UINT msg, WPARAM wParam)
+void InputManager::Initialize(HWND hwnd, bool capture)
+{
+	mouseCaptured = capture;
+
+	// register high-definition mouse
+	Rid[0].usUsagePage = HID_USAGE_PAGE_GENERIC;
+	Rid[0].usUsage = HID_USAGE_GENERIC_MOUSE;
+	Rid[0].dwFlags = RIDEV_INPUTSINK;
+	Rid[0].hwndTarget = hwnd;
+	RegisterRawInputDevices(Rid, 1, sizeof(Rid[0]));
+
+	if (mouseCaptured)
+		SetCapture(hwnd);           // capture mouse
+}
+
+bool InputManager::ProccessKeyMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg) 
 	{
@@ -33,6 +59,40 @@ bool InputManager::ProccessKeyMessage(UINT msg, WPARAM wParam)
 	case WM_CHAR:                           // character entered
 		KeyIn(wParam);
 		return true;
+	case WM_MOUSEMOVE:                      // mouse moved
+		MouseIn(lParam);
+		return 0;
+	case WM_INPUT:                          // raw mouse data in
+		MouseRawIn(lParam);
+		return 0;
+	case WM_LBUTTONDOWN:                    // left mouse button down
+		SetMouseLButton(true);
+		MouseIn(lParam);             // mouse position
+		return 0;
+	case WM_LBUTTONUP:                      // left mouse button up
+		SetMouseLButton(false);
+		MouseIn(lParam);             // mouse position
+		return 0;
+	case WM_MBUTTONDOWN:                    // middle mouse button down
+		SetMouseMButton(true);
+		MouseIn(lParam);             // mouse position
+		return 0;
+	case WM_MBUTTONUP:                      // middle mouse button up
+		SetMouseMButton(false);
+		MouseIn(lParam);             // mouse position
+		return 0;
+	case WM_RBUTTONDOWN:                    // right mouse button down
+		SetMouseRButton(true);
+		MouseIn(lParam);             // mouse position
+		return 0;
+	case WM_RBUTTONUP:                      // right mouse button up
+		SetMouseRButton(false);
+		MouseIn(lParam);             // mouse position
+		return 0;
+	case WM_XBUTTONDOWN: case WM_XBUTTONUP: // mouse X button down/up
+		SetMouseXButton(wParam);
+		MouseIn(lParam);             // mouse position
+		return 0;
 	}
 
 	return false;
@@ -142,7 +202,7 @@ void InputManager::Clear(UCHAR what)
 
 void InputManager::ClearAll() 
 {
-	Clear(KEYS_TEXT);
+	Clear(KEYS_MOUSE_TEXT);
 }
 
 void InputManager::ClearTextIn() 
@@ -173,4 +233,30 @@ std::string InputManager::GetTextInWithLimit(int limit, char charLimit)
 char InputManager::GetCharIn() 
 { 
 	return charIn;
+}
+
+// Reads mouse screen position into mouseX, mouseY
+void InputManager::MouseIn(LPARAM lParam)
+{
+	mouseX = GET_X_LPARAM(lParam);
+	mouseY = GET_Y_LPARAM(lParam);
+}
+
+// Reads raw mouse data into mouseRawX, mouseRawY
+// This routine is compatible with a high-definition mouse
+void InputManager::MouseRawIn(LPARAM lParam)
+{
+	UINT dwSize = 40;
+	static BYTE lpb[40];
+
+	GetRawInputData((HRAWINPUT)lParam, RID_INPUT,
+		lpb, &dwSize, sizeof(RAWINPUTHEADER));
+
+	RAWINPUT* raw = (RAWINPUT*)lpb;
+
+	if (raw->header.dwType == RIM_TYPEMOUSE)
+	{
+		mouseRawX = raw->data.mouse.lLastX;
+		mouseRawY = raw->data.mouse.lLastY;
+	}
 }

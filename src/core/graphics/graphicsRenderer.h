@@ -102,6 +102,8 @@ private:
 	HRESULT Reset();
 
 	void ClearAllDrawJobs();
+
+	int heightOfText;
 public:
 	GraphicsRenderer();
 
@@ -120,4 +122,6 @@ public:
 	Font * LoadFont(const std::string& fontName, int height, UINT weight, BOOL italic);
 
 	void ReleaseAll();
+
+	int GetHeightOfText() { return heightOfText; }
 };

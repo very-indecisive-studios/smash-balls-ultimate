@@ -13,7 +13,9 @@ SceneManager::~SceneManager()
 
 void SceneManager::Initialize()
 {
+	Scene *mainMenuScene = new MainMenuScene();
 
+	currentScene = mainMenuScene;
 }
 
 void SceneManager::Update(float deltaTime) 

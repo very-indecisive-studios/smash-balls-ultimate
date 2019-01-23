@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "graphicsRenderer.h"
 #include "core/gameException.h"
+#include "constants.h"
 
 void GraphicsRenderer::InitParamsD3D() 
 {
@@ -253,8 +254,8 @@ HRESULT GraphicsRenderer::Render()
 				RECT posRect;
 				posRect.top = textJob->pos.y;
 				posRect.left = textJob->pos.x;
-				posRect.right = 640;
-				posRect.bottom = 480;
+				posRect.right = Constants::GAME_WIDTH;
+				posRect.bottom = Constants::GAME_HEIGHT;
 				
 				// Rotation center
 				D3DXVECTOR2 rCenter = D3DXVECTOR2((float)textJob->pos.x, (float)textJob->pos.y);

@@ -3,10 +3,10 @@
 namespace Constants
 {
 	// window
-	const char* CLASS_NAME = "Smash Balls Ulitmate";
-	const char* GAME_TITLE = "Smash Balls Ulitmate";
-	const bool FULLSCREEN = false;
-	const unsigned int GAME_WIDTH = 640;
-	const unsigned int GAME_HEIGHT = 480;
-	const unsigned int GAME_WINDOW_SCALE = 2;
+	static const char* CLASS_NAME = "Smash Balls Ulitmate";
+	static const char* GAME_TITLE = "Smash Balls Ulitmate";
+	static const bool FULLSCREEN = false;
+	static const unsigned int GAME_WIDTH = 1280;
+	static const unsigned int GAME_HEIGHT = 720;
+	static const unsigned int GAME_WINDOW_SCALE = 1;
 }
