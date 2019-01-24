@@ -17,6 +17,7 @@
     <ClCompile Include="src\core\scene\sceneManager.cpp" />
     <ClCompile Include="src\core\scene\mainMenuScene.cpp" />
     <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\core\scene\selectionScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\constants.h" />
@@ -41,6 +42,7 @@
     <ClInclude Include="src\core\scene\mainMenuScene.h" />
     <ClInclude Include="src\resources.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\core\scene\selectionScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

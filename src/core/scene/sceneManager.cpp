@@ -18,6 +18,20 @@ void SceneManager::Initialize()
 	currentScene = mainMenuScene;
 }
 
+void SceneManager::LoadMainMenuScene()
+{
+	Scene *mainMenuScene = new MainMenuScene();
+
+	pendingSceneToLoad = mainMenuScene;
+}
+
+void SceneManager::LoadSelectionScene()
+{
+	Scene *selectionScene = new SelectionScene();
+
+	pendingSceneToLoad = selectionScene;
+}
+
 void SceneManager::Update(float deltaTime) 
 {
 	if (pendingSceneToLoad != nullptr)

@@ -2,6 +2,7 @@
 
 #include "scene.h"
 #include "mainMenuScene.h"
+#include "selectionScene.h"
 
 class SceneManager
 {
@@ -14,6 +15,9 @@ public:
 	~SceneManager();
 
 	void Initialize();
+
+	void LoadMainMenuScene();
+	void LoadSelectionScene();
 
 	void Update(float deltaTime);
 };

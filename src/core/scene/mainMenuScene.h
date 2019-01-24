@@ -8,16 +8,16 @@
 class MainMenuScene : public Scene
 {
 private:
+	Sprite *background = nullptr;
+
+	Text *buttonText;
+	std::vector<Text *> buttons;
+
+	Sprite *buttonImage = nullptr;
 
 public:
 	MainMenuScene();
 	~MainMenuScene();
-
-	Sprite *background = nullptr;
-
-	Text *button1;
-	Text *button2;
-	std::vector<Text *> buttons;
 
 	void CheckMouseHover();
 
