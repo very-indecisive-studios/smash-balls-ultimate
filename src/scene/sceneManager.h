@@ -1,9 +1,9 @@
 #pragma once
 
 #include "scene.h"
-#include "mainMenuScene.h"
-#include "selectionScene.h"
 #include "gameScene.h"
+#include "scene/mainMenu/mainMenuScene.h"
+#include "scene/selection/selectionScene.h"
 
 class SceneManager
 {
