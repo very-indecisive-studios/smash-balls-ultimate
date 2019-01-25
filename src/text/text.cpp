@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #include "text.h"
-#include "context.h"
+#include "context/context.h"
 
 Text::Text(const std::string &text, uint8_t layer, int color, int alignment, Font *font)
 	: text(text), layer(layer), color(color), alignment(alignment), font(font)

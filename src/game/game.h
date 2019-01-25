@@ -1,8 +1,8 @@
 #pragma once
 
 #include <winnt.h>
-#include "core/scene/scene.h"
-#include "core/scene/sceneManager.h"
+#include "scene/scene.h"
+#include "scene/sceneManager.h"
 
 class Game 
 {

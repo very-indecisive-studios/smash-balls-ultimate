@@ -1,12 +1,12 @@
 #pragma once
 
-#include "core/graphics/graphicsRenderer.h"
-#include "core/resource/resourceManager.h"
-#include "core/input/inputManager.h"
-#include "core/audio/audio.h"
-#include "core/scene/sceneManager.h"
-#include "core/ecs/engine.h"
-#include "game.h"
+#include "graphics/graphicsRenderer.h"
+#include "resource/resourceManager.h"
+#include "input/inputManager.h"
+#include "audio/audio.h"
+#include "scene/sceneManager.h"
+#include "ecs/engine.h"
+#include "game/game.h"
 
 class Context 
 {

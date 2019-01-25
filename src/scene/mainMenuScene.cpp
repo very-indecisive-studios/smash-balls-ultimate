@@ -1,9 +1,9 @@
 #include "pch.h"
 #include <iostream>
 #include "mainMenuScene.h"
-#include "context.h"
+#include "context/context.h"
 #include "constants.h"
-#include "resources.h"
+#include "resource/resources.h"
 
 MainMenuScene::MainMenuScene()
 {

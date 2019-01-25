@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include "graphicsRenderer.h"
-#include "core/gameException.h"
+#include "game/gameException.h"
 #include "constants.h"
 
 void GraphicsRenderer::InitParamsD3D() 

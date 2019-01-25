@@ -1,8 +1,8 @@
 #include "pch.h"
 
-#include "core/sprites/sprite.h"
-#include "core/graphics/graphicsRenderer.h"
-#include "context.h"
+#include "sprites/sprite.h"
+#include "graphics/graphicsRenderer.h"
+#include "context/context.h"
 #include <iostream>
 
 Sprite::Sprite(Texture *texture, uint8_t layer, int scale)

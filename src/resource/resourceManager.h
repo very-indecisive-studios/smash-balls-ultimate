@@ -2,9 +2,9 @@
 
 #include <string>
 #include <map>
-#include "core/graphics/texture.h"
-#include "core/graphics/font.h"
-#include "core/audio/audio.h"
+#include "graphics/texture.h"
+#include "graphics/font.h"
+#include "audio/audio.h"
 #include <vector>
 
 class ResourceManager 

@@ -1,9 +1,10 @@
 #include "pch.h"
+
 #include "selectionScene.h"
 #include <iostream>
-#include "context.h"
+#include "context/context.h"
 #include "constants.h"
-#include "resources.h"
+#include "resource/resources.h"
 
 SelectionScene::SelectionScene()
 {

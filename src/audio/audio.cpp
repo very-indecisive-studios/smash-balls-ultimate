@@ -1,8 +1,8 @@
 #include "pch.h"
 
 #include "audio.h"
-#include "core/gameException.h"
-#include "context.h"
+#include "game/gameException.h"
+#include "context/context.h"
 
 AudioEngine::AudioEngine()
 { }

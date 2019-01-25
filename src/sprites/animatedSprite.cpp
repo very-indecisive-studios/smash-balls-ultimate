@@ -1,8 +1,8 @@
 #include "pch.h"
 
 #include "animatedSprite.h"
-#include "context.h"
-#include "core/graphics/texture.h"
+#include "context/context.h"
+#include "graphics/texture.h"
 #include "math.h"
 #include <iostream>
 

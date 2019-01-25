@@ -5,10 +5,9 @@
 #include <string>
 #include <vector>
 #include "texture.h"
-#include "core/math.h"
-#include "core/sprites/sprite.h"
-#include "core/text/text.h"
-
+#include "sprites/sprite.h"
+#include "font.h"
+#include "math/math.h"
 
 enum class DrawJobType { TEXTURE, FONT };
 

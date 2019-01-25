@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core/math.h"
-#include "core/graphics/texture.h"
+#include "math/math.h"
+#include "graphics/texture.h"
 #include <string>
 
 typedef RECT DrawingArea;

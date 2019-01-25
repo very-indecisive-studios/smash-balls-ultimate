@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #include "context.h"
-#include "core/gameException.h"
+#include "game/gameException.h"
 
 Context::Context()
 {

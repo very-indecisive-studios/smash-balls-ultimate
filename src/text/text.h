@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-#include "core/graphics/font.h"
-#include "core/math.h"
+#include "graphics/font.h"
+#include "math/math.h"
 
 class Text
 {

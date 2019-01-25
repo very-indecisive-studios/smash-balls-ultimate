@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "core/ecs/ecs.h"
+#include "ecs/ecs.h"
 
 struct PositionComponent : public Component
 {

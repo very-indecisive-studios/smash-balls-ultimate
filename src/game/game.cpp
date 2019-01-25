@@ -5,11 +5,11 @@
 #include <iostream>
 #include <string>
 #include "game.h"
-#include "core/sprites/sprite.h"
-#include "context.h"
-#include "resources.h"
-#include "core/scene/sceneManager.h"
-#include "core/test.h"
+#include "sprites/sprite.h"
+#include "context/context.h"
+#include "resource/resources.h"
+#include "scene/sceneManager.h"
+#include "test.h"
 
 Game::Game()
 {}
