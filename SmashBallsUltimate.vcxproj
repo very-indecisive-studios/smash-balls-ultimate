@@ -98,8 +98,8 @@
     <ClCompile Include="src\audio\audio.cpp" />
     <ClCompile Include="src\ecs\engine.cpp" />
     <ClCompile Include="src\graphics\font.cpp" />
-    <ClCompile Include="src\scene\mainMenuScene.cpp" />
-    <ClCompile Include="src\scene\selectionScene.cpp" />
+    <ClCompile Include="src\game\scenes\mainMenu\mainMenuScene.cpp" />
+    <ClCompile Include="src\game\scenes\selection\selectionScene.cpp" />
     <ClCompile Include="src\sprites\animatedSprite.cpp" />
     <ClCompile Include="src\context\context.cpp" />
     <ClCompile Include="src\text\text.cpp" />
@@ -123,9 +123,13 @@
     <ClInclude Include="src\core\scene\gameScene.h" />
     <ClInclude Include="src\ecs\ecs.h" />
     <ClInclude Include="src\ecs\engine.h" />
+    <ClInclude Include="src\game\components\animator.h" />
+    <ClInclude Include="src\game\components\position.h" />
+    <ClInclude Include="src\game\components\sprite.h" />
+    <ClInclude Include="src\game\systems\rendering.h" />
     <ClInclude Include="src\graphics\font.h" />
-    <ClInclude Include="src\scene\mainMenuScene.h" />
-    <ClInclude Include="src\scene\selectionScene.h" />
+    <ClInclude Include="src\game\scenes\mainMenu\mainMenuScene.h" />
+    <ClInclude Include="src\game\scenes\selection\selectionScene.h" />
     <ClInclude Include="src\sprites\animatedSprite.h" />
     <ClInclude Include="src\context\context.h" />
     <ClInclude Include="src\test.h" />
@@ -140,7 +144,7 @@
     <ClInclude Include="src\graphics\texture.h" />
     <ClInclude Include="src\input\inputManager.h" />
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\resource\resources.h" />
+    <ClInclude Include="src\game\resources.h" />
     <ClInclude Include="src\scene\sceneManager.h" />
     <ClInclude Include="src\winresource.h" />
   </ItemGroup>

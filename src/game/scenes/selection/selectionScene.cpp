@@ -4,7 +4,7 @@
 #include <iostream>
 #include "context/context.h"
 #include "constants.h"
-#include "resource/resources.h"
+#include "game/resources.h"
 
 SelectionScene::SelectionScene()
 {

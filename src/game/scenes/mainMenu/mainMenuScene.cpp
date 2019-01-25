@@ -3,7 +3,7 @@
 #include "mainMenuScene.h"
 #include "context/context.h"
 #include "constants.h"
-#include "resource/resources.h"
+#include "game/resources.h"
 
 MainMenuScene::MainMenuScene()
 {

@@ -7,7 +7,7 @@
 #include "game.h"
 #include "sprites/sprite.h"
 #include "context/context.h"
-#include "resource/resources.h"
+#include "game/resources.h"
 #include "scene/sceneManager.h"
 #include "test.h"
 
@@ -72,6 +72,9 @@ void Game::Run()
 
 	timeStart = timeEnd;
 
+	/*
+		Update ECS engine.
+	*/
 	Context::Get()->GetECSEngine()->Update(deltaTime);
 
 	/*

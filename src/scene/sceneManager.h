@@ -2,8 +2,8 @@
 
 #include "scene.h"
 #include "gameScene.h"
-#include "scene/mainMenu/mainMenuScene.h"
-#include "scene/selection/selectionScene.h"
+#include "game/scenes/mainMenu/mainMenuScene.h"
+#include "game/scenes/selection/selectionScene.h"
 
 class SceneManager
 {

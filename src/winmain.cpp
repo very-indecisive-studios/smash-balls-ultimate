@@ -9,7 +9,7 @@
 #include <crtdbg.h>             // for detecting memory leaks
 #include <Mmsystem.h>
 #include "constants.h"
-#include "resource/resources.h"
+#include "game/resources.h"
 #include "context/context.h"
 #include "winresource.h"
 

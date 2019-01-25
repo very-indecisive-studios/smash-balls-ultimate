@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene.h"
+#include "scene/scene.h"
 #include "audio/audio.h"
 #include "text/text.h"
 #include "sprites/sprite.h"
