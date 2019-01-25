@@ -24,29 +24,35 @@ SelectionScene::SelectionScene()
 	buttons.push_back(arrowLeftP1);
 	arrowLeftP2 = Sprite::Create(Resources::SELECTION_SCENE_LEFT_ARROW_WHITE, 0);
 	buttons.push_back(arrowLeftP2);
+	arrowLeftGM = Sprite::Create(Resources::SELECTION_SCENE_LEFT_ARROW_WHITE, 0);
+	buttons.push_back(arrowLeftGM);
 
 	arrowRightP1 = Sprite::Create(Resources::SELECTION_SCENE_RIGHT_ARROW_WHITE, 0);
 	buttons.push_back(arrowRightP1);
 	arrowRightP2 = Sprite::Create(Resources::SELECTION_SCENE_RIGHT_ARROW_WHITE, 0);
 	buttons.push_back(arrowRightP2);
+	arrowRightGM = Sprite::Create(Resources::SELECTION_SCENE_RIGHT_ARROW_WHITE, 0);
+	buttons.push_back(arrowRightGM);
 
 	exitLeft = Sprite::Create(Resources::SELECTION_SCENE_LEFT_EXIT_WHITE, 0);
 	buttons.push_back(exitLeft);
 	exitRight = Sprite::Create(Resources::SELECTION_SCENE_RIGHT_EXIT_WHITE, 0);
 	buttons.push_back(exitRight);
 
-	std::map<int, std::string> gameModes;
-	gameModes.insert({ 0, "TIME LIMIT - 3 MINS" });
-	gameModes.insert({ 1, "TIME LIMIT - 5 MINS" });
-	gameModes.insert({ 2, "FIRST TO 5 GOALS" });
-	gameModes.insert({ 3, "FIRST TO 10 GOALS" });
+	gameModes.push_back(Resources::SELECTION_SCENE_GAMEMODE_1);
+	gameModes.push_back(Resources::SELECTION_SCENE_GAMEMODE_2);
+	gameModes.push_back(Resources::SELECTION_SCENE_GAMEMODE_3);
+	gameModes.push_back(Resources::SELECTION_SCENE_GAMEMODE_4);
+
+	currentGameModeText = Text::Create("", Resources::FONT_TYPE, Resources::FONT_COLOR_BLACK, Resources::FONT_SIZE, 100, false, false);
 }
 
 SelectionScene::~SelectionScene()
 {
 }
 
-bool SelectionScene::CheckCollisionWithButton(Sprite *currentButton, int left, int right, int top, int bottom)
+// return true if mouse is hovering button
+bool SelectionScene::MouseOverButton(Sprite *currentButton, int left, int right, int top, int bottom)
 {
 	int mouseX = Context::Get()->GetInputManager()->GetMouseX();
 	int mouseY = Context::Get()->GetInputManager()->GetMouseY();
@@ -58,7 +64,8 @@ bool SelectionScene::CheckCollisionWithButton(Sprite *currentButton, int left, i
 	return false;
 }
 
-int SelectionScene::ReturnCharacterNo(int currentPlayerCounter, bool add)
+// used to cycle through list of characters
+int SelectionScene::CycleCharacters(int currentPlayerCounter, bool add)
 {
 	if (add) 
 	{
@@ -84,12 +91,44 @@ int SelectionScene::ReturnCharacterNo(int currentPlayerCounter, bool add)
 	}
 }
 
+// used to cycle through list of game modes
+int SelectionScene::CycleGameModes(int currentgameModeCounter, bool add)
+{
+	if (add)
+	{
+		if (currentgameModeCounter == gameModes.size() - 1)
+		{
+			return 0;
+		}
+		else
+		{
+			return currentgameModeCounter + 1;
+		}
+	}
+	else
+	{
+		if (currentgameModeCounter == 0)
+		{
+			return gameModes.size() - 1;
+		}
+		else
+		{
+			return currentgameModeCounter - 1;
+		}
+	}
+}
+
+
 // perform action when mouse click
 void SelectionScene::PerformMouseAction()
 {
 	int mouseX = Context::Get()->GetInputManager()->GetMouseX();
 	int mouseY = Context::Get()->GetInputManager()->GetMouseY();
 
+	std::cout << "mouseX: " << mouseX << std::endl;
+	std::cout << "mouseY: " << mouseY << std::endl;
+
+	// process of checking for mouse click (down then up) - avoid spamming
 	if (Context::Get()->GetInputManager()->GetMouseLButton()) 
 	{
 		mouseDown = true;
@@ -103,24 +142,44 @@ void SelectionScene::PerformMouseAction()
 
 	if (mouseClicked)
 	{
-		if (CheckCollisionWithButton(arrowLeftP1, P1_X - Resources::SELECTION_SCENE_CHAR_SIZE, P1_X - Resources::SELECTION_SCENE_CHAR_SIZE + Resources::SELECTION_SCENE_ARROW_WIDTH, P1_Y, P1_Y + Resources::SELECTION_SCENE_ARROW_HEIGHT))
+		if (MouseOverButton(arrowLeftP1, P1_X - Resources::SELECTION_SCENE_CHAR_SIZE, P1_X - Resources::SELECTION_SCENE_CHAR_SIZE + Resources::SELECTION_SCENE_ARROW_WIDTH, P1_Y, P1_Y + Resources::SELECTION_SCENE_ARROW_HEIGHT))
 		{
-			player1CharacterCounter = ReturnCharacterNo(player1CharacterCounter, false);
+			player1CharacterCounter = CycleCharacters(player1CharacterCounter, false);
 		}
 
-		if (CheckCollisionWithButton(arrowRightP1, P1_X + Resources::SELECTION_SCENE_CHAR_SIZE, P1_X + Resources::SELECTION_SCENE_CHAR_SIZE + Resources::SELECTION_SCENE_ARROW_WIDTH, P1_Y, P1_Y + Resources::SELECTION_SCENE_ARROW_HEIGHT))
+		if (MouseOverButton(arrowRightP1, P1_X + Resources::SELECTION_SCENE_CHAR_SIZE, P1_X + Resources::SELECTION_SCENE_CHAR_SIZE + Resources::SELECTION_SCENE_ARROW_WIDTH, P1_Y, P1_Y + Resources::SELECTION_SCENE_ARROW_HEIGHT))
 		{
-			player1CharacterCounter = ReturnCharacterNo(player1CharacterCounter, true);
+			player1CharacterCounter = CycleCharacters(player1CharacterCounter, true);
 		}
 
-		if (CheckCollisionWithButton(arrowLeftP2, P2_X - Resources::SELECTION_SCENE_CHAR_SIZE, P2_X - Resources::SELECTION_SCENE_CHAR_SIZE + Resources::SELECTION_SCENE_ARROW_WIDTH, P2_Y, P2_Y + Resources::SELECTION_SCENE_ARROW_HEIGHT))
+		if (MouseOverButton(arrowLeftP2, P2_X - Resources::SELECTION_SCENE_CHAR_SIZE, P2_X - Resources::SELECTION_SCENE_CHAR_SIZE + Resources::SELECTION_SCENE_ARROW_WIDTH, P2_Y, P2_Y + Resources::SELECTION_SCENE_ARROW_HEIGHT))
 		{
-			player2CharacterCounter = ReturnCharacterNo(player2CharacterCounter, false);
+			player2CharacterCounter = CycleCharacters(player2CharacterCounter, false);
 		}
 
-		if (CheckCollisionWithButton(arrowRightP2, P2_X + Resources::SELECTION_SCENE_CHAR_SIZE, P2_X + Resources::SELECTION_SCENE_CHAR_SIZE + Resources::SELECTION_SCENE_ARROW_WIDTH, P2_Y, P2_Y + Resources::SELECTION_SCENE_ARROW_HEIGHT))
+		if (MouseOverButton(arrowRightP2, P2_X + Resources::SELECTION_SCENE_CHAR_SIZE, P2_X + Resources::SELECTION_SCENE_CHAR_SIZE + Resources::SELECTION_SCENE_ARROW_WIDTH, P2_Y, P2_Y + Resources::SELECTION_SCENE_ARROW_HEIGHT))
 		{
-			player2CharacterCounter = ReturnCharacterNo(player2CharacterCounter, true);
+			player2CharacterCounter = CycleCharacters(player2CharacterCounter, true);
+		}
+
+		if (MouseOverButton(arrowLeftGM, (Constants::GAME_WIDTH * 0.5f) - 150, ((Constants::GAME_WIDTH * 0.5f) - 150) + Resources::SELECTION_SCENE_ARROW_WIDTH, (Constants::GAME_HEIGHT * 0.5f) - Resources::SELECTION_SCENE_ARROW_HEIGHT / 2, (Constants::GAME_HEIGHT * 0.5f) - Resources::SELECTION_SCENE_ARROW_HEIGHT / 2 + Resources::SELECTION_SCENE_ARROW_HEIGHT))
+		{
+			gameModeCounter = CycleGameModes(gameModeCounter, false);
+		}
+
+		if (MouseOverButton(arrowRightGM, (Constants::GAME_WIDTH * 0.5f) + 100, ((Constants::GAME_WIDTH * 0.5f) + 100) + Resources::SELECTION_SCENE_ARROW_WIDTH, (Constants::GAME_HEIGHT * 0.5f) - Resources::SELECTION_SCENE_ARROW_HEIGHT / 2, (Constants::GAME_HEIGHT * 0.5f) - Resources::SELECTION_SCENE_ARROW_HEIGHT / 2 + Resources::SELECTION_SCENE_ARROW_HEIGHT))
+		{
+			gameModeCounter = CycleGameModes(gameModeCounter, true);
+		}
+
+		if (MouseOverButton(exitLeft, Constants::GAME_WIDTH / 5, ((Constants::GAME_WIDTH / 5) + Resources::SELECTION_SCENE_EXIT_WIDTH), ((Constants::GAME_HEIGHT / 5) * 4) - Resources::SELECTION_SCENE_EXIT_HEIGHT, (Constants::GAME_HEIGHT / 5) * 4))
+		{
+			Context::Get()->GetSceneManager()->LoadMainMenuScene();
+		}
+
+		if (MouseOverButton(exitRight, ((Constants::GAME_WIDTH / 5) * 4) - Resources::SELECTION_SCENE_EXIT_WIDTH, (Constants::GAME_WIDTH / 5) * 4, ((Constants::GAME_HEIGHT / 5) * 4) - Resources::SELECTION_SCENE_EXIT_HEIGHT, (Constants::GAME_HEIGHT / 5) * 4))
+		{
+			//transition into gameScene
 		}
 
 		mouseClicked = false;
@@ -129,6 +188,8 @@ void SelectionScene::PerformMouseAction()
 
 void SelectionScene::Update(float deltaTime)
 {
+	PerformMouseAction();
+
 	background->Draw(Vector2(0, 0));
 
 	arrowLeftP1->Draw(Vector2(P1_X - Resources::SELECTION_SCENE_CHAR_SIZE, P1_Y));
@@ -137,8 +198,15 @@ void SelectionScene::Update(float deltaTime)
 	arrowLeftP2->Draw(Vector2(P2_X - Resources::SELECTION_SCENE_CHAR_SIZE, P2_Y));
 	arrowRightP2->Draw(Vector2(P2_X + Resources::SELECTION_SCENE_CHAR_SIZE, P2_Y));
 
+	arrowLeftGM->Draw(Vector2((Constants::GAME_WIDTH * 0.5f) - 150, Constants::GAME_HEIGHT * 0.5f - Resources::SELECTION_SCENE_ARROW_HEIGHT / 2));
+	arrowRightGM->Draw(Vector2((Constants::GAME_WIDTH * 0.5f) + 100, Constants::GAME_HEIGHT * 0.5f - Resources::SELECTION_SCENE_ARROW_HEIGHT / 2));
+
 	characters[player1CharacterCounter]->Draw(Vector2(P1_X, P1_Y));
 	characters[player2CharacterCounter]->Draw(Vector2(P2_X, P2_Y));
 
-	PerformMouseAction();
+	currentGameModeText->SetText(gameModes[gameModeCounter]);
+	currentGameModeText->Draw(Vector2(0, Constants::GAME_HEIGHT/2 - Resources::FONT_SIZE/2));
+	
+	exitLeft->Draw(Vector2(Constants::GAME_WIDTH/5, ((Constants::GAME_HEIGHT/5) * 4 )- Resources::SELECTION_SCENE_EXIT_HEIGHT));
+	exitRight->Draw(Vector2((((Constants::GAME_WIDTH/5) * 4 ) - Resources::SELECTION_SCENE_EXIT_WIDTH), ((Constants::GAME_HEIGHT / 5) * 4) - Resources::SELECTION_SCENE_EXIT_HEIGHT));
 }

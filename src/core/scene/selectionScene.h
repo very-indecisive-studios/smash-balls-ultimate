@@ -16,14 +16,20 @@ private:
 
 	Sprite *arrowLeftP1 = nullptr;
 	Sprite *arrowLeftP2 = nullptr;
+	Sprite *arrowLeftGM = nullptr;
 
 	Sprite *arrowRightP1 = nullptr;
 	Sprite *arrowRightP2 = nullptr;
+	Sprite *arrowRightGM = nullptr;
 
 	Sprite *exitLeft = nullptr;
 
 	Sprite *exitRight = nullptr;
 	std::vector<Sprite *> buttons;
+
+	std::vector<std::string> gameModes;
+	Text *currentGameModeText;
+	int gameModeCounter = 0;
 
 	int player1CharacterCounter = 0;
 	int player2CharacterCounter = 1;
@@ -36,12 +42,14 @@ private:
 
 	bool mouseDown = false;
 	bool mouseClicked = false;
+
 public:
 	SelectionScene();
 	~SelectionScene();
 
-	bool CheckCollisionWithButton(Sprite *currentButton, int left, int right, int top, int bottom);
-	int ReturnCharacterNo(int currentPlayerCounter, bool add);
+	bool MouseOverButton(Sprite *currentButton, int left, int right, int top, int bottom);
+	int CycleCharacters(int currentPlayerCounter, bool add);
+	int CycleGameModes(int currentgameModeCounter, bool add);
 	void PerformMouseAction();
 
 	void Update(float deltaTime) override;
