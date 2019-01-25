@@ -8,8 +8,12 @@
 #include "sprites/sprite.h"
 #include "context/context.h"
 #include "game/resources.h"
+#include "game/resources.h"
+#include "game/systems/rendering.h"
+#include "game/components/position.h"
+#include "game/components/sprite.h"
+#include "game/systems/rendering.h"
 #include "scene/sceneManager.h"
-#include "test.h"
 
 Game::Game()
 {}
@@ -25,22 +29,19 @@ void Game::Initialize()
 	Context::Get()->GetSceneManager()->Initialize();
 
 	auto posComponent = std::make_shared<PositionComponent>();
-	posComponent->x = 100;
-	posComponent->y = 500;
-	auto entity1 = std::make_shared<Entity>();
-	entity1->AttachComponent<PositionComponent>(posComponent);
+	posComponent->pos = Vector2(100, 200);
 
-	auto posComponent2 = std::make_shared<PositionComponent>();
-	posComponent2->x = 203;
-	posComponent2->y = 211;
-	auto entity2 = std::make_shared<Entity>();
-	entity2->AttachComponent<PositionComponent>(posComponent2);
+	auto sprComponent = std::make_shared<SpriteComponent>();
+	sprComponent->texture = Context::Get()->GetResourceManager()->GetTexture(Resources::SELECTION_SCENE_BACKGROUND_IMAGE);
 
-	Context::Get()->GetECSEngine()->AttachEntity(entity1);
-	Context::Get()->GetECSEngine()->AttachEntity(entity2);
+	auto entity = std::make_shared<Entity>();
+	entity->AttachComponent<PositionComponent>(posComponent);
+	entity->AttachComponent<SpriteComponent>(sprComponent);
 
-	std::shared_ptr<System> s2 = std::make_shared<DummySystem2>();
-	Context::Get()->GetECSEngine()->AttachSystem(s2);
+	Context::Get()->GetECSEngine()->AttachEntity(entity);
+
+	std::shared_ptr<System> renderSystem = std::make_shared<RenderSystem>();
+	Context::Get()->GetECSEngine()->AttachSystem(renderSystem);
 }
 
 void Game::Run()

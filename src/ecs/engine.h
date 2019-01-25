@@ -17,7 +17,9 @@ public:
 
 	void ClearEntities();
 
-	std::shared_ptr<std::vector<std::shared_ptr<Entity>>> GetEntities(ComponentBitset bitset);
+	std::shared_ptr<EntityList> GetEntities(ComponentBitset attachedBitset);
+
+	std::shared_ptr<EntityList> GetEntities(ComponentBitset attachedBitset, ComponentBitset notAttachedBitset);
 
 	std::shared_ptr<Entity> GetTaggedEntity(const std::string &tag);
 

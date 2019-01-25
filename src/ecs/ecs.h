@@ -31,6 +31,8 @@ struct Component
 	const Entity *attachedEntity;
 };
 
+typedef std::vector<std::shared_ptr<Entity>> EntityList;
+
 class Entity final
 {
 private:

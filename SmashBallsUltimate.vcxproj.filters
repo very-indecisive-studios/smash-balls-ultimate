@@ -21,6 +21,7 @@
     <ClCompile Include="src\context\context.cpp" />
     <ClCompile Include="src\game\scenes\mainMenu\mainMenuScene.cpp" />
     <ClCompile Include="src\game\scenes\selection\selectionScene.cpp" />
+    <ClCompile Include="src\game\systems\rendering.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\constants.h" />
@@ -43,7 +44,6 @@
     <ClInclude Include="src\sprites\animatedSprite.h" />
     <ClInclude Include="src\sprites\sprite.h" />
     <ClInclude Include="src\text\text.h" />
-    <ClInclude Include="src\test.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\game\gameException.h" />
     <ClInclude Include="src\context\context.h" />

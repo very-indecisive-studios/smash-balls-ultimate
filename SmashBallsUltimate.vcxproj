@@ -97,6 +97,7 @@
     <ClCompile Include="src\core\scene\gameScene.cpp" />
     <ClCompile Include="src\audio\audio.cpp" />
     <ClCompile Include="src\ecs\engine.cpp" />
+    <ClCompile Include="src\game\systems\rendering.cpp" />
     <ClCompile Include="src\graphics\font.cpp" />
     <ClCompile Include="src\game\scenes\mainMenu\mainMenuScene.cpp" />
     <ClCompile Include="src\game\scenes\selection\selectionScene.cpp" />
@@ -132,7 +133,6 @@
     <ClInclude Include="src\game\scenes\selection\selectionScene.h" />
     <ClInclude Include="src\sprites\animatedSprite.h" />
     <ClInclude Include="src\context\context.h" />
-    <ClInclude Include="src\test.h" />
     <ClInclude Include="src\text\text.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\game\gameException.h" />

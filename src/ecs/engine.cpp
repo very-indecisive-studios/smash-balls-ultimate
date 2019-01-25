@@ -17,13 +17,32 @@ void ECSEngine::ClearEntities()
 	entities.clear();
 }
 
-std::shared_ptr<std::vector<std::shared_ptr<Entity>>> ECSEngine::GetEntities(ComponentBitset bitset)
+std::shared_ptr<EntityList> ECSEngine::GetEntities(ComponentBitset attachedBitset)
 {
-	auto matchedEntities = std::make_shared<std::vector<std::shared_ptr<Entity>>>();
+	auto matchedEntities = std::make_shared<EntityList>();
 
 	for (auto &entity : entities)
 	{
-		if ((entity->GetComponentBitset() & bitset) == bitset)
+		if ((entity->GetComponentBitset() & attachedBitset) == attachedBitset)
+		{
+			matchedEntities->push_back(entity);
+		}
+	}
+
+	return matchedEntities;
+}
+
+std::shared_ptr<EntityList> ECSEngine::GetEntities(ComponentBitset attachedBitset, ComponentBitset notAttachedBitset)
+{
+	auto matchedEntities = std::make_shared<EntityList>();
+
+	for (auto &entity : entities)
+	{
+		if 
+		(
+			(entity->GetComponentBitset() & attachedBitset) == attachedBitset && 
+			(entity->GetComponentBitset() & notAttachedBitset) != notAttachedBitset
+		)
 		{
 			matchedEntities->push_back(entity);
 		}
