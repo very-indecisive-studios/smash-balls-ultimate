@@ -11,11 +11,14 @@ Context::Context()
 	audioEngine = new AudioEngine();
 	sceneManager = new SceneManager();
 	game = new Game();
+	ecsEngine = new ECSEngine();
 }
 
 Context::~Context()
 {
 	// Delete in this order.
+	delete ecsEngine;
+
 	delete sceneManager;
 	delete game;
 
@@ -54,6 +57,11 @@ SceneManager * Context::GetSceneManager()
 Game * Context::GetGame()
 {
 	return game;
+}
+
+ECSEngine * Context::GetECSEngine()
+{
+	return ecsEngine;
 }
 
 /*

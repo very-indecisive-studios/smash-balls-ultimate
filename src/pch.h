@@ -7,6 +7,7 @@
 #include <bitset>
 #include <string>
 #include <thread>
+#include <memory>
 
 #include <windows.h>
 #include <WindowsX.h>

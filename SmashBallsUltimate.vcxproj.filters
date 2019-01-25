@@ -19,6 +19,7 @@
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\core\scene\selectionScene.cpp" />
     <ClCompile Include="src\core\scene\gameScene.cpp" />
+    <ClCompile Include="src\core\ecs\engine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\constants.h" />
@@ -45,6 +46,9 @@
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\core\scene\selectionScene.h" />
     <ClInclude Include="src\core\scene\gameScene.h" />
+    <ClInclude Include="src\core\ecs\engine.h" />
+    <ClInclude Include="src\core\test.h" />
+    <ClInclude Include="src\core\ecs\ecs.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

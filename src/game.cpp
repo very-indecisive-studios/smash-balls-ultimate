@@ -9,6 +9,7 @@
 #include "context.h"
 #include "resources.h"
 #include "core/scene/sceneManager.h"
+#include "core/test.h"
 
 Game::Game()
 {}
@@ -22,6 +23,24 @@ void Game::Initialize()
 	QueryPerformanceCounter(&timeStart);
 
 	Context::Get()->GetSceneManager()->Initialize();
+
+	auto posComponent = std::make_shared<PositionComponent>();
+	posComponent->x = 100;
+	posComponent->y = 500;
+	auto entity1 = std::make_shared<Entity>();
+	entity1->AttachComponent<PositionComponent>(posComponent);
+
+	auto posComponent2 = std::make_shared<PositionComponent>();
+	posComponent2->x = 203;
+	posComponent2->y = 211;
+	auto entity2 = std::make_shared<Entity>();
+	entity2->AttachComponent<PositionComponent>(posComponent2);
+
+	Context::Get()->GetECSEngine()->AttachEntity(entity1);
+	Context::Get()->GetECSEngine()->AttachEntity(entity2);
+
+	std::shared_ptr<System> s2 = std::make_shared<DummySystem2>();
+	Context::Get()->GetECSEngine()->AttachSystem(s2);
 }
 
 void Game::Run()
@@ -53,10 +72,12 @@ void Game::Run()
 
 	timeStart = timeEnd;
 
+	Context::Get()->GetECSEngine()->Update(deltaTime);
+
 	/*
 		Update current scene.
 	*/
-	Context::Get()->GetSceneManager()->Update(deltaTime);
+	// Context::Get()->GetSceneManager()->Update(deltaTime);
 
 	/*
 		Render game.

@@ -14,6 +14,7 @@
 #include "core/math.h"
 #include "core/sprites/animatedSprite.h"
 #include "winresource.h"
+#include "core/test.h"
 
 // Function prototypes
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int);

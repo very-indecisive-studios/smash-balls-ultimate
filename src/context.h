@@ -5,6 +5,7 @@
 #include "core/input/inputManager.h"
 #include "core/audio/audio.h"
 #include "core/scene/sceneManager.h"
+#include "core/ecs/engine.h"
 #include "game.h"
 
 class Context 
@@ -16,6 +17,7 @@ private:
 	AudioEngine				*audioEngine;
 	SceneManager			*sceneManager;
 	Game					*game;
+	ECSEngine				*ecsEngine;
 
 	Context();
 	~Context();
@@ -28,6 +30,7 @@ public:
 	AudioEngine			* GetAudioEngine();
 	SceneManager		* GetSceneManager();
 	Game				* GetGame();
+	ECSEngine			* GetECSEngine();
 
 	static void ReleaseAll();
 
