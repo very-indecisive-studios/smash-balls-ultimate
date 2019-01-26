@@ -41,7 +41,7 @@ private:
 	std::string tag;
 public:
 	template <typename T>
-	void AttachComponent(std::shared_ptr<Component> component)
+	void AttachComponent(std::shared_ptr<T> component)
     {
         const ComponentId compId = ComponentUtils::GetComponentId<T>();
 
@@ -53,7 +53,7 @@ public:
     }
 	
     template <typename T>
-	void RemoveComponent(ComponentId componentId)
+	void RemoveComponent()
     {
         const ComponentId compId = ComponentUtils::GetComponentId<T>();
 
@@ -65,11 +65,11 @@ public:
     }
 
     template <typename T>
-	const std::shared_ptr<Component> & GetComponent()
+	const std::shared_ptr<T> GetComponent()
     {
         const ComponentId compId = ComponentUtils::GetComponentId<T>();
 
-        return components[compId];
+        return std::static_pointer_cast<T>(components[compId]);
     }
 
 	ComponentBitset GetComponentBitset()

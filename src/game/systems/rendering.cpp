@@ -21,9 +21,9 @@ void RenderSystem::RenderAnimatedSprites(float deltaTime)
 {
 	for (auto &entity : *animSpriteEntities)
 	{
-		const auto posComp = std::static_pointer_cast<PositionComponent>(entity->GetComponent<PositionComponent>());
-		const auto sprComp = std::static_pointer_cast<SpriteComponent>(entity->GetComponent<SpriteComponent>());
-		const auto animComp = std::static_pointer_cast<AnimatorComponent>(entity->GetComponent<AnimatorComponent>());
+		const auto posComp		= entity->GetComponent<PositionComponent>();
+		const auto sprComp		= entity->GetComponent<SpriteComponent>();
+		const auto animComp		= entity->GetComponent<AnimatorComponent>();
 
 		// Initialize the animator based on sprite component.
 		if (!animComp->isInitialized)
@@ -80,8 +80,8 @@ void RenderSystem::RenderSprites()
 {
 	for (auto &entity : *spriteEntities)
 	{
-		const auto posComp = std::static_pointer_cast<PositionComponent>(entity->GetComponent<PositionComponent>());
-		const auto sprComp = std::static_pointer_cast<SpriteComponent>(entity->GetComponent<SpriteComponent>());
+		const auto posComp = entity->GetComponent<PositionComponent>();
+		const auto sprComp = entity->GetComponent<SpriteComponent>();
 
 		DrawingArea dArea = { 0 };
 		dArea.right = sprComp->texture->GetWidth();
