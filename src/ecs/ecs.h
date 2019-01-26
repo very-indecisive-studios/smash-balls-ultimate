@@ -17,7 +17,7 @@ namespace ComponentUtils
 	template <typename T>
 	ComponentId GetComponentId()
 	{
-		static ComponentId id = ++idCounter;
+		static ComponentId id = idCounter++;
 
 		return id;
 	}
