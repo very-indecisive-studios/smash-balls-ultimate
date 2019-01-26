@@ -179,7 +179,7 @@ void SelectionScene::PerformMouseAction()
 
 		if (MouseOverButton(exitRight, ((Constants::GAME_WIDTH / 5) * 4) - Resources::SELECTION_SCENE_EXIT_WIDTH, (Constants::GAME_WIDTH / 5) * 4, ((Constants::GAME_HEIGHT / 5) * 4) - Resources::SELECTION_SCENE_EXIT_HEIGHT, (Constants::GAME_HEIGHT / 5) * 4))
 		{
-			//transition into gameScene
+			Context::Get()->GetSceneManager()->LoadGameScene(player1CharacterCounter, player2CharacterCounter, gameModeCounter);
 		}
 
 		mouseClicked = false;

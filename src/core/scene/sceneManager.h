@@ -3,6 +3,7 @@
 #include "scene.h"
 #include "mainMenuScene.h"
 #include "selectionScene.h"
+#include "gameScene.h"
 
 class SceneManager
 {
@@ -18,6 +19,7 @@ public:
 
 	void LoadMainMenuScene();
 	void LoadSelectionScene();
+	void LoadGameScene(int player1, int player2, int gameMode);
 
 	void Update(float deltaTime);
 };

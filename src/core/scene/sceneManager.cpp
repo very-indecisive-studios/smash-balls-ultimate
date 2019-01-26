@@ -32,6 +32,13 @@ void SceneManager::LoadSelectionScene()
 	pendingSceneToLoad = selectionScene;
 }
 
+void SceneManager::LoadGameScene(int player1, int player2, int gameMode)
+{
+	Scene *gameScene = new GameScene(player1, player2, gameMode);
+
+	pendingSceneToLoad = gameScene;
+}
+
 void SceneManager::Update(float deltaTime) 
 {
 	if (pendingSceneToLoad != nullptr)

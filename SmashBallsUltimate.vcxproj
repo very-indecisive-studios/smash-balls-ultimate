@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="src\core\audio\audio.cpp" />
     <ClCompile Include="src\core\graphics\font.cpp" />
+    <ClCompile Include="src\core\scene\gameScene.cpp" />
     <ClCompile Include="src\core\scene\mainMenuScene.cpp" />
     <ClCompile Include="src\core\scene\selectionScene.cpp" />
     <ClCompile Include="src\core\sprites\animatedSprite.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\core\audio\audio.h" />
     <ClInclude Include="src\core\graphics\font.h" />
+    <ClInclude Include="src\core\scene\gameScene.h" />
     <ClInclude Include="src\core\scene\mainMenuScene.h" />
     <ClInclude Include="src\core\scene\selectionScene.h" />
     <ClInclude Include="src\core\sprites\animatedSprite.h" />
