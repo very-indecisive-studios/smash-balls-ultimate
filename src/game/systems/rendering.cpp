@@ -17,9 +17,63 @@ RenderSystem::RenderSystem()
 	animSpriteBitset.set(ComponentUtils::GetComponentId<AnimatorComponent>());
 }
 
-void RenderSystem::RenderAnimatedSprites()
+void RenderSystem::RenderAnimatedSprites(float deltaTime)
 {
+	for (auto &entity : *animSpriteEntities)
+	{
+		const auto posComp = std::static_pointer_cast<PositionComponent>(entity->GetComponent<PositionComponent>());
+		const auto sprComp = std::static_pointer_cast<SpriteComponent>(entity->GetComponent<SpriteComponent>());
+		const auto animComp = std::static_pointer_cast<AnimatorComponent>(entity->GetComponent<AnimatorComponent>());
 
+		// Initialize the animator based on sprite component.
+		if (!animComp->isInitialized)
+		{
+			animComp->totalFramesPerCol = sprComp->texture->GetWidth() / animComp->frameWidth;
+			animComp->totalFramesPerRow = sprComp->texture->GetHeight() / animComp->frameHeight;
+		}
+
+		animComp->secondsPassed += deltaTime;
+
+		if (animComp->secondsPassed >= animComp->secondsPerFrame)
+		{
+			animComp->secondsPassed = 0;
+
+			if (animComp->currentFrameCol + 1 == animComp->totalFramesPerCol)
+			{
+				animComp->currentFrameCol = 0;
+
+				if (animComp->currentFrameRow + 1 == animComp->totalFramesPerRow)
+				{
+					animComp->currentFrameRow = 0;
+				}
+				else
+				{
+					animComp->currentFrameRow++;
+				}
+			}
+			else
+			{
+				animComp->currentFrameCol++;
+			}
+		}
+
+		DrawingArea dArea = { 0 };
+		dArea.left		= animComp->currentFrameCol * animComp->frameWidth;
+		dArea.top		= animComp->currentFrameRow * animComp->frameHeight;
+		dArea.right		= dArea.left + animComp->frameWidth;
+		dArea.bottom	= dArea.top + animComp->frameHeight;
+
+		DrawTextureJob *job = new DrawTextureJob
+		{
+			sprComp->texture,
+			sprComp->scale,
+			dArea,
+			posComp->pos,
+			sprComp->layer
+		};
+
+		gRenderer->QueueDrawJob(job);
+	}
 }
 
 void RenderSystem::RenderSprites()
@@ -52,4 +106,5 @@ void RenderSystem::Process(float deltaTime)
 	animSpriteEntities = Context::Get()->GetECSEngine()->GetEntities(animSpriteBitset);
 
 	RenderSprites();
+	RenderAnimatedSprites(deltaTime);
 }

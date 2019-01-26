@@ -15,7 +15,7 @@ private:
 	std::shared_ptr<EntityList> spriteEntities;
 	std::shared_ptr<EntityList> animSpriteEntities;
 
-	void RenderAnimatedSprites();
+	void RenderAnimatedSprites(float deltaTime);
 	void RenderSprites();
 public:
 	RenderSystem();
