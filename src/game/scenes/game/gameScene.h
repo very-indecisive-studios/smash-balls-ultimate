@@ -1,9 +1,9 @@
 #pragma once
 #include "pch.h"
-#include "scene.h"
-#include "core/audio/audio.h"
-#include "core/text/text.h"
-#include "core/sprites/sprite.h"
+#include "scene/scene.h"
+#include "audio/audio.h"
+#include "text/text.h"
+#include "sprites/sprite.h"
 
 class GameScene : public Scene
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "scene.h"
-#include "gameScene.h"
+#include "game/scenes/game/gameScene.h"
 #include "game/scenes/mainMenu/mainMenuScene.h"
 #include "game/scenes/selection/selectionScene.h"
 

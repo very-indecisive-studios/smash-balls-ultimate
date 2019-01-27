@@ -94,9 +94,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\core\scene\gameScene.cpp" />
     <ClCompile Include="src\audio\audio.cpp" />
     <ClCompile Include="src\ecs\engine.cpp" />
+    <ClCompile Include="src\game\scenes\game\gameScene.cpp" />
     <ClCompile Include="src\game\systems\rendering.cpp" />
     <ClCompile Include="src\graphics\font.cpp" />
     <ClCompile Include="src\game\scenes\mainMenu\mainMenuScene.cpp" />
@@ -121,12 +121,13 @@
   <ItemGroup>
     <ClInclude Include="resource.h" />
     <ClInclude Include="resources\resource.h" />
-    <ClInclude Include="src\core\scene\gameScene.h" />
+    <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\ecs\ecs.h" />
     <ClInclude Include="src\ecs\engine.h" />
     <ClInclude Include="src\game\components\animator.h" />
     <ClInclude Include="src\game\components\position.h" />
     <ClInclude Include="src\game\components\sprite.h" />
+    <ClInclude Include="src\game\scenes\game\gameScene.h" />
     <ClInclude Include="src\game\systems\rendering.h" />
     <ClInclude Include="src\graphics\font.h" />
     <ClInclude Include="src\game\scenes\mainMenu\mainMenuScene.h" />

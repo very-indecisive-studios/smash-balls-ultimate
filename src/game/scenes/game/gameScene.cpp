@@ -1,9 +1,9 @@
 #include "pch.h"
 #include <iostream>
 #include "gameScene.h"
-#include "context.h"
+#include "context/context.h"
 #include "constants.h"
-#include "resources.h"
+#include "game/resources.h"
 
 GameScene::GameScene(int player1, int player2, int gameMode)
 {

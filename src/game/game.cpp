@@ -27,21 +27,6 @@ void Game::Initialize()
 	QueryPerformanceCounter(&timeStart);
 
 	Context::Get()->GetSceneManager()->Initialize();
-
-	auto posComponent = std::make_shared<PositionComponent>();
-	posComponent->pos = Vector2(100, 200);
-
-	auto sprComponent = std::make_shared<SpriteComponent>();
-	sprComponent->texture = Context::Get()->GetResourceManager()->GetTexture(Resources::SELECTION_SCENE_BACKGROUND_IMAGE);
-
-	auto entity = std::make_shared<Entity>();
-	entity->AttachComponent<PositionComponent>(posComponent);
-	entity->AttachComponent<SpriteComponent>(sprComponent);
-
-	Context::Get()->GetECSEngine()->AttachEntity(entity);
-
-	std::shared_ptr<System> renderSystem = std::make_shared<RenderSystem>();
-	Context::Get()->GetECSEngine()->AttachSystem(renderSystem);
 }
 
 void Game::Run()
@@ -81,7 +66,7 @@ void Game::Run()
 	/*
 		Update current scene.
 	*/
-	// Context::Get()->GetSceneManager()->Update(deltaTime);
+	Context::Get()->GetSceneManager()->Update(deltaTime);
 
 	/*
 		Render game.
