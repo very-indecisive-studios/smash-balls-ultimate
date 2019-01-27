@@ -19,9 +19,9 @@ void GameScene::Update(float deltaTime)
 {
 	background->Draw(Vector2(0, 0));
 
-	if (Context::Get()->GetInputManager()->IsKeyDown(VK_ESCAPE))
+	if (Context::InputManager()->IsKeyDown(VK_ESCAPE))
 	{
-		Context::Get()->GetInputManager()->ClearAll();
+		Context::InputManager()->ClearAll();
 		isPaused = !isPaused;
 	}
 	if (isPaused)

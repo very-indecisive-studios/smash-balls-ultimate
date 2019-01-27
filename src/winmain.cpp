@@ -49,16 +49,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Context::Initialize();
 
 	// Initialize graphics.
-	Context::Get()->GetGraphicsRenderer()->Initialize(hwnd, Constants::GAME_WIDTH, Constants::GAME_HEIGHT, Constants::FULLSCREEN);
+	Context::GraphicsRenderer()->Initialize(hwnd, Constants::GAME_WIDTH, Constants::GAME_HEIGHT, Constants::FULLSCREEN);
 	
 	// Initialize audio.
-	Context::Get()->GetAudioEngine()->Initialize();
+	Context::AudioEngine()->Initialize();
 
 	// Initialize game.
-	Context::Get()->GetGame()->Initialize();
+	Context::Game()->Initialize();
 
 	// Initialize input.
-	Context::Get()->GetInputManager()->Initialize(hwnd, false);
+	Context::InputManager()->Initialize(hwnd, false);
 
 	// Main message loop.
 	MSG msg;
@@ -78,11 +78,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		else
 		{
 			// Run game.
-			Context::Get()->GetGame()->Run();
+			Context::Game()->Run();
 		}
 	}
 
-	Context::Get()->ReleaseAll();
+	Context::ReleaseAll();
 
 	// Uninstall fonts required by game.
 	RemoveFontResource(Resources::FONT_NAME.c_str());
@@ -104,8 +104,8 @@ LRESULT WINAPI WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 	// Let input manager process any input messages.
 	if (
-		Context::Get() != nullptr && 
-		Context::Get()->GetInputManager()->ProccessKeyMessage(msg, wParam, lParam)
+		Context::IsInitialized() && 
+		Context::InputManager()->ProccessKeyMessage(msg, wParam, lParam)
 	)
 	{
 		return 0;

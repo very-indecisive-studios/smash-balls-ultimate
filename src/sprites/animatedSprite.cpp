@@ -103,7 +103,7 @@ int AnimatedSprite::GetWidth()
 AnimatedSprite * AnimatedSprite::Create(const std::string & textureName, uint8_t layer, int frameWidth, int frameHeight, float secondsPerFrame, int scale)
 {
 	auto texture
-		= Context::Get()->GetResourceManager()->GetTexture(textureName);
+		= Context::ResourceManager()->GetTexture(textureName);
 
 	return new AnimatedSprite(texture, layer, frameWidth, frameHeight, secondsPerFrame, scale);
 }

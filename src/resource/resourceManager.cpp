@@ -35,7 +35,7 @@ Texture * ResourceManager::GetTexture(const std::string &textureName)
 		return itr->second;
 	}
 
-	Texture *loadedTexture = Context::Get()->GetGraphicsRenderer()->LoadTextureFromFile(textureName);
+	Texture *loadedTexture = Context::GraphicsRenderer()->LoadTextureFromFile(textureName);
 
 	textureResourceMap[textureName] = loadedTexture;
 
@@ -57,7 +57,7 @@ Font * ResourceManager::GetFont(const std::string& fontName, int height, UINT we
 		}
 	}
 
-	Font *loadedFont = Context::Get()->GetGraphicsRenderer()->LoadFont(fontName, height, weight, italic);
+	Font *loadedFont = Context::GraphicsRenderer()->LoadFont(fontName, height, weight, italic);
 
 	fontResourceList.push_back(loadedFont);
 

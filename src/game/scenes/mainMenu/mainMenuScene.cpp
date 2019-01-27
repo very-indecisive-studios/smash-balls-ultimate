@@ -24,8 +24,8 @@ MainMenuScene::~MainMenuScene()
 
 void MainMenuScene::CheckMouseHover() 
 {
-	int mouseX = Context::Get()->GetInputManager()->GetMouseX();
-	int mouseY = Context::Get()->GetInputManager()->GetMouseY();
+	int mouseX = Context::InputManager()->GetMouseX();
+	int mouseY = Context::InputManager()->GetMouseY();
 	
 	int count = 0;
 
@@ -41,9 +41,9 @@ void MainMenuScene::CheckMouseHover()
 		if (mouseX > buttonLeft && mouseX < buttonRight && mouseY > buttonTop && mouseY < buttonBottom)
 		{
 			button->SetColor(Resources::FONT_COLOR_RED);
-			if (Context::Get()->GetInputManager()->GetMouseLButton() && button->GetText() == "PLAY")
+			if (Context::InputManager()->GetMouseLButton() && button->GetText() == "PLAY")
 			{
-				Context::Get()->GetSceneManager()->LoadSelectionScene();
+				Context::SceneManager()->LoadSelectionScene();
 			}
 		}
 		else 

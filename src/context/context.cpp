@@ -5,63 +5,60 @@
 
 Context::Context()
 {
-	graphicsRenderer = new GraphicsRenderer();
-	resourceManager = new ResourceManager();
-	inputManager = new InputManager();
-	audioEngine = new AudioEngine();
-	sceneManager = new SceneManager();
-	game = new Game();
-	ecsEngine = new ECSEngine();
+	graphicsRenderer	= new ::GraphicsRenderer();
+	resourceManager		= new ::ResourceManager();
+	inputManager		= new ::InputManager();
+	audioEngine			= new ::AudioEngine();
+	ecsEngine			= new ::ECSEngine();
+	sceneManager		= new ::SceneManager();
+	game				= new ::Game();
 }
 
 Context::~Context()
 {
 	// Delete in this order.
-	delete ecsEngine;
-
-	delete sceneManager;
 	delete game;
-
+	delete sceneManager;
+	delete ecsEngine;
 	delete resourceManager;
-
 	delete audioEngine;
 	delete graphicsRenderer;
 	delete inputManager;
 }
 
-GraphicsRenderer * Context::GetGraphicsRenderer()
+GraphicsRenderer * Context::GraphicsRenderer()
 {
-	return graphicsRenderer;
+	return instance->graphicsRenderer;
 }
 
-ResourceManager * Context::GetResourceManager()
+ResourceManager * Context::ResourceManager()
 {
-	return resourceManager;
+	return instance->resourceManager;
 }
 
-InputManager * Context::GetInputManager()
+InputManager * Context::InputManager()
 {
-	return inputManager;
+	return instance->inputManager;
 }
 
-AudioEngine	 * Context::GetAudioEngine()
+AudioEngine	 * Context::AudioEngine()
 {
-	return audioEngine;
+	return instance->audioEngine;
 }
 
-SceneManager * Context::GetSceneManager()
+SceneManager * Context::SceneManager()
 {
-	return sceneManager;
+	return instance->sceneManager;
 }
 
-Game * Context::GetGame()
+Game * Context::Game()
 {
-	return game;
+	return instance->game;
 }
 
-ECSEngine * Context::GetECSEngine()
+ECSEngine * Context::ECSEngine()
 {
-	return ecsEngine;
+	return instance->ecsEngine;
 }
 
 /*
@@ -70,9 +67,10 @@ ECSEngine * Context::GetECSEngine()
 
 Context * Context::instance = nullptr;
 
-Context * Context::Get() 
+void Context::ReleaseAll()
 {
-	return instance;
+	delete instance;
+	instance = nullptr;
 }
 
 void Context::Initialize() 
@@ -83,8 +81,7 @@ void Context::Initialize()
 	}
 }
 
-void Context::ReleaseAll() 
+bool Context::IsInitialized()
 {
-	delete instance;
-	instance = nullptr;
+	return instance != nullptr;
 }

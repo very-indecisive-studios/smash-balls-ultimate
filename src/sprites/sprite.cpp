@@ -18,8 +18,7 @@ Sprite::Sprite(Texture *texture, uint8_t layer, int scale)
 
 void Sprite::Draw(Vector2 position)
 {
-	auto graphicsRenderer
-			= Context::Get()->GetGraphicsRenderer();
+	auto graphicsRenderer = Context::GraphicsRenderer();
 
 	DrawTextureJob *job = new DrawTextureJob 
 	{
@@ -60,8 +59,7 @@ DrawingArea * Sprite::GetDrawingArea()
 
 Sprite * Sprite::Create(const std::string& textureName, uint8_t layer, int scale)
 {
-	auto texture 
-		= Context::Get()->GetResourceManager()->GetTexture(textureName);
+	auto texture = Context::ResourceManager()->GetTexture(textureName);
 
 	return new Sprite(texture, layer, scale);
 }

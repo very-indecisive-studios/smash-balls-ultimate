@@ -102,8 +102,8 @@ void RenderSystem::RenderSprites()
 
 void RenderSystem::Process(float deltaTime)
 {
-	spriteEntities = Context::Get()->GetECSEngine()->GetEntities(spriteBitset, animatorMaskBitset);
-	animSpriteEntities = Context::Get()->GetECSEngine()->GetEntities(animSpriteBitset);
+	spriteEntities = Context::ECSEngine()->GetEntities(spriteBitset, animatorMaskBitset);
+	animSpriteEntities = Context::ECSEngine()->GetEntities(animSpriteBitset);
 
 	RenderSprites();
 	RenderAnimatedSprites(deltaTime);

@@ -25,7 +25,7 @@ void Text::Draw(Vector2 position)
 		layer
 	};
 
-	Context::Get()->GetGraphicsRenderer()->QueueDrawJob(job);
+	Context::GraphicsRenderer()->QueueDrawJob(job);
 }
 
 void Text::SetText(const std::string& text)
@@ -75,6 +75,6 @@ Text * Text::Create(
 		weight = weight | FW_BOLD;
 	}
 
-	Font *font = Context::Get()->GetGraphicsRenderer()->LoadFont(fontName, size, weight, italic);
+	Font *font = Context::GraphicsRenderer()->LoadFont(fontName, size, weight, italic);
 	return new Text(text, layer, color, alignment, font);
 }

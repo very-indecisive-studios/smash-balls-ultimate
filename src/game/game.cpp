@@ -26,7 +26,7 @@ void Game::Initialize()
 	QueryPerformanceFrequency(&timerFreq);
 	QueryPerformanceCounter(&timeStart);
 
-	Context::Get()->GetSceneManager()->Initialize();
+	Context::SceneManager()->Initialize();
 }
 
 void Game::Run()
@@ -61,17 +61,17 @@ void Game::Run()
 	/*
 		Update ECS engine.
 	*/
-	Context::Get()->GetECSEngine()->Update(deltaTime);
+	Context::ECSEngine()->Update(deltaTime);
 
 	/*
 		Update current scene.
 	*/
-	Context::Get()->GetSceneManager()->Update(deltaTime);
+	Context::SceneManager()->Update(deltaTime);
 
 	/*
 		Render game.
 	*/
-	auto gR = Context::Get()->GetGraphicsRenderer();
+	auto gR = Context::GraphicsRenderer();
 	gR->Render();
 	gR->HandleLostDevice();
 }

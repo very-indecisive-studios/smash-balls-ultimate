@@ -55,8 +55,8 @@ SelectionScene::~SelectionScene()
 // return true if mouse is hovering button
 bool SelectionScene::MouseOverButton(Sprite *currentButton, int left, int right, int top, int bottom)
 {
-	int mouseX = Context::Get()->GetInputManager()->GetMouseX();
-	int mouseY = Context::Get()->GetInputManager()->GetMouseY();
+	int mouseX = Context::InputManager()->GetMouseX();
+	int mouseY = Context::InputManager()->GetMouseY();
 	
 	if (mouseX > left && mouseX < right && mouseY > top && mouseY < bottom)
 	{
@@ -123,19 +123,19 @@ int SelectionScene::CycleGameModes(int currentgameModeCounter, bool add)
 // perform action when mouse click
 void SelectionScene::PerformMouseAction()
 {
-	int mouseX = Context::Get()->GetInputManager()->GetMouseX();
-	int mouseY = Context::Get()->GetInputManager()->GetMouseY();
+	int mouseX = Context::InputManager()->GetMouseX();
+	int mouseY = Context::InputManager()->GetMouseY();
 
 	std::cout << "mouseX: " << mouseX << std::endl;
 	std::cout << "mouseY: " << mouseY << std::endl;
 
 	// process of checking for mouse click (down then up) - avoid spamming
-	if (Context::Get()->GetInputManager()->GetMouseLButton()) 
+	if (Context::InputManager()->GetMouseLButton()) 
 	{
 		mouseDown = true;
 	}
 
-	if (mouseDown && !Context::Get()->GetInputManager()->GetMouseLButton())
+	if (mouseDown && !Context::InputManager()->GetMouseLButton())
 	{
 		mouseClicked = true;
 		mouseDown = false;
@@ -175,12 +175,12 @@ void SelectionScene::PerformMouseAction()
 
 		if (MouseOverButton(exitLeft, Constants::GAME_WIDTH / 5, ((Constants::GAME_WIDTH / 5) + Resources::SELECTION_SCENE_EXIT_WIDTH), ((Constants::GAME_HEIGHT / 5) * 4) - Resources::SELECTION_SCENE_EXIT_HEIGHT, (Constants::GAME_HEIGHT / 5) * 4))
 		{
-			Context::Get()->GetSceneManager()->LoadMainMenuScene();
+			Context::SceneManager()->LoadMainMenuScene();
 		}
 
 		if (MouseOverButton(exitRight, ((Constants::GAME_WIDTH / 5) * 4) - Resources::SELECTION_SCENE_EXIT_WIDTH, (Constants::GAME_WIDTH / 5) * 4, ((Constants::GAME_HEIGHT / 5) * 4) - Resources::SELECTION_SCENE_EXIT_HEIGHT, (Constants::GAME_HEIGHT / 5) * 4))
 		{
-			Context::Get()->GetSceneManager()->LoadGameScene(player1CharacterCounter, player2CharacterCounter, gameModeCounter);
+			Context::SceneManager()->LoadGameScene(player1CharacterCounter, player2CharacterCounter, gameModeCounter);
 		}
 
 		mouseClicked = false;

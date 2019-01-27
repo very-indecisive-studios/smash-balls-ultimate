@@ -5,35 +5,35 @@
 #include "input/inputManager.h"
 #include "audio/audio.h"
 #include "scene/sceneManager.h"
-#include "ecs/engine.h"
 #include "game/game.h"
+#include "ecs/engine.h"
 
 class Context 
 {
 private:
-	GraphicsRenderer		*graphicsRenderer;
-	ResourceManager			*resourceManager;
-	InputManager			*inputManager;
-	AudioEngine				*audioEngine;
-	SceneManager			*sceneManager;
-	Game					*game;
-	ECSEngine				*ecsEngine;
+	GraphicsRenderer	*graphicsRenderer	= nullptr;
+	ResourceManager		*resourceManager	= nullptr;
+	InputManager		*inputManager		= nullptr;
+	AudioEngine			*audioEngine		= nullptr;
+	SceneManager		*sceneManager		= nullptr;
+	Game				*game				= nullptr;
+	ECSEngine			*ecsEngine			= nullptr;
 
 	Context();
 	~Context();
 		
 	static Context			*instance;
 public:
-	GraphicsRenderer	* GetGraphicsRenderer();
-	ResourceManager		* GetResourceManager();
-	InputManager		* GetInputManager();
-	AudioEngine			* GetAudioEngine();
-	SceneManager		* GetSceneManager();
-	Game				* GetGame();
-	ECSEngine			* GetECSEngine();
+	static GraphicsRenderer	* GraphicsRenderer();
+	static ResourceManager	* ResourceManager();
+	static InputManager		* InputManager();
+	static AudioEngine		* AudioEngine();
+	static SceneManager		* SceneManager();
+	static Game				* Game();
+	static ECSEngine		* ECSEngine();
 
 	static void ReleaseAll();
-
-	static Context * Get();
 	static void Initialize();
+
+	static bool IsInitialized();
 };
