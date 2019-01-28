@@ -18,18 +18,15 @@ Sprite::Sprite(Texture *texture, uint8_t layer, int scale)
 
 void Sprite::Draw(Vector2 position)
 {
-	auto graphicsRenderer = Context::GraphicsRenderer();
+	DrawTextureJob *job = new DrawTextureJob();
+	job->pos = position;
+	job->layer = layer;
+	job->texture = texture;
+	job->scale = scale;
+	job->color = 0xFFFFFFFF;
+	job->drawingArea = drawingArea;
 
-	DrawTextureJob *job = new DrawTextureJob 
-	{
-		texture,
-		scale,
-		drawingArea,
-		position,
-		layer
-	};
-
-	graphicsRenderer->QueueDrawJob(job);
+	Context::GraphicsRenderer()->QueueDrawTextureJob(job);
 }
 
 Texture * Sprite::GetTexture()

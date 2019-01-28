@@ -204,19 +204,19 @@ HRESULT GraphicsRenderer::Render()
 
 		// Sort the jobs according to layers; ascending order.
 		std::sort(
-			drawJobs.begin(), 
-			drawJobs.end(), 
-			[](const DrawJob *lhs, const DrawJob *rhs)
+			drawJobRequests.begin(), 
+			drawJobRequests.end(), 
+			[](const DrawJobRequest *lhs, const DrawJobRequest *rhs)
 			{
-				return lhs->layer < rhs->layer;
+				return lhs->job->layer < rhs->job->layer;
 			}
 		);
 
-		for (auto &job : drawJobs)
+		for (auto &req : drawJobRequests)
 		{
-			if (job->type == DrawJobType::TEXTURE)
+			if (req->type == DrawJobType::TEXTURE)
 			{
-				auto sprJob = (DrawTextureJob *)job;
+				auto sprJob = static_cast<DrawTextureJob *>(req->job);
 				
 				// Find center of sprite
 				D3DXVECTOR2 spriteCenter = D3DXVECTOR2(
@@ -233,7 +233,7 @@ HRESULT GraphicsRenderer::Render()
 					0.0f,                   // no scaling rotation
 					&scaling,               // scale amount
 					&spriteCenter,          // rotation center
-					0,						// rotation angle
+					sprJob->angleDegrees * D3DX_PI / 180.0f,	// rotation angle
 					&translate				// X,Y location
 				);
 				
@@ -244,24 +244,18 @@ HRESULT GraphicsRenderer::Render()
 					&sprJob->drawingArea,
 					NULL,
 					NULL,
-					0xFFFFFFFF
+					sprJob->color
 				);
 			}
-			else if (job->type == DrawJobType::FONT)
+			else if (req->type == DrawJobType::FONT)
 			{
-				auto textJob = (DrawFontJob *)job;
-				
-				RECT posRect;
-				posRect.top = textJob->pos.y;
-				posRect.left = textJob->pos.x;
-				posRect.right = Constants::GAME_WIDTH;
-				posRect.bottom = Constants::GAME_HEIGHT;
+				auto textJob = static_cast<DrawFontJob *>(req->job);
 				
 				// Rotation center
 				D3DXVECTOR2 rCenter = D3DXVECTOR2((float)textJob->pos.x, (float)textJob->pos.y);
 				// Setup matrix to rotate text by angle.
 				D3DXMATRIX matrix;
-				D3DXMatrixTransformation2D(&matrix, NULL, 0.0f, NULL, &rCenter, textJob->angleDegrees, NULL);
+				D3DXMatrixTransformation2D(&matrix, NULL, 0.0f, NULL, &rCenter, textJob->angleDegrees * D3DX_PI / 180.0f, NULL);
 				
 				// Tell the sprite about the matrix.
 				spriteD3D->SetTransform(&matrix);
@@ -270,7 +264,7 @@ HRESULT GraphicsRenderer::Render()
 					spriteD3D,
 					textJob->text.c_str(),
 					-1,
-					&posRect,
+					&textJob->drawingArea,
 					textJob->alignment,
 					textJob->color
 				);
@@ -294,7 +288,7 @@ HRESULT GraphicsRenderer::Render()
 	return result;
 }
 
-Texture * GraphicsRenderer::LoadTextureFromFile(std::string fileName) 
+Texture * GraphicsRenderer::LoadTextureFromFile(const std::string &fileName) 
 {
 	HRESULT result = E_FAIL;
 
@@ -327,18 +321,18 @@ Texture * GraphicsRenderer::LoadTextureFromFile(std::string fileName)
 	return new Texture(textureD3D, imageInfo.Width, imageInfo.Height);
 }
 
-Font * GraphicsRenderer::LoadFont(const std::string& fontName, int height, UINT weight, BOOL italic)
+Font * GraphicsRenderer::LoadFont(const std::string& fontName, FontConfig config)
 {
 	HRESULT result = E_FAIL;
 	
 	LPD3DXFONT fontD3D = NULL;
 	result = D3DXCreateFont(
 		deviceD3D, 
-		height, 
+		config.height, 
 		0, 
-		weight, 
+		config.weight, 
 		1, 
-		italic,
+		config.italic,
 		DEFAULT_CHARSET, 
 		OUT_DEFAULT_PRECIS, 
 		DEFAULT_QUALITY,
@@ -349,21 +343,34 @@ Font * GraphicsRenderer::LoadFont(const std::string& fontName, int height, UINT 
 	
 	ThrowIfFailed(result);
 
-	return new Font(fontD3D, fontName, height, weight, italic);
+	return new Font(fontD3D, config);
 }
 
-void GraphicsRenderer::QueueDrawJob(DrawJob *job) 
+void GraphicsRenderer::QueueDrawTextureJob(DrawTextureJob *job)
 {
-	drawJobs.push_back(job);
+	auto req = new DrawJobRequest();
+	req->type = DrawJobType::TEXTURE;
+	req->job = static_cast<DrawJob *>(job);
+
+	drawJobRequests.push_back(req);
+}
+
+void GraphicsRenderer::QueueDrawFontJob(DrawFontJob *job)
+{
+	auto req = new DrawJobRequest();
+	req->type = DrawJobType::FONT;
+	req->job = static_cast<DrawJob *>(job);
+
+	drawJobRequests.push_back(req);
 }
 
 void GraphicsRenderer::ClearAllDrawJobs() 
 {
-	for (auto sprJob : drawJobs)
+	for (auto req : drawJobRequests)
 	{
-		delete sprJob;
-		sprJob = nullptr;
+		delete req;
+		req = nullptr;
 	}
 
-	drawJobs.clear();
+	drawJobRequests.clear();
 }

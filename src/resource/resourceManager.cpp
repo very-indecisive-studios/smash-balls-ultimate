@@ -45,19 +45,21 @@ Texture * ResourceManager::GetTexture(const std::string &textureName)
 
 Font * ResourceManager::GetFont(const std::string& fontName, int height, UINT weight, BOOL italic)
 {
-	for (const auto font : fontResourceList)
-	{
-		if (
-			font->GetFontName() == fontName &&
-			font->GetHeight() == height && 
-			font->GetWeight() == weight && 
-			font->GetItalic() == italic)
-		{
-			return font;
-		}
-	}
+	//for (const auto font : fontResourceList)
+	//{
+	//	if (
+	//		font->GetFontName() == fontName &&
+	//		font->GetHeight() == height && 
+	//		font->GetWeight() == weight && 
+	//		font->GetItalic() == italic)
+	//	{
+	//		return font;
+	//	}
+	//}
 
-	Font *loadedFont = Context::GraphicsRenderer()->LoadFont(fontName, height, weight, italic);
+	FontConfig config = { height, weight, italic};
+		 
+	Font *loadedFont = Context::GraphicsRenderer()->LoadFont(fontName, config);
 
 	fontResourceList.push_back(loadedFont);
 

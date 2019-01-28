@@ -6,8 +6,6 @@
 class RenderSystem : public System
 {
 private:
-	GraphicsRenderer *gRenderer = Context::GraphicsRenderer();
-
 	ComponentBitset spriteBitset;
 	ComponentBitset animatorMaskBitset;
 	ComponentBitset animSpriteBitset;

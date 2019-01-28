@@ -14,18 +14,18 @@ Text::~Text()
 
 void Text::Draw(Vector2 position)
 {
-	DrawFontJob *job = new DrawFontJob 
-	{
-		font,
-		text,
-		angleDegrees,
-		color,
-		alignment,
-		position,
-		layer
-	};
+	DrawFontJob *job = new DrawFontJob();
+	job->pos = position;
+	job->text = text;
+	job->font = font;
+	job->layer = layer;
+	job->color = color;
+	job->drawingArea.top = position.y;
+	job->drawingArea.left = position.x;
+	job->drawingArea.bottom = 720;
+	job->drawingArea.right = 1280;
 
-	Context::GraphicsRenderer()->QueueDrawJob(job);
+	Context::GraphicsRenderer()->QueueDrawFontJob(job);
 }
 
 void Text::SetText(const std::string& text)
@@ -75,6 +75,11 @@ Text * Text::Create(
 		weight = weight | FW_BOLD;
 	}
 
-	Font *font = Context::GraphicsRenderer()->LoadFont(fontName, size, weight, italic);
+	FontConfig config;
+	config.height = size;
+	config.weight = weight;
+	config.italic = italic;
+
+	Font *font = Context::GraphicsRenderer()->LoadFont(fontName, config);
 	return new Text(text, layer, color, alignment, font);
 }

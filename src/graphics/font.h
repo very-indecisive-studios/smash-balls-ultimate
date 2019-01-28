@@ -3,21 +3,22 @@
 #include <d3dx9.h>
 #include <string>
 
+struct FontConfig
+{
+	int height;
+	UINT weight;
+	BOOL italic;
+};
+
 class Font
 {
 private:
 	LPD3DXFONT fontD3D;
-	std::string fontName;
-	int height;
-	UINT weight;
-	BOOL italic;
+	FontConfig config;
 public:
-	Font(LPD3DXFONT &fD3D, const std::string &fontName, int height, uint8_t weight, bool italic);
+	Font(LPD3DXFONT &fD3D, FontConfig config);
 	~Font();
 
 	LPD3DXFONT & GetFontD3D();
-	const std::string& GetFontName();
-	int GetHeight();
-	int GetWeight();
-	int GetItalic();
+	FontConfig GetFontConfig();
 };

@@ -67,22 +67,18 @@ void RenderSystem::RenderAnimatedSprites(float deltaTime)
 			}
 		}
 
-		DrawingArea dArea = { 0 };
-		dArea.left		= animComp->currentFrameCol * animComp->frameWidth;
-		dArea.top		= animComp->currentFrameRow * animComp->frameHeight;
-		dArea.right		= dArea.left + animComp->frameWidth;
-		dArea.bottom	= dArea.top + animComp->frameHeight;
+		DrawTextureJob *job = new DrawTextureJob();
+		job->pos = posComp->pos;
+		job->layer = sprComp->layer;
+		job->texture = sprComp->texture;
+		job->scale = sprComp->scale;
+		job->color = 0xFFFFFFFF;
+		job->drawingArea.top = animComp->currentFrameRow * animComp->frameHeight;
+		job->drawingArea.left = animComp->currentFrameCol * animComp->frameWidth;
+		job->drawingArea.bottom = job->drawingArea.top + animComp->frameHeight;
+		job->drawingArea.right = job->drawingArea.left + animComp->frameWidth;
 
-		DrawTextureJob *job = new DrawTextureJob
-		{
-			sprComp->texture,
-			sprComp->scale,
-			dArea,
-			posComp->pos,
-			sprComp->layer
-		};
-
-		gRenderer->QueueDrawJob(job);
+		Context::GraphicsRenderer()->QueueDrawTextureJob(job);
 	}
 }
 
@@ -97,16 +93,16 @@ void RenderSystem::RenderSprites()
 		dArea.right = sprComp->texture->GetWidth();
 		dArea.bottom = sprComp->texture->GetHeight();
 
-		DrawTextureJob *job = new DrawTextureJob
-		{
-			sprComp->texture,
-			sprComp->scale,
-			dArea,
-			posComp->pos,
-			sprComp->layer
-		};
+		DrawTextureJob *job = new DrawTextureJob();
+		job->pos = posComp->pos;
+		job->layer = sprComp->layer;
+		job->texture = sprComp->texture;
+		job->scale = sprComp->scale;
+		job->color = 0xFFFFFFFF;
+		job->drawingArea.bottom = sprComp->texture->GetHeight();
+		job->drawingArea.right = sprComp->texture->GetWidth();
 
-		gRenderer->QueueDrawJob(job);
+		Context::GraphicsRenderer()->QueueDrawTextureJob(job);
 	}
 }
 

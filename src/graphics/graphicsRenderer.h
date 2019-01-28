@@ -9,16 +9,15 @@
 #include "font.h"
 #include "math/math.h"
 
-enum class DrawJobType { TEXTURE, FONT };
-
 struct DrawJob
 {
-	DrawJobType type;
 	Vector2 pos;
-	uint8_t layer;
+	DrawingArea drawingArea = { 0 };
+	uint8_t layer = 0;
+	float angleDegrees = 0.0f;
+	int color = 0xFFFFFFFF;
 
-	DrawJob(DrawJobType type, Vector2 pos, uint8_t layer)
-		: type(type), pos(pos), layer(layer) { }
+	DrawJob() { }
 	virtual ~DrawJob() { }
 };
 
@@ -26,56 +25,40 @@ struct DrawTextureJob : public DrawJob
 {
 	Texture *texture;
 	int scale;
-	DrawingArea drawingArea;
 
-	DrawTextureJob
-	(
-		Texture *texture,
-		int scale,
-		DrawingArea drawingArea,
-		Vector2 pos,
-		uint8_t layer
-	) : DrawJob(DrawJobType::TEXTURE, pos, layer),
-		texture(texture),
-		scale(scale),
-		drawingArea(drawingArea)
-	{ }
-	~DrawTextureJob() { }
+	DrawTextureJob() { }
+	virtual ~DrawTextureJob() { }
 };
 
 struct DrawFontJob : public DrawJob
 {
 	Font *font;
 	std::string text;
-	float angleDegrees = 0;
-	int color = 0xFFFFFFFF;
 	int alignment;
-	uint8_t layer;
 
-	DrawFontJob
-	(
-		Font *font, 
-		std::string text, 
-		float angleDegrees, 
-		int color,
-		int alignment,
-		Vector2 pos, 
-		uint8_t layer
-	) : DrawJob(DrawJobType::FONT, pos, layer),
-		font(font),
-		text(text),
-		angleDegrees(angleDegrees),
-		color(color),
-		alignment(alignment)
-	{ }
-	~DrawFontJob() { }
+	DrawFontJob() { }
+	virtual ~DrawFontJob() { }
 };
 
 class GraphicsRenderer
 {
 private:
+	enum class DrawJobType { TEXTURE, FONT };
+
+	struct DrawJobRequest
+	{
+		DrawJobType type;
+		DrawJob *job;
+
+		DrawJobRequest() { }
+		~DrawJobRequest()
+		{
+			delete job;
+		}
+	};
+
 	// Sprite draw queue.
-	std::vector<DrawJob *> drawJobs;
+	std::vector<DrawJobRequest *> drawJobRequests;
 
 	// DirectX 3D pointers.
 	LPDIRECT3DDEVICE9	deviceD3D;
@@ -100,9 +83,7 @@ private:
 
 	HRESULT Reset();
 
-	void ClearAllDrawJobs();
-
-	int heightOfText;
+	void ClearAllDrawJobRequests();
 public:
 	GraphicsRenderer();
 
@@ -110,17 +91,17 @@ public:
 
 	HRESULT Initialize(HWND hwnd, int width, int height, bool fullscreen);
 
-	void QueueDrawJob(DrawJob *job);
+	void QueueDrawTextureJob(DrawTextureJob *job);
+
+	void QueueDrawFontJob(DrawFontJob *job);
 
 	HRESULT HandleLostDevice();
 
 	HRESULT Render();
 
-	Texture * LoadTextureFromFile(std::string fileName);
+	Texture * LoadTextureFromFile(const std::string &fileName);
 
-	Font * LoadFont(const std::string& fontName, int height, UINT weight, BOOL italic);
+	Font * LoadFont(const std::string &fontName, FontConfig config);
 
 	void ReleaseAll();
-
-	int GetHeightOfText() { return heightOfText; }
 };
