@@ -50,12 +50,10 @@ namespace Resources
 	const std::string SELECTION_SCENE_GAMEMODE_4 = "FIRST TO 10 GOALS";
 
 	// player
-	const std::string PLAYER_LEFT_OFF_FOLDER = "assets\\players\\beige\\left_off\\";
-	const std::string PLAYER_LEFT_ON_FOLDER = "assets\\players\\beige\\left_on\\";
-	const std::string PLAYER_RIGHT_OFF_FOLDER = "assets\\players\\beige\\right_off\\";
-	const std::string PLAYER_RIGHT_ON_FOLDER = "assets\\players\\beige\\right_on\\";
-
-	const std::vector<std::string> buttons;
+	const std::string PLAYER_LEFT_OFF_FOLDER = "assets\\players\\left_off\\";
+	const std::string PLAYER_LEFT_ON_FOLDER = "assets\\players\\left_on\\";
+	const std::string PLAYER_RIGHT_OFF_FOLDER = "assets\\players\\right_off\\";
+	const std::string PLAYER_RIGHT_ON_FOLDER = "assets\\players\\right_on\\";
 
 	const float PLAYER_ANIMATION_DELAY = 0.1f; // time between frames of player animation
 	const int  PLAYER_WIDTH = 88;              // width of player image

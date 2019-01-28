@@ -27,6 +27,8 @@ void Game::Initialize()
 	QueryPerformanceCounter(&timeStart);
 
 	Context::SceneManager()->Initialize();
+
+	Context::ECSEngine()->AttachSystem(std::make_shared<RenderSystem>());
 }
 
 void Game::Run()

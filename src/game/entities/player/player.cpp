@@ -17,10 +17,11 @@ Player::Player(std::string color, bool isPlayer1)
 	currentSpritesheetTexture = isPlayer1 ? rightOffSpritesheetTexture : leftOffSpritesheetTexture;
 
 	spriteComp->texture = currentSpritesheetTexture;
+	spriteComp->layer = 100;
 	animComp->secondsPerFrame = Resources::PLAYER_ANIMATION_DELAY;
 	animComp->frameWidth = Resources::PLAYER_WIDTH;
 	animComp->frameHeight = Resources::PLAYER_HEIGHT;
-	
+
 	animComp->isPlaying = true;
 }
 
