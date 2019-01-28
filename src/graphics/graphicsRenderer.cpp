@@ -38,7 +38,7 @@ void GraphicsRenderer::ReleaseAll()
 	deviceD3D->Release();
 	d3d->Release();
 
-	ClearAllDrawJobs();
+	ClearAllDrawJobRequests();
 }
 
 HRESULT GraphicsRenderer::Reset()
@@ -274,7 +274,7 @@ HRESULT GraphicsRenderer::Render()
 		ThrowIfFailed(spriteD3D->End());
 		ThrowIfFailed(deviceD3D->EndScene());
 
-		ClearAllDrawJobs();
+		ClearAllDrawJobRequests();
 		
 		ThrowIfFailed(SwapBuffer());
 
@@ -364,7 +364,7 @@ void GraphicsRenderer::QueueDrawFontJob(DrawFontJob *job)
 	drawJobRequests.push_back(req);
 }
 
-void GraphicsRenderer::ClearAllDrawJobs() 
+void GraphicsRenderer::ClearAllDrawJobRequests()
 {
 	for (auto req : drawJobRequests)
 	{
