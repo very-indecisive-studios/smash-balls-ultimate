@@ -69,10 +69,10 @@ Text * Text::Create(
 	int alignment
 )
 {
-	UINT weight = FW_NORMAL;
+	FontWeight weight = FontWeight::NORMAL;
 	if (bold) 
 	{
-		weight = weight | FW_BOLD;
+		weight = FontWeight::BOLD;
 	}
 
 	FontConfig config;

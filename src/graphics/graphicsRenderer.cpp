@@ -330,7 +330,7 @@ Font * GraphicsRenderer::LoadFont(const std::string& fontName, FontConfig config
 		deviceD3D, 
 		config.height, 
 		0, 
-		config.weight, 
+		static_cast<UINT>(config.weight), 
 		1, 
 		config.italic,
 		DEFAULT_CHARSET, 

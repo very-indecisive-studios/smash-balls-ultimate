@@ -3,11 +3,19 @@
 #include <d3dx9.h>
 #include <string>
 
+enum class FontWeight : UINT
+{
+	BOLD = FW_BOLD,
+	THIN = FW_THIN,
+	THICC = BOLD,
+	NORMAL = FW_NORMAL
+};
+
 struct FontConfig
 {
 	int height;
-	UINT weight;
-	BOOL italic;
+	FontWeight weight = FontWeight::NORMAL;
+	bool italic = false;
 
 	bool operator==(const FontConfig& rhs)
 	{
