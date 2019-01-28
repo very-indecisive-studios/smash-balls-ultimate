@@ -23,11 +23,11 @@ private:
 	UCHAR powerKey;
 	Vector2 velocity;
 
-	AnimatedSprite *currentAnimSprite;
-	AnimatedSprite *leftOffAnimSprite;
-	AnimatedSprite *leftOnAnimSprite;
-	AnimatedSprite *rightOffAnimSprite;
-	AnimatedSprite *rightOnAnimSprite;
+	Texture *currentSpritesheetTexture;
+	Texture *leftOffSpritesheetTexture;
+	Texture *leftOnSpriteheetTexture;
+	Texture *rightOffSpritesheetTexture;
+	Texture *rightOnSpritesheetTexture;
 public:
 	Player(std::string color, bool isPlayer1);
 	void SetLeftKey(UCHAR leftKey) { this->leftKey = leftKey; }
