@@ -34,11 +34,9 @@ void RenderSystem::RenderText()
 		job->font = textComp->font;
 		job->layer = textComp->layer;
 		job->color = textComp->color;
-		job->alignment = static_cast<int>(textComp->alignment);
-		job->drawingArea.top = posComp->pos.y;
-		job->drawingArea.left = posComp->pos.x;
-		job->drawingArea.bottom = posComp->pos.y + textComp->height;
-		job->drawingArea.right = posComp->pos.x + textComp->width;
+		job->alignment = textComp->alignment;
+		job->drawingArea.bottom = textComp->height;
+		job->drawingArea.right = textComp->width;
 
 		Context::GraphicsRenderer()->QueueDrawFontJob(job);
 	}

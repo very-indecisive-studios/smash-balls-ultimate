@@ -4,14 +4,16 @@
 #include "ecs/ecs.h"
 #include "graphics/font.h"
 
-enum class TextAlignment : int
+typedef int TextAlignment;
+
+namespace TextAlignPosition
 {
-	LEFT = DT_LEFT,
-	CENTER = DT_CENTER,
-	RIGHT = DT_RIGHT,
-	VCENTER = DT_VCENTER,
-	TOP = DT_TOP,
-	BOTTOM = DT_BOTTOM
+	const TextAlignment LEFT = DT_LEFT;
+	const TextAlignment H_CENTER = DT_CENTER;
+	const TextAlignment RIGHT = DT_RIGHT;
+	const TextAlignment V_CENTER = DT_VCENTER;
+	const TextAlignment TOP = DT_TOP;
+	const TextAlignment BOTTOM = DT_BOTTOM;
 };
 
 struct TextComponent : public Component
@@ -20,7 +22,7 @@ struct TextComponent : public Component
 	std::string text;
 	int height;
 	int width;
-	TextAlignment alignment = TextAlignment::LEFT;
+	TextAlignment alignment = TextAlignPosition::LEFT;
 	int color = 0xFFFFFFFF;
 	uint8_t layer = 0;
 };

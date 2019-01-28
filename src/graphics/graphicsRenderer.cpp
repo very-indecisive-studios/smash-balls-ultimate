@@ -253,9 +253,20 @@ HRESULT GraphicsRenderer::Render()
 				
 				// Rotation center
 				D3DXVECTOR2 rCenter = D3DXVECTOR2((float)textJob->pos.x, (float)textJob->pos.y);
+
+				D3DXVECTOR2 translate = D3DXVECTOR2(textJob->pos.x, textJob->pos.y);
+
 				// Setup matrix to rotate text by angle.
 				D3DXMATRIX matrix;
-				D3DXMatrixTransformation2D(&matrix, NULL, 0.0f, NULL, &rCenter, textJob->angleDegrees * D3DX_PI / 180.0f, NULL);
+				D3DXMatrixTransformation2D(
+					&matrix, 
+					NULL, 
+					0.0f, 
+					NULL, 
+					&rCenter, 
+					textJob->angleDegrees * D3DX_PI / 180.0f, 
+					&translate
+				);
 				
 				// Tell the sprite about the matrix.
 				spriteD3D->SetTransform(&matrix);
