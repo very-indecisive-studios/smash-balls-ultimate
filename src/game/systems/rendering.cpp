@@ -34,7 +34,7 @@ void RenderSystem::RenderText()
 		job->font = textComp->font;
 		job->layer = textComp->layer;
 		job->color = textComp->color;
-		job->alignment = DT_LEFT;
+		job->alignment = static_cast<int>(textComp->alignment);
 		job->drawingArea.top = posComp->pos.y;
 		job->drawingArea.left = posComp->pos.x;
 		job->drawingArea.bottom = posComp->pos.y + textComp->height;
