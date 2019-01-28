@@ -138,6 +138,7 @@
     <ClInclude Include="src\game\entities\characterList\characterList.h" />
     <ClInclude Include="src\game\entities\player\player.h" />
     <ClInclude Include="src\game\entities\sceneObject.h" />
+    <ClInclude Include="src\game\components\text.h" />
     <ClInclude Include="src\game\scenes\game\gameScene.h" />
     <ClInclude Include="src\game\systems\rendering.h" />
     <ClInclude Include="src\graphics\font.h" />

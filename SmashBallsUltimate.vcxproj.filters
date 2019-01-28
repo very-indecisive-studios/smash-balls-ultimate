@@ -63,6 +63,7 @@
     <ClInclude Include="src\game\data\data.h" />
     <ClInclude Include="src\game\entities\button\button.h" />
     <ClInclude Include="src\game\entities\characterList\characterList.h" />
+    <ClInclude Include="src\game\components\text.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

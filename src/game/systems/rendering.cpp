@@ -4,6 +4,7 @@
 #include "game/components/position.h"
 #include "game/components/sprite.h"
 #include "game/components/animator.h"
+#include "game/components/text.h"
 #include "context/context.h"
 
 RenderSystem::RenderSystem()
@@ -15,6 +16,32 @@ RenderSystem::RenderSystem()
 	animSpriteBitset.set(Component::GetComponentId<PositionComponent>());
 	animSpriteBitset.set(Component::GetComponentId<SpriteComponent>());
 	animSpriteBitset.set(Component::GetComponentId<AnimatorComponent>());
+
+	textBitset.set(Component::GetComponentId<PositionComponent>());
+	textBitset.set(Component::GetComponentId<TextComponent>());
+}
+
+void RenderSystem::RenderText()
+{
+	for (auto &entity : *textEntities)
+	{
+		const auto posComp	= entity->GetComponent<PositionComponent>();
+		const auto textComp = entity->GetComponent<TextComponent>();
+
+		DrawFontJob *job = new DrawFontJob();
+		job->pos = posComp->pos;
+		job->text = textComp->text;
+		job->font = textComp->font;
+		job->layer = textComp->layer;
+		job->color = textComp->color;
+		job->alignment = DT_LEFT;
+		job->drawingArea.top = posComp->pos.y;
+		job->drawingArea.left = posComp->pos.x;
+		job->drawingArea.bottom = posComp->pos.y + textComp->height;
+		job->drawingArea.right = posComp->pos.x + textComp->width;
+
+		Context::GraphicsRenderer()->QueueDrawFontJob(job);
+	}
 }
 
 void RenderSystem::RenderAnimatedSprites(float deltaTime)
@@ -110,7 +137,9 @@ void RenderSystem::Process(float deltaTime)
 {
 	spriteEntities = Context::ECSEngine()->GetEntities(spriteBitset, animatorMaskBitset);
 	animSpriteEntities = Context::ECSEngine()->GetEntities(animSpriteBitset);
+	textEntities = Context::ECSEngine()->GetEntities(textBitset);
 
 	RenderSprites();
 	RenderAnimatedSprites(deltaTime);
+	RenderText();
 }
