@@ -96,6 +96,8 @@
   <ItemGroup>
     <ClCompile Include="src\audio\audio.cpp" />
     <ClCompile Include="src\ecs\engine.cpp" />
+    <ClCompile Include="src\game\entities\player\player.cpp" />
+    <ClCompile Include="src\game\entities\sceneObject.cpp" />
     <ClCompile Include="src\game\scenes\game\gameScene.cpp" />
     <ClCompile Include="src\game\systems\rendering.cpp" />
     <ClCompile Include="src\graphics\font.cpp" />
@@ -127,6 +129,8 @@
     <ClInclude Include="src\game\components\animator.h" />
     <ClInclude Include="src\game\components\position.h" />
     <ClInclude Include="src\game\components\sprite.h" />
+    <ClInclude Include="src\game\entities\player\player.h" />
+    <ClInclude Include="src\game\entities\sceneObject.h" />
     <ClInclude Include="src\game\scenes\game\gameScene.h" />
     <ClInclude Include="src\game\systems\rendering.h" />
     <ClInclude Include="src\graphics\font.h" />
