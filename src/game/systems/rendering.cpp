@@ -26,8 +26,13 @@ void RenderSystem::RenderAnimatedSprites(float deltaTime)
 		const auto animComp		= entity->GetComponent<AnimatorComponent>();
 
 		// Initialize the animator based on sprite component.
-		if (!animComp->isInitialized)
+		if (!animComp->isCallibrated)
 		{
+			// Reset to 0.
+			animComp->secondsPassed = 0;
+			animComp->currentFrameCol = 0;
+			animComp->currentFrameRow = 0;
+
 			animComp->totalFramesPerCol = sprComp->texture->GetWidth() / animComp->frameWidth;
 			animComp->totalFramesPerRow = sprComp->texture->GetHeight() / animComp->frameHeight;
 		}

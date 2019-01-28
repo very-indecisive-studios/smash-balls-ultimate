@@ -9,6 +9,11 @@ struct AnimatorComponent : public Component
 	int frameWidth = 0;
 	int frameHeight = 0;
 
+	void Reset()
+	{
+		this->isCallibrated = false;
+	}
+
 private:
 	int totalFramesPerCol = 0;
 	int totalFramesPerRow = 0;
@@ -16,7 +21,7 @@ private:
 	int currentFrameRow = 0;
 	float secondsPassed = 0;
 
-	bool isInitialized = false;
+	bool isCallibrated = false;
 
 	friend class RenderSystem;
 };
