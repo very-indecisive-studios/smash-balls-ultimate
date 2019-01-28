@@ -18,7 +18,7 @@ public:
 	~ResourceManager();
 
 	Texture * GetTexture(const std::string &textureName);
-	Font * GetFont(const std::string& fontName, int height, UINT weight, BOOL italic);
+	Font * GetFont(const std::string& fontName, FontConfig config);
 
 	AudioPlayer * GetPersistentAudioPlayer(const std::string& tag);
 	void StorePersistentAudioPlayer(AudioPlayer *pAudioPlayer, const std::string& tag);

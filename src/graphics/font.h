@@ -8,6 +8,13 @@ struct FontConfig
 	int height;
 	UINT weight;
 	BOOL italic;
+
+	bool operator==(const FontConfig& rhs)
+	{
+		return this->height == rhs.height && 
+			this->weight == rhs.weight && 
+			this->italic == rhs.italic;
+	}
 };
 
 class Font
