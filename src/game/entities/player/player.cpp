@@ -14,9 +14,7 @@ Player::Player(std::string color, bool isPlayer1)
 	rightOffSpritesheetTexture	= Context::ResourceManager()->GetTexture(Resources::PLAYER_RIGHT_OFF_FOLDER + color + ".png");
 	rightOnSpritesheetTexture	= Context::ResourceManager()->GetTexture(Resources::PLAYER_RIGHT_ON_FOLDER + color + ".png");
 
-	currentSpritesheetTexture = isPlayer1 ? rightOffSpritesheetTexture : leftOffSpritesheetTexture;
-
-	spriteComp->texture =  currentSpritesheetTexture;
+	spriteComp->texture = isPlayer1 ? rightOffSpritesheetTexture : leftOffSpritesheetTexture;
 	spriteComp->layer = 100;
 	animComp->secondsPerFrame = Resources::PLAYER_ANIMATION_DELAY;
 	animComp->frameWidth = Resources::PLAYER_WIDTH;
@@ -27,6 +25,11 @@ Player::Player(std::string color, bool isPlayer1)
 
 void Player::Update(float deltaTime)
 {
+	//bottom of game
+	if (posComp->pos.y > Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT)
+	{
+		posComp->pos.y = Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT;
+	}
 	if (Context::InputManager()->IsKeyDown(rightKey))
 	{
 		posComp->pos.x += deltaTime * velocity.x;

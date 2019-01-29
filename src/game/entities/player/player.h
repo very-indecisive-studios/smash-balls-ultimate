@@ -23,7 +23,6 @@ private:
 	UCHAR powerKey;
 	Vector2 velocity;
 
-	Texture *currentSpritesheetTexture;
 	Texture *leftOffSpritesheetTexture;
 	Texture *leftOnSpriteheetTexture;
 	Texture *rightOffSpritesheetTexture;

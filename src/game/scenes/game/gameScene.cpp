@@ -6,21 +6,27 @@
 #include "game/resources.h"
 
 
-GameScene::GameScene(int player1, int player2, int gameMode)
+GameScene::GameScene(int p1, int p2, int gameMode)
 {
-	background = Context::ResourceManager()->GetTexture(Resources::BACKGROUND_IMAGE);
-	spriteComp->texture = background;
-	spriteComp->layer = 100;
-
 	pauseText = Text::Create("PAUSED", Resources::FONT_TYPE, Resources::FONT_COLOR_BLACK, 64, 100, false, false);
-	p1 = new Player("blue", true);
-	p1->SetX(100);
-	p1->SetY(100);
-	p1->SetLeftKey(0x41);
-	p1->SetRightKey(0x44);
-	p1->SetJetpackKey(0x57);
-	p1->SetPowerKey(VK_SPACE);
-	p1->SetVelocity(100);
+
+	player1 = std::make_unique<Player>("yellow", true);
+	player1->SetX(100);
+	player1->SetY(500);
+	player1->SetLeftKey(0x41);
+	player1->SetRightKey(0x44);
+	player1->SetJetpackKey(0x57);
+	player1->SetPowerKey(VK_SPACE);
+	player1->SetVelocity(200);
+
+	player2 = std::make_unique<Player>("yellow", true);
+	player2->SetX(500);
+	player2->SetY(500);
+	player2->SetLeftKey(VK_LEFT);
+	player2->SetRightKey(VK_RIGHT);
+	player2->SetJetpackKey(VK_UP);
+	player2->SetPowerKey(VK_SPACE);
+	player2->SetVelocity(200);
 }
 
 GameScene::~GameScene()
@@ -29,7 +35,8 @@ GameScene::~GameScene()
 
 void GameScene::Update(float deltaTime)
 {
-	p1->Update(deltaTime);
+	player1->Update(deltaTime);
+	player2->Update(deltaTime);
 
 	if (Context::InputManager()->IsKeyDown(VK_ESCAPE))
 	{

@@ -21,6 +21,8 @@
     <ClCompile Include="src\game\scenes\selection\selectionScene.cpp" />
     <ClCompile Include="src\game\systems\rendering.cpp" />
     <ClCompile Include="src\game\scenes\game\gameScene.cpp" />
+    <ClCompile Include="src\game\entities\player\player.cpp" />
+    <ClCompile Include="src\game\entities\background\background.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
@@ -52,6 +54,10 @@
     <ClInclude Include="src\game\components\animator.h" />
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\game\scenes\game\gameScene.h" />
+    <ClInclude Include="src\game\entities\player\player.h" />
+    <ClInclude Include="src\game\entities\sceneObject.h" />
+    <ClInclude Include="src\game\entities\background\background.h" />
+    <ClInclude Include="src\game\data\data.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

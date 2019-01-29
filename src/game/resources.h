@@ -15,6 +15,7 @@ namespace Resources
 	
 	// map 
 	const std::string GAME_SCENE_IMAGE = "assets\\map\\final_map.png";
+	const int GROUND_HEIGHT = 128;
 
 	// background
 	const std::string BACKGROUND_IMAGE = "assets\\backgrounds\\main.png";
@@ -58,11 +59,5 @@ namespace Resources
 	const float PLAYER_ANIMATION_DELAY = 0.1f; // time between frames of player animation
 	const int  PLAYER_WIDTH = 88;              // width of player image
 	const int  PLAYER_HEIGHT = 100;             // height of player image
-
-	// gameScene
-	const int P1_X_SPAWN = 0;
-	const int P1_Y_SPAWN = 0;
-	const int P2_X_SPAWN = 0;
-	const int P2_Y_SPAWN = 0;
 }
 
