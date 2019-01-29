@@ -95,6 +95,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\audio\audio.cpp" />
+    <ClCompile Include="src\ecs\ecs.cpp" />
     <ClCompile Include="src\ecs\engine.cpp" />
     <ClCompile Include="src\game\entities\background\background.cpp" />
     <ClCompile Include="src\game\entities\player\player.cpp" />

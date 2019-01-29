@@ -4,22 +4,36 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <typeinfo>
 
 typedef uint32_t ComponentId;
 constexpr size_t MAX_COMPONENTS = sizeof(ComponentId) * 8;
 
 typedef std::bitset<MAX_COMPONENTS> ComponentBitset;
 
-namespace ComponentUtils
+class ComponentUtils
 {
-	static ComponentId idCounter = 0;
+private:
+	static ComponentId idCounter;
 
+	static std::map<size_t, ComponentId> componentIdMap;
+public:
 	template <typename T>
-	ComponentId GetComponentId()
+	static ComponentId GetComponentId()
 	{
-		static ComponentId id = idCounter++;
+		const std::type_info &typeInfo = typeid(T);
 
-		return id;
+		auto itr = componentIdMap.find(typeInfo.hash_code());
+
+		if (itr != componentIdMap.end())
+		{
+			return itr->second;
+		}
+
+		const ComponentId newId = idCounter++;
+		componentIdMap[typeInfo.hash_code()] = newId;
+
+		return newId;
 	}
 };
 

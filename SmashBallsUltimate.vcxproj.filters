@@ -23,6 +23,7 @@
     <ClCompile Include="src\game\scenes\game\gameScene.cpp" />
     <ClCompile Include="src\game\entities\player\player.cpp" />
     <ClCompile Include="src\game\entities\background\background.cpp" />
+    <ClCompile Include="src\ecs\ecs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
