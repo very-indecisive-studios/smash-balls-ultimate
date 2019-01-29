@@ -39,28 +39,31 @@ void RenderSystem::RenderAnimatedSprites(float deltaTime)
 			animComp->isCallibrated = true;
 		}
 
-		animComp->secondsPassed += deltaTime;
-
-		if (animComp->secondsPassed >= animComp->secondsPerFrame)
+		if (animComp->isPlaying)
 		{
-			animComp->secondsPassed = 0;
+			animComp->secondsPassed += deltaTime;
 
-			if (animComp->currentFrameCol + 1 == animComp->totalFramesPerCol)
+			if (animComp->secondsPassed >= animComp->secondsPerFrame)
 			{
-				animComp->currentFrameCol = 0;
+				animComp->secondsPassed = 0;
 
-				if (animComp->currentFrameRow + 1 == animComp->totalFramesPerRow)
+				if (animComp->currentFrameCol + 1 == animComp->totalFramesPerCol)
 				{
-					animComp->currentFrameRow = 0;
+					animComp->currentFrameCol = 0;
+
+					if (animComp->currentFrameRow + 1 == animComp->totalFramesPerRow)
+					{
+						animComp->currentFrameRow = 0;
+					}
+					else
+					{
+						animComp->currentFrameRow++;
+					}
 				}
 				else
 				{
-					animComp->currentFrameRow++;
+					animComp->currentFrameCol++;
 				}
-			}
-			else
-			{
-				animComp->currentFrameCol++;
 			}
 		}
 
