@@ -16,7 +16,7 @@ Player::Player(std::string color, bool isPlayer1)
 
 	currentSpritesheetTexture = isPlayer1 ? rightOffSpritesheetTexture : leftOffSpritesheetTexture;
 
-	spriteComp->texture = currentSpritesheetTexture;
+	spriteComp->texture =  currentSpritesheetTexture;
 	spriteComp->layer = 100;
 	animComp->secondsPerFrame = Resources::PLAYER_ANIMATION_DELAY;
 	animComp->frameWidth = Resources::PLAYER_WIDTH;
@@ -30,38 +30,40 @@ void Player::Update(float deltaTime)
 	if (Context::InputManager()->IsKeyDown(rightKey))
 	{
 		posComp->pos.x += deltaTime * velocity.x;
+		spriteComp->texture = rightOffSpritesheetTexture;
 	}
 	if (Context::InputManager()->IsKeyDown(leftKey))
 	{
 		posComp->pos.x += deltaTime * -velocity.x;
+		spriteComp->texture = leftOffSpritesheetTexture;
 	}
 
 	if (Context::InputManager()->IsKeyDown(jetpackKey))
 	{
-		if (currentSpritesheetTexture == rightOffSpritesheetTexture)
+		if (spriteComp->texture == rightOffSpritesheetTexture)
 		{ 
-			currentSpritesheetTexture = rightOnSpritesheetTexture; 
+			spriteComp->texture = rightOnSpritesheetTexture;
 			animComp->Reset();
 		}
 
-		if (currentSpritesheetTexture == leftOffSpritesheetTexture)
+		if (spriteComp->texture == leftOffSpritesheetTexture)
 		{
-			currentSpritesheetTexture = leftOnSpriteheetTexture;
+			spriteComp->texture = leftOnSpriteheetTexture;
 			animComp->Reset();
 		}
 		posComp->pos.y += deltaTime * velocity.y;
 	}
 	else
 	{
-		if (currentSpritesheetTexture == rightOnSpritesheetTexture)
+		if (spriteComp->texture == rightOnSpritesheetTexture)
 		{
-			currentSpritesheetTexture = rightOffSpritesheetTexture;
+			spriteComp->texture = rightOffSpritesheetTexture;
 			animComp->Reset();
 		}
 
-		if (currentSpritesheetTexture == leftOnSpriteheetTexture)
+		if (spriteComp->texture == leftOnSpriteheetTexture)
 		{
-			currentSpritesheetTexture = leftOffSpritesheetTexture;
+			spriteComp->texture = leftOffSpritesheetTexture;
 			animComp->Reset();
 		}
 		posComp->pos.y += deltaTime * -velocity.y;

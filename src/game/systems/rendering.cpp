@@ -35,6 +35,8 @@ void RenderSystem::RenderAnimatedSprites(float deltaTime)
 
 			animComp->totalFramesPerCol = sprComp->texture->GetWidth() / animComp->frameWidth;
 			animComp->totalFramesPerRow = sprComp->texture->GetHeight() / animComp->frameHeight;
+
+			animComp->isCallibrated = true;
 		}
 
 		animComp->secondsPassed += deltaTime;
