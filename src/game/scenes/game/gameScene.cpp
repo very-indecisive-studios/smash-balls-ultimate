@@ -48,5 +48,4 @@ void GameScene::Update(float deltaTime)
 		pauseText->Draw(Vector2(0, Constants::GAME_HEIGHT / 2 - 64 / 2));
 		return;
 	}
-
 }

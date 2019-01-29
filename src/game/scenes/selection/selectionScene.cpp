@@ -8,6 +8,8 @@
 
 SelectionScene::SelectionScene()
 {
+	button = std::make_unique<Button>(Resources::SELECTION_SCENE_LEFT_ARROW_WHITE, Vector2(500,600), Resources::SELECTION_SCENE_ARROW_HEIGHT, Resources::SELECTION_SCENE_ARROW_WIDTH, true);
+
 	background = Sprite::Create(Resources::SELECTION_SCENE_BACKGROUND_IMAGE, 0);
 
 	characterImage = Sprite::Create(Resources::SELECTION_SCENE_BIEGE_CHAR, 0);
@@ -126,9 +128,6 @@ void SelectionScene::PerformMouseAction()
 	int mouseX = Context::InputManager()->GetMouseX();
 	int mouseY = Context::InputManager()->GetMouseY();
 
-	std::cout << "mouseX: " << mouseX << std::endl;
-	std::cout << "mouseY: " << mouseY << std::endl;
-
 	// process of checking for mouse click (down then up) - avoid spamming
 	if (Context::InputManager()->GetMouseLButton()) 
 	{
@@ -189,6 +188,7 @@ void SelectionScene::PerformMouseAction()
 
 void SelectionScene::Update(float deltaTime)
 {
+	button->Update(deltaTime);
 	PerformMouseAction();
 
 	background->Draw(Vector2(0, 0));

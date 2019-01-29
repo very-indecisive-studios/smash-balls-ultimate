@@ -20,25 +20,30 @@ Player::Player(std::string color, bool isPlayer1)
 	animComp->frameWidth = Resources::PLAYER_WIDTH;
 	animComp->frameHeight = Resources::PLAYER_HEIGHT;
 
-	animComp->isPlaying = true;
+	animComp->isPlaying = false;
 }
 
 void Player::Update(float deltaTime)
 {
-	//bottom of game
+	animComp->isPlaying = false;
+
+	// player on floor
 	if (posComp->pos.y > Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT)
 	{
 		posComp->pos.y = Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT;
 	}
+
 	if (Context::InputManager()->IsKeyDown(rightKey))
 	{
 		posComp->pos.x += deltaTime * velocity.x;
 		spriteComp->texture = rightOffSpritesheetTexture;
+		animComp->isPlaying = true;
 	}
 	if (Context::InputManager()->IsKeyDown(leftKey))
 	{
 		posComp->pos.x += deltaTime * -velocity.x;
 		spriteComp->texture = leftOffSpritesheetTexture;
+		animComp->isPlaying = true;
 	}
 
 	if (Context::InputManager()->IsKeyDown(jetpackKey))
@@ -47,12 +52,14 @@ void Player::Update(float deltaTime)
 		{ 
 			spriteComp->texture = rightOnSpritesheetTexture;
 			animComp->Reset();
+			animComp->isPlaying = true;
 		}
 
 		if (spriteComp->texture == leftOffSpritesheetTexture)
 		{
 			spriteComp->texture = leftOnSpriteheetTexture;
 			animComp->Reset();
+			animComp->isPlaying = true;
 		}
 		posComp->pos.y += deltaTime * velocity.y;
 	}

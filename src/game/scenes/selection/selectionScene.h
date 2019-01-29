@@ -5,11 +5,15 @@
 #include "text/text.h"
 #include "sprites/sprite.h"
 #include "constants.h"
+#include "game/entities/background/background.h"
+#include "game/entities/button/button.h"
 
 class SelectionScene : public Scene
 {
 private:
 	Sprite *background = nullptr;
+	//std::unique_ptr<Background> background = std::make_unique<Background>(Resources::SELECTION_SCENE_BACKGROUND_IMAGE);
+	std::unique_ptr<Button> button;
 
 	Sprite *characterImage = nullptr;
 	std::vector<Sprite *> characters;

@@ -11,7 +11,7 @@ Background::Background(std::string pathToTexture)
 	posComp->pos.x = 0;
 	posComp->pos.y = 0;
 	spriteComp->texture = Context::ResourceManager()->GetTexture(pathToTexture);
-	spriteComp->layer = 100;
+	spriteComp->layer = 1;
 }
 
 void Background::Update(float deltaTime)
