@@ -8,13 +8,13 @@
 
 RenderSystem::RenderSystem()
 {
-	spriteBitset.set(ComponentUtils::GetComponentId<PositionComponent>());
-	spriteBitset.set(ComponentUtils::GetComponentId<SpriteComponent>());
-	animatorMaskBitset.set(ComponentUtils::GetComponentId<AnimatorComponent>());
+	spriteBitset.set(Component::GetComponentId<PositionComponent>());
+	spriteBitset.set(Component::GetComponentId<SpriteComponent>());
+	animatorMaskBitset.set(Component::GetComponentId<AnimatorComponent>());
 
-	animSpriteBitset.set(ComponentUtils::GetComponentId<PositionComponent>());
-	animSpriteBitset.set(ComponentUtils::GetComponentId<SpriteComponent>());
-	animSpriteBitset.set(ComponentUtils::GetComponentId<AnimatorComponent>());
+	animSpriteBitset.set(Component::GetComponentId<PositionComponent>());
+	animSpriteBitset.set(Component::GetComponentId<SpriteComponent>());
+	animSpriteBitset.set(Component::GetComponentId<AnimatorComponent>());
 }
 
 void RenderSystem::RenderAnimatedSprites(float deltaTime)

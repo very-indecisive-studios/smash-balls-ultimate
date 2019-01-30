@@ -2,8 +2,9 @@
 
 #include "ecs/ecs.h"
 
-struct AnimatorComponent : public Component
+class AnimatorComponent : public Component
 {
+public:
 	float secondsPerFrame = 1.0f;
 	int frameWidth = 0;
 	int frameHeight = 0;

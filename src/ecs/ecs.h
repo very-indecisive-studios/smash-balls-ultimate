@@ -11,13 +11,20 @@ constexpr size_t MAX_COMPONENTS = sizeof(ComponentId) * 8;
 
 typedef std::bitset<MAX_COMPONENTS> ComponentBitset;
 
-class ComponentUtils
+// Forward declaration.
+class Entity;
+
+typedef std::vector<std::shared_ptr<Entity>> EntityList;
+
+class Component
 {
 private:
 	static ComponentId idCounter;
 
 	static std::map<size_t, ComponentId> componentIdMap;
 public:
+	Entity *attachedEntity;
+
 	template <typename T>
 	static ComponentId GetComponentId()
 	{
@@ -37,16 +44,6 @@ public:
 	}
 };
 
-// Forward declaration.
-class Entity;
-
-struct Component
-{
-	const Entity *attachedEntity;
-};
-
-typedef std::vector<std::shared_ptr<Entity>> EntityList;
-
 class Entity final
 {
 private:
@@ -57,7 +54,7 @@ public:
 	template <typename T>
 	void AttachComponent(std::shared_ptr<T> component)
     {
-        const ComponentId compId = ComponentUtils::GetComponentId<T>();
+        const ComponentId compId = Component::GetComponentId<T>();
 
         componentBitset.set(compId);
 
@@ -69,7 +66,7 @@ public:
     template <typename T>
 	void RemoveComponent()
     {
-        const ComponentId compId = ComponentUtils::GetComponentId<T>();
+        const ComponentId compId = Component::GetComponentId<T>();
 
         componentBitset.reset(compId);
 
@@ -81,7 +78,7 @@ public:
     template <typename T>
 	const std::shared_ptr<T> GetComponent()
     {
-        const ComponentId compId = ComponentUtils::GetComponentId<T>();
+        const ComponentId compId = Component::GetComponentId<T>();
 
         return std::static_pointer_cast<T>(components[compId]);
     }

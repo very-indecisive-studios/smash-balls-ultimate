@@ -5,5 +5,6 @@
 
 struct PositionComponent : public Component
 {
-	Vector2 pos { };
+public:
+	Vector2 pos { 0.0f, 0.0f };
 };

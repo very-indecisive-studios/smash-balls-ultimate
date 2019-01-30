@@ -4,8 +4,9 @@
 #include "graphics/texture.h"
 #include "math/math.h"
 
-struct SpriteComponent : Component
+class SpriteComponent : public Component
 {
+public:
 	int scale = 1;
 	Texture *texture = nullptr;
 	uint8_t layer = 0;
