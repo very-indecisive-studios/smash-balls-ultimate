@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "constants.h"
 
 namespace Resources
 {
@@ -49,6 +50,10 @@ namespace Resources
 	const std::string SELECTION_SCENE_GAMEMODE_2 = "TIME LIMIT - 5 MINS";
 	const std::string SELECTION_SCENE_GAMEMODE_3 = "FIRST TO 5 GOALS";
 	const std::string SELECTION_SCENE_GAMEMODE_4 = "FIRST TO 10 GOALS";
+	const int SELECTION_SCENE_P1_X = (Constants::GAME_WIDTH * 0.5f) - (Constants::GAME_WIDTH / 8);
+	const int SELECTION_SCENE_P1_Y = Constants::GAME_WIDTH / 6;
+	const int SELECTION_SCENE_P2_X = (Constants::GAME_WIDTH * 0.5f) + (Constants::GAME_WIDTH / 8);
+	const int SELECTION_SCENE_P2_Y = Constants::GAME_WIDTH / 6;
 
 	// player
 	const std::string PLAYER_LEFT_OFF_FOLDER = "assets\\players\\left_off\\";

@@ -10,34 +10,34 @@ SelectionScene::SelectionScene()
 {
 	p1LeftButton = std::make_unique<Button>(
 		Resources::SELECTION_SCENE_LEFT_ARROW_WHITE,
-		Vector2(P1_X - Resources::SELECTION_SCENE_CHAR_SIZE, P1_Y),
+		Vector2(Resources::SELECTION_SCENE_P1_X - Resources::SELECTION_SCENE_CHAR_SIZE, Resources::SELECTION_SCENE_P1_Y),
 		Resources::SELECTION_SCENE_ARROW_HEIGHT,
 		Resources::SELECTION_SCENE_ARROW_WIDTH,
-		[this]() { player1CharacterCounter = this->CycleCharacters(player1CharacterCounter, false); }
+		[this]() { p1characterList->Previous(); }
 	);
 
 	p1RightButton = std::make_unique<Button>(
 		Resources::SELECTION_SCENE_RIGHT_ARROW_WHITE,
-		Vector2(P1_X + Resources::SELECTION_SCENE_CHAR_SIZE, P1_Y),
+		Vector2(Resources::SELECTION_SCENE_P1_X + Resources::SELECTION_SCENE_CHAR_SIZE, Resources::SELECTION_SCENE_P1_Y),
 		Resources::SELECTION_SCENE_ARROW_HEIGHT,
 		Resources::SELECTION_SCENE_ARROW_WIDTH,
-		[this]() { player1CharacterCounter = this->CycleCharacters(player1CharacterCounter, true); }
+		[this]() { p1characterList->Next(); }
 	);
 
 	p2LeftButton = std::make_unique<Button>(
 		Resources::SELECTION_SCENE_LEFT_ARROW_WHITE,
-		Vector2(P2_X - Resources::SELECTION_SCENE_CHAR_SIZE, P2_Y),
+		Vector2(Resources::SELECTION_SCENE_P2_X - Resources::SELECTION_SCENE_CHAR_SIZE, Resources::SELECTION_SCENE_P2_Y),
 		Resources::SELECTION_SCENE_ARROW_HEIGHT,
 		Resources::SELECTION_SCENE_ARROW_WIDTH,
-		[this]() { player2CharacterCounter = this->CycleCharacters(player2CharacterCounter, false); }
+		[this]() { p2characterList->Previous(); }
 	);
 
 	p2RightButton = std::make_unique<Button>(
 		Resources::SELECTION_SCENE_RIGHT_ARROW_WHITE,
-		Vector2(P2_X + Resources::SELECTION_SCENE_CHAR_SIZE, P2_Y),
+		Vector2(Resources::SELECTION_SCENE_P2_X + Resources::SELECTION_SCENE_CHAR_SIZE, Resources::SELECTION_SCENE_P2_Y),
 		Resources::SELECTION_SCENE_ARROW_HEIGHT,
 		Resources::SELECTION_SCENE_ARROW_WIDTH,
-		[this]() { player2CharacterCounter = this->CycleCharacters(player2CharacterCounter, true); }
+		[this]() { p2characterList->Next(); }
 	);
 
 	gmLeftButton = std::make_unique<Button>(
@@ -69,21 +69,11 @@ SelectionScene::SelectionScene()
 		Vector2((((Constants::GAME_WIDTH / 5) * 4) - Resources::SELECTION_SCENE_EXIT_WIDTH), ((Constants::GAME_HEIGHT / 5) * 4) - Resources::SELECTION_SCENE_EXIT_HEIGHT),
 		Resources::SELECTION_SCENE_ARROW_HEIGHT,
 		Resources::SELECTION_SCENE_ARROW_WIDTH,
-		[this]() { Context::SceneManager()->LoadScene<GameScene>(player1CharacterCounter, player2CharacterCounter, gameModeCounter); }
+		[this]() { Context::SceneManager()->LoadScene<GameScene>(p1characterList->GetCurrentCharacterColor(), p2characterList->GetCurrentCharacterColor(), gameModeCounter); }
 	);
 
-	background = Sprite::Create(Resources::SELECTION_SCENE_BACKGROUND_IMAGE, 0);
-
-	characterImage = Sprite::Create(Resources::SELECTION_SCENE_BIEGE_CHAR, 0);
-	characters.push_back(characterImage);
-	characterImage = Sprite::Create(Resources::SELECTION_SCENE_BLUE_CHAR, 0);
-	characters.push_back(characterImage);
-	characterImage = Sprite::Create(Resources::SELECTION_SCENE_GREEN_CHAR, 0);
-	characters.push_back(characterImage);
-	characterImage = Sprite::Create(Resources::SELECTION_SCENE_PINK_CHAR, 0);
-	characters.push_back(characterImage);
-	characterImage = Sprite::Create(Resources::SELECTION_SCENE_YELLOW_CHAR, 0);
-	characters.push_back(characterImage);
+	p1characterList = std::make_unique<CharacterList>(Vector2(Resources::SELECTION_SCENE_P1_X, Resources::SELECTION_SCENE_P1_Y));
+	p2characterList = std::make_unique<CharacterList>(Vector2(Resources::SELECTION_SCENE_P2_X, Resources::SELECTION_SCENE_P2_Y));
 
 	gameModes.push_back(Resources::SELECTION_SCENE_GAMEMODE_1);
 	gameModes.push_back(Resources::SELECTION_SCENE_GAMEMODE_2);
@@ -95,46 +85,6 @@ SelectionScene::SelectionScene()
 
 SelectionScene::~SelectionScene()
 {
-}
-
-// return true if mouse is hovering button
-bool SelectionScene::MouseOverButton(Sprite *currentButton, int left, int right, int top, int bottom)
-{
-	int mouseX = Context::InputManager()->GetMouseX();
-	int mouseY = Context::InputManager()->GetMouseY();
-
-	if (mouseX > left && mouseX < right && mouseY > top && mouseY < bottom)
-	{
-		return true;
-	}
-	return false;
-}
-
-// used to cycle through list of characters
-int SelectionScene::CycleCharacters(int currentPlayerCounter, bool add)
-{
-	if (add)
-	{
-		if (currentPlayerCounter == characters.size() - 1)
-		{
-			return 0;
-		}
-		else
-		{
-			return currentPlayerCounter + 1;
-		}
-	}
-	else
-	{
-		if (currentPlayerCounter == 0)
-		{
-			return characters.size() - 1;
-		}
-		else
-		{
-			return currentPlayerCounter - 1;
-		}
-	}
 }
 
 // used to cycle through list of game modes
@@ -178,10 +128,8 @@ void SelectionScene::Update(float deltaTime)
 	exitLeftButton->Update(deltaTime);
 	exitRightButton->Update(deltaTime);
 
-	background->Draw(Vector2(0, 0));
-
-	characters[player1CharacterCounter]->Draw(Vector2(P1_X, P1_Y));
-	characters[player2CharacterCounter]->Draw(Vector2(P2_X, P2_Y));
+	p1characterList->Update(deltaTime);
+	p2characterList->Update(deltaTime);
 
 	currentGameModeText->SetText(gameModes[gameModeCounter]);
 	currentGameModeText->Draw(Vector2(0, Constants::GAME_HEIGHT / 2 - Resources::FONT_SIZE / 2));

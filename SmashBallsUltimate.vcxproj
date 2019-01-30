@@ -99,6 +99,7 @@
     <ClCompile Include="src\ecs\engine.cpp" />
     <ClCompile Include="src\game\entities\background\background.cpp" />
     <ClCompile Include="src\game\entities\button\button.cpp" />
+    <ClCompile Include="src\game\entities\characterList\characterList.cpp" />
     <ClCompile Include="src\game\entities\player\player.cpp" />
     <ClCompile Include="src\game\scenes\game\gameScene.cpp" />
     <ClCompile Include="src\game\systems\rendering.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="src\game\data\data.h" />
     <ClInclude Include="src\game\entities\background\background.h" />
     <ClInclude Include="src\game\entities\button\button.h" />
+    <ClInclude Include="src\game\entities\characterList\characterList.h" />
     <ClInclude Include="src\game\entities\player\player.h" />
     <ClInclude Include="src\game\entities\sceneObject.h" />
     <ClInclude Include="src\game\scenes\game\gameScene.h" />

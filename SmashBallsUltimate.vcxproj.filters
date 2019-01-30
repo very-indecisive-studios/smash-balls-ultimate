@@ -25,6 +25,7 @@
     <ClCompile Include="src\game\entities\background\background.cpp" />
     <ClCompile Include="src\ecs\ecs.cpp" />
     <ClCompile Include="src\game\entities\button\button.cpp" />
+    <ClCompile Include="src\game\entities\characterList\characterList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="src\game\entities\background\background.h" />
     <ClInclude Include="src\game\data\data.h" />
     <ClInclude Include="src\game\entities\button\button.h" />
+    <ClInclude Include="src\game\entities\characterList\characterList.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

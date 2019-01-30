@@ -10,22 +10,26 @@
 #include "math/math.h"
 #include "game/resources.h"
 
-class Button : public SceneObject
+class CharacterList : public SceneObject
 {
 private:
 	std::shared_ptr<PositionComponent> posComp = std::make_shared<PositionComponent>();
 	std::shared_ptr<SpriteComponent> spriteComp = std::make_shared<SpriteComponent>();
 	std::shared_ptr<Entity> button = std::make_shared<Entity>();
 
-	int height;
-	int width;
-	bool mouseDown = false;
-	bool mouseClicked = false;
-	std::function<void()> callbackClicked;
+	Texture *beigeTexture;
+	Texture *blueTexture;
+	Texture *greenTexture;
+	Texture *pinkTexture;
+	Texture *yellowTexture;
 
+	std::vector<Texture *> characterListTextures;
+	
+	int currentCharacterIndex = 0;
 public:
-	Button(std::string pathToTexture, Vector2 pointToDraw, int height, int width, std::function<void()> callbackClicked);
-	bool MouseOverButton();
-	void PerformMouseAction();
+	CharacterList(Vector2 pointToDraw);
+	void Next();
+	void Previous();
+	std::string GetCurrentCharacterColor();
 	void Update(float deltaTime) override;
 };

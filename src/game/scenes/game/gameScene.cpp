@@ -6,11 +6,11 @@
 #include "game/resources.h"
 
 
-GameScene::GameScene(int p1, int p2, int gameMode)
+GameScene::GameScene(std::string p1Color, std::string p2Color, int gameMode)
 {
 	pauseText = Text::Create("PAUSED", Resources::FONT_TYPE, Resources::FONT_COLOR_BLACK, 64, 100, false, false);
 
-	player1 = std::make_unique<Player>("yellow", true);
+	player1 = std::make_unique<Player>(p1Color, true);
 	player1->SetX(100);
 	player1->SetY(500);
 	player1->SetLeftKey(0x41);
@@ -19,7 +19,7 @@ GameScene::GameScene(int p1, int p2, int gameMode)
 	player1->SetPowerKey(VK_SPACE);
 	player1->SetVelocity(200);
 
-	player2 = std::make_unique<Player>("yellow", true);
+	player2 = std::make_unique<Player>(p2Color, true);
 	player2->SetX(500);
 	player2->SetY(500);
 	player2->SetLeftKey(VK_LEFT);

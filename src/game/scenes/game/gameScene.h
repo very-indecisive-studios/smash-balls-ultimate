@@ -21,7 +21,7 @@ private:
 	bool isPaused = false;
 	bool resetRound = false;
 public:
-	GameScene(int player1, int player2, int gameMode);
+	GameScene(std::string p1Color, std::string p2Color, int gameMode);
 	~GameScene();
 
 	void Update(float deltaTime) override;

@@ -6,7 +6,6 @@ Button::Button(std::string pathToTexture, Vector2 pointToDraw, int height, int w
 {
 	button->AttachComponent<PositionComponent>(posComp);
 	button->AttachComponent<SpriteComponent>(spriteComp);
-	//button->AttachComponent<AnimatorComponent>(animComp); // do animation of buttons - additional feature
 	Context::ECSEngine()->AttachEntity(button);
 
 	this->height = height;
