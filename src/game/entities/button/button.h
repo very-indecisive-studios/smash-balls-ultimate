@@ -6,6 +6,7 @@
 #include "game/components/animator.h"
 #include "game/components/sprite.h"
 #include <memory>
+#include <functional>
 #include "math/math.h"
 #include "game/resources.h"
 
@@ -17,14 +18,14 @@ private:
 	//std::shared_ptr<AnimatorComponent> animComp = std::make_shared<AnimatorComponent>();
 	std::shared_ptr<Entity> button = std::make_shared<Entity>();
 
-	bool clickable;
 	int height;
 	int width;
 	bool mouseDown = false;
 	bool mouseClicked = false;
+	std::function<void()> callbackClicked;
 
 public:
-	Button(std::string pathToTexture, Vector2 pointToDraw, int height, int width, bool clickable);
+	Button(std::string pathToTexture, Vector2 pointToDraw, int height, int width, std::function<void()> callbackClicked);
 	bool MouseOverButton();
 	void PerformMouseAction();
 	void Update(float deltaTime) override;

@@ -13,23 +13,20 @@ class SelectionScene : public Scene
 private:
 	Sprite *background = nullptr;
 	//std::unique_ptr<Background> background = std::make_unique<Background>(Resources::SELECTION_SCENE_BACKGROUND_IMAGE);
-	std::unique_ptr<Button> button;
+	std::unique_ptr<Button> p1LeftButton;
+	std::unique_ptr<Button> p1RightButton;
+
+	std::unique_ptr<Button> p2LeftButton;
+	std::unique_ptr<Button> p2RightButton;
+	
+	std::unique_ptr<Button> gmLeftButton;
+	std::unique_ptr<Button> gmRightButton;
+	
+	std::unique_ptr<Button> exitLeftButton;
+	std::unique_ptr<Button> exitRightButton;
 
 	Sprite *characterImage = nullptr;
 	std::vector<Sprite *> characters;
-
-	Sprite *arrowLeftP1 = nullptr;
-	Sprite *arrowLeftP2 = nullptr;
-	Sprite *arrowLeftGM = nullptr;
-
-	Sprite *arrowRightP1 = nullptr;
-	Sprite *arrowRightP2 = nullptr;
-	Sprite *arrowRightGM = nullptr;
-
-	Sprite *exitLeft = nullptr;
-
-	Sprite *exitRight = nullptr;
-	std::vector<Sprite *> buttons;
 
 	std::vector<std::string> gameModes;
 	Text *currentGameModeText;
@@ -54,7 +51,6 @@ public:
 	bool MouseOverButton(Sprite *currentButton, int left, int right, int top, int bottom);
 	int CycleCharacters(int currentPlayerCounter, bool add);
 	int CycleGameModes(int currentgameModeCounter, bool add);
-	void PerformMouseAction();
 
 	void Update(float deltaTime) override;
 };

@@ -2,16 +2,16 @@
 #include "button.h"
 #include "context/context.h"
 
-Button::Button(std::string pathToTexture, Vector2 pointToDraw, int height, int width, bool clickable)
+Button::Button(std::string pathToTexture, Vector2 pointToDraw, int height, int width, std::function<void()> callbackClicked)
 {
 	button->AttachComponent<PositionComponent>(posComp);
 	button->AttachComponent<SpriteComponent>(spriteComp);
 	//button->AttachComponent<AnimatorComponent>(animComp); // do animation of buttons - additional feature
 	Context::ECSEngine()->AttachEntity(button);
 
-	this->clickable = clickable;
 	this->height = height;
 	this->width = width;
+	this->callbackClicked = callbackClicked;
 
 	spriteComp->texture = Context::ResourceManager()->GetTexture(pathToTexture);
 	spriteComp->layer = 100;
@@ -57,8 +57,7 @@ void Button::PerformMouseAction()
 
 	if (mouseClicked && MouseOverButton())
 	{
-		//perform some action
-		Context::SceneManager()->LoadGameScene(1,1,1);
+		callbackClicked();
 	}
 
 	// reset click
@@ -67,8 +66,5 @@ void Button::PerformMouseAction()
 
 void Button::Update(float deltaTime)
 {
-	if (clickable) 
-	{
-		PerformMouseAction();
-	}
+	PerformMouseAction();
 }
