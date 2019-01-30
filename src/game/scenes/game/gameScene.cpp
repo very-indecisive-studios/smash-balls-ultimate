@@ -7,7 +7,16 @@
 
 
 GameScene::GameScene(std::string p1Color, std::string p2Color, int gameMode)
+	: p1Color(p1Color), p2Color(p2Color), gameMode(gameMode)
+{ }
+
+GameScene::~GameScene()
+{ }
+
+void GameScene::Initialize()
 {
+	background = std::make_unique<Background>(Resources::BACKGROUND_IMAGE);
+
 	pauseText = Text::Create("PAUSED", Resources::FONT_TYPE, Resources::FONT_COLOR_BLACK, 64, 100, false, false);
 
 	player1 = std::make_unique<Player>(p1Color, true);
@@ -27,10 +36,6 @@ GameScene::GameScene(std::string p1Color, std::string p2Color, int gameMode)
 	player2->SetJetpackKey(VK_UP);
 	player2->SetPowerKey(VK_SPACE);
 	player2->SetVelocity(200);
-}
-
-GameScene::~GameScene()
-{
 }
 
 void GameScene::Update(float deltaTime)

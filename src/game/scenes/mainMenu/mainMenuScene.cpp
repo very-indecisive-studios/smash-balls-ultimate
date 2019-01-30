@@ -6,7 +6,15 @@
 #include "game/resources.h"
 
 MainMenuScene::MainMenuScene()
+{ }
+
+MainMenuScene::~MainMenuScene()
+{ }
+
+void MainMenuScene::Initialize()
 {
+	background = std::make_unique<Background>(Resources::BACKGROUND_IMAGE);
+
 	buttonText = Text::Create("PLAY", Resources::FONT_TYPE, Resources::FONT_COLOR_BLACK, Resources::FONT_SIZE, 100, false, false);
 	buttons.push_back(buttonText);
 
@@ -28,10 +36,6 @@ MainMenuScene::MainMenuScene()
 		Resources::BUTTON_WIDTH,
 		[this]() { Context::SceneManager()->LoadScene<SelectionScene>(); }
 	);
-}
-
-MainMenuScene::~MainMenuScene()
-{
 }
 
 void MainMenuScene::Update(float deltaTime)

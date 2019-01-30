@@ -12,7 +12,7 @@
 class SelectionScene : public Scene
 {
 private:
-	std::unique_ptr<Background> background = std::make_unique<Background>(Resources::SELECTION_SCENE_BACKGROUND_IMAGE);
+	std::unique_ptr<Background> background;
 	std::unique_ptr<Button> p1LeftButton;
 	std::unique_ptr<Button> p1RightButton;
 
@@ -37,5 +37,7 @@ public:
 	~SelectionScene();
 
 	int CycleGameModes(int currentgameModeCounter, bool add);
+
+	void Initialize() override;
 	void Update(float deltaTime) override;
 };

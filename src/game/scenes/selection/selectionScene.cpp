@@ -7,7 +7,42 @@
 #include "game/resources.h"
 
 SelectionScene::SelectionScene()
+{ }
+
+SelectionScene::~SelectionScene()
+{ }
+
+// used to cycle through list of game modes
+int SelectionScene::CycleGameModes(int currentgameModeCounter, bool add)
 {
+	if (add)
+	{
+		if (currentgameModeCounter == gameModes.size() - 1)
+		{
+			return 0;
+		}
+		else
+		{
+			return currentgameModeCounter + 1;
+		}
+	}
+	else
+	{
+		if (currentgameModeCounter == 0)
+		{
+			return gameModes.size() - 1;
+		}
+		else
+		{
+			return currentgameModeCounter - 1;
+		}
+	}
+}
+
+void SelectionScene::Initialize()
+{
+	background = std::make_unique<Background>(Resources::SELECTION_SCENE_BACKGROUND_IMAGE);
+
 	p1LeftButton = std::make_unique<Button>(
 		Resources::SELECTION_SCENE_LEFT_ARROW_WHITE,
 		Vector2(Resources::SELECTION_SCENE_P1_X - Resources::SELECTION_SCENE_CHAR_SIZE, Resources::SELECTION_SCENE_P1_Y),
@@ -81,37 +116,6 @@ SelectionScene::SelectionScene()
 	gameModes.push_back(Resources::SELECTION_SCENE_GAMEMODE_4);
 
 	currentGameModeText = Text::Create("", Resources::FONT_TYPE, Resources::FONT_COLOR_BLACK, Resources::FONT_SIZE, 100, false, false);
-}
-
-SelectionScene::~SelectionScene()
-{
-}
-
-// used to cycle through list of game modes
-int SelectionScene::CycleGameModes(int currentgameModeCounter, bool add)
-{
-	if (add)
-	{
-		if (currentgameModeCounter == gameModes.size() - 1)
-		{
-			return 0;
-		}
-		else
-		{
-			return currentgameModeCounter + 1;
-		}
-	}
-	else
-	{
-		if (currentgameModeCounter == 0)
-		{
-			return gameModes.size() - 1;
-		}
-		else
-		{
-			return currentgameModeCounter - 1;
-		}
-	}
 }
 
 void SelectionScene::Update(float deltaTime)
