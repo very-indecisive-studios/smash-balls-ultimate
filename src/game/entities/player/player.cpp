@@ -1,4 +1,5 @@
 #include "pch.h"
+
 #include "player.h"
 #include "context/context.h"
 
@@ -20,7 +21,7 @@ Player::Player(std::string color, bool isPlayer1)
 	animComp->frameWidth = Resources::PLAYER_WIDTH;
 	animComp->frameHeight = Resources::PLAYER_HEIGHT;
 
-	animComp->isPlaying = false;
+	animComp->Play();
 }
 
 void Player::Update(float deltaTime)

@@ -5,9 +5,18 @@
 struct AnimatorComponent : public Component
 {
 	float secondsPerFrame = 1.0f;
-	bool isPlaying = false;
 	int frameWidth = 0;
 	int frameHeight = 0;
+
+	void Play()
+	{
+		this->isPlaying = true;
+	}
+
+	void Stop()
+	{
+		this->isPlaying = false;
+	}
 
 	void Reset()
 	{
@@ -15,6 +24,7 @@ struct AnimatorComponent : public Component
 	}
 
 private:
+	bool isPlaying = false;
 	int totalFramesPerCol = 0;
 	int totalFramesPerRow = 0;
 	int currentFrameCol = 0;
