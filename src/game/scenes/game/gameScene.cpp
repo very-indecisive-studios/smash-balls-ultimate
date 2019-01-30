@@ -38,7 +38,7 @@ void GameScene::Initialize()
 	player1->SetPowerKey(VK_SPACE);
 	player1->SetVelocity(200);
 
-	player2 = std::make_unique<Player>(p2Color, true);
+	player2 = std::make_unique<Player>(p2Color, false);
 	player2->SetX(500);
 	player2->SetY(500);
 	player2->SetLeftKey(VK_LEFT);

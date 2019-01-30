@@ -13,7 +13,7 @@ MainMenuScene::~MainMenuScene()
 
 void MainMenuScene::Initialize()
 {
-	background = std::make_unique<Background>(Resources::BACKGROUND_IMAGE);
+	background = std::make_unique<Background>(Resources::BACKGROUND_IMAGE_MAIN_MENU);
 
 	playText = std::make_unique<TextObject>(
 		Resources::FONT_TYPE,

@@ -20,6 +20,7 @@ private:
 	std::unique_ptr<TextObject> playAgainText;
 
 	int winnerPlayerNo;
+
 public:
 	GameOverScene(int winnerPlayerNo);
 	~GameOverScene();

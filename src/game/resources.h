@@ -20,6 +20,7 @@ namespace Resources
 
 	// background
 	const std::string BACKGROUND_IMAGE = "assets\\backgrounds\\main.png";
+	const std::string BACKGROUND_IMAGE_MAIN_MENU = "assets\\backgrounds\\mainMenu.png";
 	const std::string BACKGROUND_IMAGE_GAME_OVER = "assets\\backgrounds\\gameOver.png";
 
 	// buttons
