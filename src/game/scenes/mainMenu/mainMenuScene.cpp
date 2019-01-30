@@ -43,7 +43,7 @@ void MainMenuScene::CheckMouseHover()
 			button->SetColor(Resources::FONT_COLOR_RED);
 			if (Context::InputManager()->GetMouseLButton() && button->GetText() == "PLAY")
 			{
-				Context::SceneManager()->LoadSelectionScene();
+				Context::SceneManager()->LoadScene<SelectionScene>();
 			}
 		}
 		else 

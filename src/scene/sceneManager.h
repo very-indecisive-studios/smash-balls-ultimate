@@ -17,9 +17,13 @@ public:
 
 	void Initialize();
 
-	void LoadMainMenuScene();
-	void LoadSelectionScene();
-	void LoadGameScene(int player1, int player2, int gameMode);
+	template <typename T, class... Args>
+	void LoadScene(Args&&... args)
+	{
+		Scene *sceneToLoad = new T(std::forward<Args>(args)...);
+
+		pendingSceneToLoad = sceneToLoad;
+	}
 
 	void Update(float deltaTime);
 };
