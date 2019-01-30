@@ -4,6 +4,7 @@
 #include "game/scenes/game/gameScene.h"
 #include "game/scenes/mainMenu/mainMenuScene.h"
 #include "game/scenes/selection/selectionScene.h"
+#include "game/scenes/gameOver/gameOverScene.h"
 
 class SceneManager
 {

@@ -4,9 +4,6 @@
 #include "audio/audio.h"
 #include "text/text.h"
 #include "sprites/sprite.h"
-#include "game/components/position.h"
-#include "game/components/animator.h"
-#include "game/components/sprite.h"
 #include <memory>
 #include "game/entities/player/player.h"
 #include "game/entities/background/background.h"
