@@ -26,7 +26,7 @@ Player::Player(std::string color, bool isPlayer1)
 
 void Player::Update(float deltaTime)
 {
-	animComp->isPlaying = false;
+	animComp->Stop();
 
 	// player on floor
 	if (posComp->pos.y > Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT)
@@ -38,13 +38,13 @@ void Player::Update(float deltaTime)
 	{
 		posComp->pos.x += deltaTime * velocity.x;
 		spriteComp->texture = rightOffSpritesheetTexture;
-		animComp->isPlaying = true;
+		animComp->Play();
 	}
 	if (Context::InputManager()->IsKeyDown(leftKey))
 	{
 		posComp->pos.x += deltaTime * -velocity.x;
 		spriteComp->texture = leftOffSpritesheetTexture;
-		animComp->isPlaying = true;
+		animComp->Play();
 	}
 
 	if (Context::InputManager()->IsKeyDown(jetpackKey))
@@ -53,14 +53,14 @@ void Player::Update(float deltaTime)
 		{ 
 			spriteComp->texture = rightOnSpritesheetTexture;
 			animComp->Reset();
-			animComp->isPlaying = true;
+			animComp->Play();
 		}
 
 		if (spriteComp->texture == leftOffSpritesheetTexture)
 		{
 			spriteComp->texture = leftOnSpriteheetTexture;
 			animComp->Reset();
-			animComp->isPlaying = true;
+			animComp->Play();
 		}
 		posComp->pos.y += deltaTime * velocity.y;
 	}
