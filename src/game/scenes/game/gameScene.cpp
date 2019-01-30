@@ -5,8 +5,7 @@
 #include "constants.h"
 #include "game/resources.h"
 
-
-GameScene::GameScene(std::string p1Color, std::string p2Color, int gameMode)
+GameScene::GameScene(std::string p1Color, std::string p2Color, std::string gameMode)
 	: p1Color(p1Color), p2Color(p2Color), gameMode(gameMode)
 { }
 
@@ -17,7 +16,18 @@ void GameScene::Initialize()
 {
 	background = std::make_unique<Background>(Resources::BACKGROUND_IMAGE);
 
-	pauseText = Text::Create("PAUSED", Resources::FONT_TYPE, Resources::FONT_COLOR_BLACK, 64, 100, false, false);
+	pauseText = std::make_unique<TextObject>(
+		Resources::FONT_TYPE,
+		Vector2(0, Constants::GAME_HEIGHT / 2 - (Resources::FONT_SIZE * 3 / 2)),
+		"",
+		Constants::GAME_HEIGHT,
+		Constants::GAME_WIDTH,
+		TextAlignPosition::H_CENTER,
+		Resources::FONT_SIZE * 3,
+		Resources::FONT_COLOR_BLACK,
+		false,
+		[this]() { }
+	);
 
 	player1 = std::make_unique<Player>(p1Color, true);
 	player1->SetX(100);
@@ -40,9 +50,6 @@ void GameScene::Initialize()
 
 void GameScene::Update(float deltaTime)
 {
-	player1->Update(deltaTime);
-	player2->Update(deltaTime);
-
 	if (Context::InputManager()->IsKeyDown(VK_ESCAPE))
 	{
 		Context::InputManager()->ClearAll();
@@ -50,7 +57,14 @@ void GameScene::Update(float deltaTime)
 	}
 	if (isPaused)
 	{
-		pauseText->Draw(Vector2(0, Constants::GAME_HEIGHT / 2 - 64 / 2));
+		pauseText->SetText("PAUSED");
 		return;
 	}
+	else 
+	{
+		pauseText->SetText("");
+	}
+
+	player1->Update(deltaTime);
+	player2->Update(deltaTime);
 }

@@ -1,5 +1,5 @@
 #include "pch.h"
-#include <iostream>
+
 #include "mainMenuScene.h"
 #include "context/context.h"
 #include "constants.h"
@@ -15,11 +15,31 @@ void MainMenuScene::Initialize()
 {
 	background = std::make_unique<Background>(Resources::BACKGROUND_IMAGE);
 
-	buttonText = Text::Create("PLAY", Resources::FONT_TYPE, Resources::FONT_COLOR_BLACK, Resources::FONT_SIZE, 100, false, false);
-	buttons.push_back(buttonText);
+	playText = std::make_unique<TextObject>(
+		Resources::FONT_TYPE,
+		Vector2(0, (Constants::GAME_HEIGHT * 0.5f) - (Resources::BUTTON_HEIGHT * 0.25f)),
+		"PLAY",
+		(Constants::GAME_HEIGHT * 0.5f) - (Resources::BUTTON_HEIGHT * 0.5f),
+		Constants::GAME_WIDTH,
+		TextAlignPosition::H_CENTER,
+		Resources::FONT_SIZE,
+		Resources::FONT_COLOR_BLACK,
+		true,
+		[this]() { this->HandleButtonHover(); }
+		);
 
-	buttonText = Text::Create("CREDITS", Resources::FONT_TYPE, Resources::FONT_COLOR_BLACK, Resources::FONT_SIZE, 100, false, false);
-	buttons.push_back(buttonText);
+	creditsText = std::make_unique<TextObject>(
+		Resources::FONT_TYPE, 
+		Vector2(0, (Constants::GAME_HEIGHT * 0.5f) - (Resources::BUTTON_HEIGHT * 0.25f) + (Resources::BUTTON_HEIGHT + 10)),
+		"CREDITS",
+		Constants::GAME_HEIGHT * 0.5f - Resources::BUTTON_HEIGHT * 0.5f + Resources::BUTTON_HEIGHT + 10,
+		Constants::GAME_WIDTH,
+		TextAlignPosition::H_CENTER,
+		Resources::FONT_SIZE,
+		Resources::FONT_COLOR_BLACK,
+		true,
+		[this]() { this->HandleButtonHover(); }
+		);
 
 	playButton = std::make_unique<Button>(
 		Resources::BUTTON_IMAGE,
@@ -38,8 +58,31 @@ void MainMenuScene::Initialize()
 	);
 }
 
+void MainMenuScene::HandleButtonHover() 
+{
+	if (playButton->MouseOverButton()) 
+	{
+		playText->ChangeColor(Resources::FONT_COLOR_RED);
+	}
+	else 
+	{
+		playText->ChangeColor(Resources::FONT_COLOR_BLACK);
+	}
+
+	if (creditsButton->MouseOverButton())
+	{
+		creditsText->ChangeColor(Resources::FONT_COLOR_RED);
+	}
+	else 
+	{
+		creditsText->ChangeColor(Resources::FONT_COLOR_BLACK);
+	}
+}
+
 void MainMenuScene::Update(float deltaTime)
 {
 	playButton->Update(deltaTime);
 	creditsButton->Update(deltaTime);
+	playText->Update(deltaTime);
+	creditsText->Update(deltaTime);
 }

@@ -8,6 +8,7 @@
 #include "game/entities/background/background.h"
 #include "game/entities/button/button.h"
 #include "game/entities/characterList/characterList.h"
+#include "game/entities/text/textObject.h"
 
 class SelectionScene : public Scene
 {
@@ -28,16 +29,16 @@ private:
 	std::unique_ptr<CharacterList> p1characterList;
 	std::unique_ptr<CharacterList> p2characterList;
 
-	std::vector<std::string> gameModes;
-	Text *currentGameModeText;
+	std::unique_ptr<TextObject> gameModesText;
+	std::vector<std::string> gameModesList;
 	int gameModeCounter = 0;
 
 public:
 	SelectionScene();
 	~SelectionScene();
 
-	int CycleGameModes(int currentgameModeCounter, bool add);
-
+	void NextGameMode();
+	void PreviousGameMode();
 	void Initialize() override;
 	void Update(float deltaTime) override;
 };
