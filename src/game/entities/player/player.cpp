@@ -28,12 +28,6 @@ void Player::Update(float deltaTime)
 {
 	animComp->Stop();
 
-	// player on floor
-	if (posComp->pos.y > Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT)
-	{
-		posComp->pos.y = Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT;
-	}
-
 	if (Context::InputManager()->IsKeyDown(rightKey))
 	{
 		posComp->pos.x += deltaTime * velocity.x;
@@ -78,5 +72,11 @@ void Player::Update(float deltaTime)
 			animComp->Reset();
 		}
 		posComp->pos.y += deltaTime * -velocity.y;
+	}
+
+	// player on floor
+	if (posComp->pos.y > Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT)
+	{
+		posComp->pos.y = Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT;
 	}
 }
