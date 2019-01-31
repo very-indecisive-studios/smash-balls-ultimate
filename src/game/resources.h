@@ -6,9 +6,9 @@
 namespace Resources
 {
 	// font name
-	const std::string FONT_NAME = "assets\\font\\PixelOperator.ttf";
-	const std::string FONT_NAME_BOLD = "assets\\font\\PixelOperator-Bold.ttf";
-	const std::string FONT_TYPE = "Pixel Operator"; 
+	const std::string FONT_NAME = "assets\\font\\LemonMilk.otf";
+	const std::string FONT_NAME_BOLD = "assets\\font\\LemonMilk-Bold.otf";
+	const std::string FONT_TYPE = "LemonMilk";
 	const int FONT_SIZE = 23; 
 	const int FONT_COLOR_WHITE = 0xFFFFFFFF; 
 	const int FONT_COLOR_RED = 0xFFFF0000; 
