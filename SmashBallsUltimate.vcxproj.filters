@@ -73,6 +73,7 @@
     <ClInclude Include="src\game\layers.h" />
     <ClInclude Include="src\game\entities\scoreboard\scoreboard.h" />
     <ClInclude Include="src\game\entities\timer\timer.h" />
+    <ClInclude Include="src\game\components\physics.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

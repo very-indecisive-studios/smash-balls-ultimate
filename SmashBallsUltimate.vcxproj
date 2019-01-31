@@ -134,6 +134,7 @@
     <ClInclude Include="src\ecs\ecs.h" />
     <ClInclude Include="src\ecs\engine.h" />
     <ClInclude Include="src\game\components\animator.h" />
+    <ClInclude Include="src\game\components\physics.h" />
     <ClInclude Include="src\game\components\position.h" />
     <ClInclude Include="src\game\components\sprite.h" />
     <ClInclude Include="src\game\data\data.h" />
