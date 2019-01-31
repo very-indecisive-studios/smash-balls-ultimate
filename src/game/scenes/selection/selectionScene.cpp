@@ -66,16 +66,16 @@ void SelectionScene::Initialize()
 	exitLeftButton = std::make_unique<Button>(
 		Resources::SELECTION_SCENE_LEFT_EXIT_WHITE,
 		Vector2(Constants::GAME_WIDTH / 5, ((Constants::GAME_HEIGHT / 5) * 4) - Resources::SELECTION_SCENE_EXIT_HEIGHT),
-		Resources::SELECTION_SCENE_ARROW_HEIGHT,
-		Resources::SELECTION_SCENE_ARROW_WIDTH,
+		Resources::SELECTION_SCENE_EXIT_HEIGHT,
+		Resources::SELECTION_SCENE_EXIT_WIDTH,
 		[this]() { Context::SceneManager()->LoadScene<MainMenuScene>(); }
 	);
 
 	exitRightButton = std::make_unique<Button>(
 		Resources::SELECTION_SCENE_RIGHT_EXIT_WHITE,
 		Vector2((((Constants::GAME_WIDTH / 5) * 4) - Resources::SELECTION_SCENE_EXIT_WIDTH), ((Constants::GAME_HEIGHT / 5) * 4) - Resources::SELECTION_SCENE_EXIT_HEIGHT),
-		Resources::SELECTION_SCENE_ARROW_HEIGHT,
-		Resources::SELECTION_SCENE_ARROW_WIDTH,
+		Resources::SELECTION_SCENE_EXIT_HEIGHT,
+		Resources::SELECTION_SCENE_EXIT_WIDTH,
 		[this]() { Context::SceneManager()->LoadScene<GameScene>(p1characterList->GetCurrentCharacterColor(), p2characterList->GetCurrentCharacterColor(), gameModesList[gameModeCounter]); }
 	);
 
