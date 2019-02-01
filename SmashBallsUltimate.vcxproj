@@ -106,6 +106,7 @@
     <ClCompile Include="src\game\entities\timer\timer.cpp" />
     <ClCompile Include="src\game\scenes\gameOver\gameOverScene.cpp" />
     <ClCompile Include="src\game\scenes\game\gameScene.cpp" />
+    <ClCompile Include="src\game\systems\physics.cpp" />
     <ClCompile Include="src\game\systems\rendering.cpp" />
     <ClCompile Include="src\graphics\font.cpp" />
     <ClCompile Include="src\game\scenes\mainMenu\mainMenuScene.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="src\game\layers.h" />
     <ClInclude Include="src\game\scenes\gameOver\gameOverScene.h" />
     <ClInclude Include="src\game\scenes\game\gameScene.h" />
+    <ClInclude Include="src\game\systems\physics.h" />
     <ClInclude Include="src\game\systems\rendering.h" />
     <ClInclude Include="src\graphics\font.h" />
     <ClInclude Include="src\game\scenes\mainMenu\mainMenuScene.h" />

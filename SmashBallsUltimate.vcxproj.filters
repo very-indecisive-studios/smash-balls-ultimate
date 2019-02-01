@@ -30,6 +30,7 @@
     <ClCompile Include="src\game\scenes\gameOver\gameOverScene.cpp" />
     <ClCompile Include="src\game\entities\scoreboard\scoreboard.cpp" />
     <ClCompile Include="src\game\entities\timer\timer.cpp" />
+    <ClCompile Include="src\game\systems\physics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
@@ -74,6 +75,7 @@
     <ClInclude Include="src\game\entities\scoreboard\scoreboard.h" />
     <ClInclude Include="src\game\entities\timer\timer.h" />
     <ClInclude Include="src\game\components\physics.h" />
+    <ClInclude Include="src\game\systems\physics.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />
