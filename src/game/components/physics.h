@@ -11,8 +11,6 @@ public:
 	int right = 0;
 	int top = 0;
 	int bottom = 0;
-	int width = 0;
-	int height = 0;
 
 	// for Circle
 	float radius = 0;

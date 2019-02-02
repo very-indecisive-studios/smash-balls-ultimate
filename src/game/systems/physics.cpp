@@ -35,7 +35,7 @@ bool PhysicsSystem::CheckCircleandCircle(float radius1, Vector2 center1, float r
 	return false;
 }
 
-bool PhysicsSystem::CheckAABBandCircle(int left, int top, int height, int width, Vector2 center, float radius)
+bool PhysicsSystem::CheckAABBandCircle(int left, int right, int top, int bottom, Vector2 center, float radius)
 {
 	int closeX = center.x;
 	int closeY = center.y;
@@ -46,9 +46,9 @@ bool PhysicsSystem::CheckAABBandCircle(int left, int top, int height, int width,
 		closeX = left;
 	}
 	// check right
-	if (center.x > left + width) 
+	if (center.x > right)
 	{
-		closeX = left + width;
+		closeX = right;
 	}
 	// check top
 	if (center.y < top)
@@ -56,9 +56,9 @@ bool PhysicsSystem::CheckAABBandCircle(int left, int top, int height, int width,
 		closeY = top;
 	}
 	// check bottom
-	if (center.y > top + height)
+	if (center.y > bottom)
 	{
-		closeY = top + height;
+		closeY = bottom;
 	}
 
 	int distanceSquared = ((closeX - center.x) * (closeX - center.x)) 
@@ -79,13 +79,13 @@ bool PhysicsSystem::CheckActiveToPassiveCollision()
 		{
 			const auto passivePhysicsComp = passiveEntity->GetComponent<PhysicsComponent>();
 
-			if (!activePhysicsComp->radius == 0 && passivePhysicsComp->radius == 0) // both entities AABB
+			if (activePhysicsComp->radius == 0 && passivePhysicsComp->radius == 0) // both entities AABB
 			{
 				CheckAABBandAABB(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom, 
 					passivePhysicsComp->left, passivePhysicsComp->right, passivePhysicsComp->top, passivePhysicsComp->bottom);
 			}
 
-			if (!activePhysicsComp->radius != 0 && passivePhysicsComp->radius != 0) // both entities Circle
+			if (activePhysicsComp->radius != 0 && passivePhysicsComp->radius != 0) // both entities Circle
 			{
 				CheckCircleandCircle(activePhysicsComp->radius, activePhysicsComp->center, 
 					passivePhysicsComp->radius, passivePhysicsComp->center);
@@ -93,20 +93,20 @@ bool PhysicsSystem::CheckActiveToPassiveCollision()
 
 			else // one AABB one Circle
 			{
-				if (activePhysicsComp->radius != 0)  // active = AABB, passive = Circle
+				if (activePhysicsComp->radius == 0)  // active = AABB, passive = Circle
 				{
-					CheckAABBandCircle(activePhysicsComp->left, activePhysicsComp->top, activePhysicsComp->height, activePhysicsComp->width,
+					CheckAABBandCircle(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
 						passivePhysicsComp->center, passivePhysicsComp->radius);
 				}
 				else // active = Circle, passive = AABB
 				{
-					CheckAABBandCircle(passivePhysicsComp->left, passivePhysicsComp->top, passivePhysicsComp->height, passivePhysicsComp->width,
+					CheckAABBandCircle(passivePhysicsComp->left, passivePhysicsComp->right, passivePhysicsComp->top, passivePhysicsComp->bottom,
 						activePhysicsComp->center, activePhysicsComp->radius);
 				}
 			}
-
 		}
 	}
+	return false;
 }
 
 bool PhysicsSystem::CheckActiveToActiveCollision()
@@ -117,17 +117,17 @@ bool PhysicsSystem::CheckActiveToActiveCollision()
 
 		for (auto &activeEntity : *activePhysicsEntities)
 		{
-			if (currentActivePhysicsComp != activeEntity)
+			if (currentActiveEntity != activeEntity)
 			{
 				const auto activePhysicsComp = activeEntity->GetComponent<PhysicsComponent>();
 
-				if (!currentActivePhysicsComp->radius == 0 && activePhysicsComp->radius == 0) // both entities AABB
+				if (currentActivePhysicsComp->radius == 0 && activePhysicsComp->radius == 0) // both entities AABB
 				{
 					CheckAABBandAABB(currentActivePhysicsComp->left, currentActivePhysicsComp->right, currentActivePhysicsComp->top, currentActivePhysicsComp->bottom,
 						activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom);
 				}
 
-				if (!currentActivePhysicsComp->radius != 0 && activePhysicsComp->radius != 0) // both entities Circle
+				if (currentActivePhysicsComp->radius != 0 && activePhysicsComp->radius != 0) // both entities Circle
 				{
 					CheckCircleandCircle(currentActivePhysicsComp->radius, currentActivePhysicsComp->center,
 						activePhysicsComp->radius, activePhysicsComp->center);
@@ -135,7 +135,7 @@ bool PhysicsSystem::CheckActiveToActiveCollision()
 
 				else // one AABB one Circle
 				{
-					if (currentActivePhysicsComp->radius != 0)  // currentActive = AABB, active = Circle
+					if (currentActivePhysicsComp->radius == 0)  // currentActive = AABB, active = Circle
 					{
 						CheckAABBandCircle(currentActivePhysicsComp->left, currentActivePhysicsComp->right, currentActivePhysicsComp->top, currentActivePhysicsComp->bottom,
 							activePhysicsComp->center, activePhysicsComp->radius);
@@ -143,18 +143,21 @@ bool PhysicsSystem::CheckActiveToActiveCollision()
 					else // currentActive = Circle, active = AABB
 					{
 						CheckAABBandCircle(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
-							activePhysicsComp->center, currentActivePhysicsComp->radius);
+							currentActivePhysicsComp->center, currentActivePhysicsComp->radius);
 					}
 				}
 			}
 		}
 	}
+	return false;
 }
 
 
 void PhysicsSystem::Process(float deltaTime)
 {
 	physicsEntities = Context::ECSEngine()->GetEntities(physicsBitset);
+	passivePhysicsEntities = std::make_shared<EntityList>();
+	activePhysicsEntities = std::make_shared<EntityList>();
 
 	for (auto &entity : *physicsEntities)
 	{
