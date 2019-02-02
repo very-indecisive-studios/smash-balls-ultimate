@@ -21,6 +21,6 @@ public:
 	int speed;
 	Vector2 velocity{ speed, -speed };
 
-	bool collidable = true;
+	bool isCollidable = true;
 	bool isPassive;
 };

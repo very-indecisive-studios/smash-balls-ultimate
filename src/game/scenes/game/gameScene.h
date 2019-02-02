@@ -23,6 +23,8 @@ private:
 	std::unique_ptr<Wall> leftWall;
 	std::unique_ptr<Wall> rightWall;
 
+	std::unique_ptr<Wall> leftGoalpostCeiling;
+	std::unique_ptr<Wall> rightGoalpostCeiling;
 	std::unique_ptr<Goalpost> leftGoalpost;
 	std::unique_ptr<Goalpost> rightGoalpost;
 

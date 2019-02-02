@@ -21,6 +21,8 @@ void GameScene::Initialize()
 	leftWall = std::make_unique<Wall>(0, 0, Constants::GAME_HEIGHT, 0);
 	rightWall = std::make_unique<Wall>(Constants::GAME_WIDTH, 0, Constants::GAME_HEIGHT, 0);
 
+	leftGoalpostCeiling = std::make_unique<Wall>(Resources::LEFT_GOALPOST_X, Resources::LEFT_GOALPOST_Y, 5, Resources::GOALPOST_WIDTH);
+	rightGoalpostCeiling = std::make_unique<Wall>(Resources::RIGHT_GOALPOST_X, Resources::RIGHT_GOALPOST_Y, 5, Resources::GOALPOST_WIDTH);
 	leftGoalpost = std::make_unique<Goalpost>(Resources::LEFT_GOALPOST_IMAGE, Resources::LEFT_GOALPOST_X, Resources::LEFT_GOALPOST_Y);
 	rightGoalpost = std::make_unique<Goalpost>(Resources::RIGHT_GOALPOST_IMAGE, Resources::RIGHT_GOALPOST_X, Resources::RIGHT_GOALPOST_Y);
 

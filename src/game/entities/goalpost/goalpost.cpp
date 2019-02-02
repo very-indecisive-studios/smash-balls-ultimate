@@ -22,7 +22,7 @@ Goalpost::Goalpost(std::string pathToImage, float x, float y)
 	phyComp->top = posComp->pos.y;
 	phyComp->bottom = posComp->pos.y + height;
 	phyComp->isPassive = true;
-	phyComp->collidable = false;
+	phyComp->isCollidable = false;
 }
 
 void Goalpost::Update(float deltaTime)
