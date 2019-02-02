@@ -31,6 +31,8 @@
     <ClCompile Include="src\game\entities\scoreboard\scoreboard.cpp" />
     <ClCompile Include="src\game\entities\timer\timer.cpp" />
     <ClCompile Include="src\game\systems\physics.cpp" />
+    <ClCompile Include="src\game\entities\wall\wall.cpp" />
+    <ClCompile Include="src\game\entities\goalpost\goalpost.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
@@ -76,6 +78,8 @@
     <ClInclude Include="src\game\entities\timer\timer.h" />
     <ClInclude Include="src\game\components\physics.h" />
     <ClInclude Include="src\game\systems\physics.h" />
+    <ClInclude Include="src\game\entities\wall\wall.h" />
+    <ClInclude Include="src\game\entities\goalpost\goalpost.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

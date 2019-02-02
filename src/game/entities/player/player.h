@@ -5,6 +5,7 @@
 #include "game/components/position.h"
 #include "game/components/animator.h"
 #include "game/components/sprite.h"
+#include "game/components/physics.h"
 #include <memory>
 #include "math/math.h"
 #include "game/resources.h"
@@ -28,6 +29,7 @@ private:
 	std::shared_ptr<PositionComponent> posComp = std::make_shared<PositionComponent>();
 	std::shared_ptr<SpriteComponent> spriteComp = std::make_shared<SpriteComponent>();
 	std::shared_ptr<AnimatorComponent> animComp = std::make_shared<AnimatorComponent>();
+	std::shared_ptr<PhysicsComponent> phyComp = std::make_shared<PhysicsComponent>();
 	std::shared_ptr<Entity> body = std::make_shared<Entity>();
 
 	UCHAR leftKey;

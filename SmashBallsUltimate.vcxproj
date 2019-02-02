@@ -100,10 +100,12 @@
     <ClCompile Include="src\game\entities\background\background.cpp" />
     <ClCompile Include="src\game\entities\button\button.cpp" />
     <ClCompile Include="src\game\entities\characterList\characterList.cpp" />
+    <ClCompile Include="src\game\entities\goalpost\goalpost.cpp" />
     <ClCompile Include="src\game\entities\player\player.cpp" />
     <ClCompile Include="src\game\entities\text\textObject.cpp" />
     <ClCompile Include="src\game\entities\scoreboard\scoreboard.cpp" />
     <ClCompile Include="src\game\entities\timer\timer.cpp" />
+    <ClCompile Include="src\game\entities\wall\wall.cpp" />
     <ClCompile Include="src\game\scenes\gameOver\gameOverScene.cpp" />
     <ClCompile Include="src\game\scenes\game\gameScene.cpp" />
     <ClCompile Include="src\game\systems\physics.cpp" />
@@ -142,6 +144,7 @@
     <ClInclude Include="src\game\entities\background\background.h" />
     <ClInclude Include="src\game\entities\button\button.h" />
     <ClInclude Include="src\game\entities\characterList\characterList.h" />
+    <ClInclude Include="src\game\entities\goalpost\goalpost.h" />
     <ClInclude Include="src\game\entities\player\player.h" />
     <ClInclude Include="src\game\entities\sceneObject.h" />
     <ClInclude Include="src\game\components\text.h" />
@@ -149,6 +152,7 @@
     <ClInclude Include="src\game\entities\scoreboard\scoreboard.h" />
     <ClInclude Include="src\game\entities\timer\timer.h" />
     <ClInclude Include="src\game\layers.h" />
+    <ClInclude Include="src\game\entities\wall\wall.h" />
     <ClInclude Include="src\game\scenes\gameOver\gameOverScene.h" />
     <ClInclude Include="src\game\scenes\game\gameScene.h" />
     <ClInclude Include="src\game\systems\physics.h" />

@@ -4,6 +4,7 @@
 #include "game/components/position.h"
 #include "game/components/physics.h"
 #include "context/context.h"
+#include <iostream>
 
 PhysicsSystem::PhysicsSystem()
 {
@@ -12,7 +13,7 @@ PhysicsSystem::PhysicsSystem()
 
 bool PhysicsSystem::CheckAABBandAABB(int left1, int right1, int top1, int bottom1, int left2, int right2, int top2, int bottom2)
 {
-	if ((right1 < left2) || (left1 > right2) || (bottom1 < top2) || (top1 > bottom2))
+	if ((right1 <= left2) || (left1 >= right2) || (bottom1 <= top2) || (top1 >= bottom2))
 	{
 		return false;
 	}
@@ -25,7 +26,7 @@ bool PhysicsSystem::CheckCircleandCircle(float radius1, Vector2 center1, float r
 	distance.x = distance.x * distance.x;
 	distance.y = distance.y * distance.y;
 	
-	int totalRadius = (radius1 + radius2) * (radius1 + radius2);
+	float totalRadius = (radius1 + radius2) * (radius1 + radius2);
 
 	if (distance.x + distance.y < totalRadius) 
 	{
@@ -81,27 +82,39 @@ bool PhysicsSystem::CheckActiveToPassiveCollision()
 
 			if (activePhysicsComp->radius == 0 && passivePhysicsComp->radius == 0) // both entities AABB
 			{
-				CheckAABBandAABB(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom, 
-					passivePhysicsComp->left, passivePhysicsComp->right, passivePhysicsComp->top, passivePhysicsComp->bottom);
+				if (CheckAABBandAABB(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
+					passivePhysicsComp->left, passivePhysicsComp->right, passivePhysicsComp->top, passivePhysicsComp->bottom)) 
+				{
+					return true;
+				}
 			}
 
 			if (activePhysicsComp->radius != 0 && passivePhysicsComp->radius != 0) // both entities Circle
 			{
-				CheckCircleandCircle(activePhysicsComp->radius, activePhysicsComp->center, 
-					passivePhysicsComp->radius, passivePhysicsComp->center);
+				if (CheckCircleandCircle(activePhysicsComp->radius, activePhysicsComp->center,
+					passivePhysicsComp->radius, passivePhysicsComp->center)) 
+				{
+					return true;
+				}
 			}
 
 			else // one AABB one Circle
 			{
 				if (activePhysicsComp->radius == 0)  // active = AABB, passive = Circle
 				{
-					CheckAABBandCircle(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
-						passivePhysicsComp->center, passivePhysicsComp->radius);
+					if (CheckAABBandCircle(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
+						passivePhysicsComp->center, passivePhysicsComp->radius))
+					{
+						return true;
+					}
 				}
 				else // active = Circle, passive = AABB
 				{
-					CheckAABBandCircle(passivePhysicsComp->left, passivePhysicsComp->right, passivePhysicsComp->top, passivePhysicsComp->bottom,
-						activePhysicsComp->center, activePhysicsComp->radius);
+					if (CheckAABBandCircle(passivePhysicsComp->left, passivePhysicsComp->right, passivePhysicsComp->top, passivePhysicsComp->bottom,
+						activePhysicsComp->center, activePhysicsComp->radius))
+					{
+						return true;
+					}
 				}
 			}
 		}
@@ -123,27 +136,39 @@ bool PhysicsSystem::CheckActiveToActiveCollision()
 
 				if (currentActivePhysicsComp->radius == 0 && activePhysicsComp->radius == 0) // both entities AABB
 				{
-					CheckAABBandAABB(currentActivePhysicsComp->left, currentActivePhysicsComp->right, currentActivePhysicsComp->top, currentActivePhysicsComp->bottom,
-						activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom);
+					if (CheckAABBandAABB(currentActivePhysicsComp->left, currentActivePhysicsComp->right, currentActivePhysicsComp->top, currentActivePhysicsComp->bottom,
+						activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom))
+					{
+						return true;
+					}
 				}
 
 				if (currentActivePhysicsComp->radius != 0 && activePhysicsComp->radius != 0) // both entities Circle
 				{
-					CheckCircleandCircle(currentActivePhysicsComp->radius, currentActivePhysicsComp->center,
-						activePhysicsComp->radius, activePhysicsComp->center);
+					if (CheckCircleandCircle(currentActivePhysicsComp->radius, currentActivePhysicsComp->center,
+						activePhysicsComp->radius, activePhysicsComp->center))
+					{
+						return true;
+					}
 				}
 
 				else // one AABB one Circle
 				{
 					if (currentActivePhysicsComp->radius == 0)  // currentActive = AABB, active = Circle
 					{
-						CheckAABBandCircle(currentActivePhysicsComp->left, currentActivePhysicsComp->right, currentActivePhysicsComp->top, currentActivePhysicsComp->bottom,
-							activePhysicsComp->center, activePhysicsComp->radius);
+						if (CheckAABBandCircle(currentActivePhysicsComp->left, currentActivePhysicsComp->right, currentActivePhysicsComp->top, currentActivePhysicsComp->bottom,
+							activePhysicsComp->center, activePhysicsComp->radius))
+						{
+							return true;
+						}
 					}
 					else // currentActive = Circle, active = AABB
 					{
-						CheckAABBandCircle(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
-							currentActivePhysicsComp->center, currentActivePhysicsComp->radius);
+						if (CheckAABBandCircle(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
+							currentActivePhysicsComp->center, currentActivePhysicsComp->radius))
+						{
+							return true;
+						}
 					}
 				}
 			}
@@ -171,6 +196,17 @@ void PhysicsSystem::Process(float deltaTime)
 		}
 	}
 
-	CheckActiveToPassiveCollision();
-	CheckActiveToActiveCollision();
+	if (CheckActiveToPassiveCollision()) 
+	{
+		
+		std::cout << "a2p collided" <<std::endl;
+	}
+
+	if (CheckActiveToActiveCollision())
+	{
+		std::cout << "a2a collided" << std::endl;
+	}
+
+	passivePhysicsEntities->clear();
+	activePhysicsEntities->clear();
 }

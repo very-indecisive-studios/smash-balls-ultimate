@@ -10,11 +10,22 @@
 #include "game/entities/text/textObject.h"
 #include "game/entities/scoreboard/scoreboard.h"
 #include "game/entities/timer/timer.h"
+#include "game/entities/wall/wall.h"
+#include "game/entities/goalpost/goalpost.h"
 
 class GameScene : public Scene
 {
 private:
 	std::unique_ptr<Background> background;
+
+	std::unique_ptr<Wall> floor;
+	std::unique_ptr<Wall> ceiling;
+	std::unique_ptr<Wall> leftWall;
+	std::unique_ptr<Wall> rightWall;
+
+	std::unique_ptr<Goalpost> leftGoalpost;
+	std::unique_ptr<Goalpost> rightGoalpost;
+
 	std::unique_ptr<Player> player1;
 	std::unique_ptr<Player> player2;
 	std::unique_ptr<Scoreboard> scoreboard;

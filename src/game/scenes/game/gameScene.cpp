@@ -14,7 +14,15 @@ GameScene::~GameScene()
 
 void GameScene::Initialize()
 {
-	background = std::make_unique<Background>(Resources::BACKGROUND_IMAGE);
+	background = std::make_unique<Background>(Resources::GAME_SCENE_IMAGE);
+
+	floor = std::make_unique<Wall>(0, Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT, Resources::GROUND_HEIGHT, Constants::GAME_WIDTH);
+	ceiling = std::make_unique<Wall>(0, 0, 0, Constants::GAME_WIDTH);
+	leftWall = std::make_unique<Wall>(0, 0, Constants::GAME_HEIGHT, 0);
+	rightWall = std::make_unique<Wall>(Constants::GAME_WIDTH, 0, Constants::GAME_HEIGHT, 0);
+
+	leftGoalpost = std::make_unique<Goalpost>(Resources::LEFT_GOALPOST_IMAGE, Resources::LEFT_GOALPOST_X, Resources::LEFT_GOALPOST_Y);
+	rightGoalpost = std::make_unique<Goalpost>(Resources::RIGHT_GOALPOST_IMAGE, Resources::RIGHT_GOALPOST_X, Resources::RIGHT_GOALPOST_Y);
 
 	scoreboard = std::make_unique<Scoreboard>(p1Color, p2Color);
 	timer = std::make_unique<Timer>();
@@ -33,22 +41,22 @@ void GameScene::Initialize()
 	);
 
 	player1 = std::make_unique<Player>(p1Color, true);
-	player1->SetX(100);
-	player1->SetY(500);
-	player1->SetLeftKey(0x41);
-	player1->SetRightKey(0x44);
-	player1->SetJetpackKey(0x57);
-	player1->SetPowerKey(VK_SPACE);
-	player1->SetVelocity(200);
+	player1->SetX(Resources::P1_SPAWNX);
+	player1->SetY(Resources::P1_SPAWNY);
+	player1->SetLeftKey(Resources::P1_LEFT_KEY);
+	player1->SetRightKey(Resources::P1_RIGHT_KEY);
+	player1->SetJetpackKey(Resources::P1_JETPACK_KEY);
+	player1->SetPowerKey(Resources::P1_POWER_KEY);
+	player1->SetVelocity(Resources::P1_SPEED);
 
 	player2 = std::make_unique<Player>(p2Color, false);
-	player2->SetX(500);
-	player2->SetY(500);
-	player2->SetLeftKey(VK_LEFT);
-	player2->SetRightKey(VK_RIGHT);
-	player2->SetJetpackKey(VK_UP);
-	player2->SetPowerKey(VK_SPACE);
-	player2->SetVelocity(200);
+	player2->SetX(Resources::P2_SPAWNX);
+	player2->SetY(Resources::P2_SPAWNY);
+	player2->SetLeftKey(Resources::P2_LEFT_KEY);
+	player2->SetRightKey(Resources::P2_RIGHT_KEY);
+	player2->SetJetpackKey(Resources::P2_JETPACK_KEY);
+	player2->SetPowerKey(Resources::P2_POWER_KEY);
+	player2->SetVelocity(Resources::P2_SPEED);
 }
 
 void GameScene::Update(float deltaTime)

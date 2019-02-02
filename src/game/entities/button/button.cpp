@@ -24,13 +24,6 @@ bool Button::MouseOverButton()
 	int top = posComp->pos.y;
 	int bottom = posComp->pos.y + height;
 
-	std::cout << "mouseX: " << Context::InputManager()->GetMouseX() << std::endl;
-	std::cout << "mouseY: " << Context::InputManager()->GetMouseY() << std::endl;
-	std::cout << "left: " << left << std::endl;
-	std::cout << "right: " << right << std::endl;
-	std::cout << "top: " << top << std::endl;
-	std::cout << "bottom: " << bottom << std::endl;
-
 	if (Context::InputManager()->GetMouseX() > left &&
 		Context::InputManager()->GetMouseX() < right &&
 		Context::InputManager()->GetMouseY() > top &&

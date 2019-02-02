@@ -33,6 +33,7 @@ Player::Player(std::string color, bool isPlayer1)
 	body->AttachComponent<PositionComponent>(posComp);
 	body->AttachComponent<SpriteComponent>(spriteComp);
 	body->AttachComponent<AnimatorComponent>(animComp);
+	body->AttachComponent<PhysicsComponent>(phyComp);
 	Context::ECSEngine()->AttachEntity(body);
 
 	leftOffSpritesheetTexture	= Context::ResourceManager()->GetTexture(Resources::PLAYER_LEFT_OFF_FOLDER + color + ".png");
@@ -41,16 +42,25 @@ Player::Player(std::string color, bool isPlayer1)
 	rightOnSpritesheetTexture	= Context::ResourceManager()->GetTexture(Resources::PLAYER_RIGHT_ON_FOLDER + color + ".png");
 
 	spriteComp->texture = isPlayer1 ? rightOffSpritesheetTexture : leftOffSpritesheetTexture;
-	spriteComp->layer = 100;
+	spriteComp->layer = 10;
+
 	animComp->secondsPerFrame = Resources::PLAYER_ANIMATION_DELAY;
 	animComp->frameWidth = Resources::PLAYER_WIDTH;
 	animComp->frameHeight = Resources::PLAYER_HEIGHT;
-
 	animComp->Play();
+
+	phyComp->isPassive = false;
 }
 
 void Player::Update(float deltaTime)
 {
+	phyComp->left = posComp->pos.x;
+	phyComp->right = posComp->pos.x + Resources::PLAYER_WIDTH;
+	phyComp->top = posComp->pos.y;
+	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
+
+	animComp->Stop();
+
 	if (Context::InputManager()->IsKeyDown(rightKey))
 	{
 		posComp->pos.x += deltaTime * velocity.x;
