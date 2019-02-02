@@ -108,5 +108,9 @@ namespace Resources
 	const UCHAR P2_JETPACK_KEY = VK_UP;
 	const UCHAR P2_POWER_KEY = VK_SHIFT;
 	const int P2_SPEED = 200;
+
+	// ball
+	const std::string BALL_IMAGE = "assets\\ball\\big.png";
+	const int BALL_RADIUS = 30;
 }
 

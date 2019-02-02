@@ -98,6 +98,7 @@
     <ClCompile Include="src\ecs\ecs.cpp" />
     <ClCompile Include="src\ecs\engine.cpp" />
     <ClCompile Include="src\game\entities\background\background.cpp" />
+    <ClCompile Include="src\game\entities\ball\ball.cpp" />
     <ClCompile Include="src\game\entities\button\button.cpp" />
     <ClCompile Include="src\game\entities\characterList\characterList.cpp" />
     <ClCompile Include="src\game\entities\goalpost\goalpost.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="src\game\components\sprite.h" />
     <ClInclude Include="src\game\data\data.h" />
     <ClInclude Include="src\game\entities\background\background.h" />
+    <ClInclude Include="src\game\entities\ball\ball.h" />
     <ClInclude Include="src\game\entities\button\button.h" />
     <ClInclude Include="src\game\entities\characterList\characterList.h" />
     <ClInclude Include="src\game\entities\goalpost\goalpost.h" />

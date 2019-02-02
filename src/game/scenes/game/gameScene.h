@@ -12,11 +12,14 @@
 #include "game/entities/timer/timer.h"
 #include "game/entities/wall/wall.h"
 #include "game/entities/goalpost/goalpost.h"
+#include "game/entities/ball/ball.h"
 
 class GameScene : public Scene
 {
 private:
 	std::unique_ptr<Background> background;
+
+	std::unique_ptr<Ball> ball;
 
 	std::unique_ptr<Wall> floor;
 	std::unique_ptr<Wall> ceiling;

@@ -16,6 +16,8 @@ void GameScene::Initialize()
 {
 	background = std::make_unique<Background>(Resources::GAME_SCENE_IMAGE);
 
+	ball = std::make_unique<Ball>();
+
 	floor = std::make_unique<Wall>(0, Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT, Resources::GROUND_HEIGHT, Constants::GAME_WIDTH);
 	ceiling = std::make_unique<Wall>(0, 0, 0, Constants::GAME_WIDTH);
 	leftWall = std::make_unique<Wall>(0, 0, Constants::GAME_HEIGHT, 0);
@@ -78,6 +80,7 @@ void GameScene::Update(float deltaTime)
 		pauseText->SetText("");
 	}
 
+	ball->Update(deltaTime);
 	player1->Update(deltaTime);
 	player2->Update(deltaTime);
 }
