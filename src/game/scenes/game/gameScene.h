@@ -8,7 +8,7 @@
 #include "game/entities/player/player.h"
 #include "game/entities/background/background.h"
 #include "game/entities/text/textObject.h"
-#include "game/entities/ui/scoreboard/scoreboard.h"
+#include "game/entities/scoreboard/scoreboard.h"
 
 class GameScene : public Scene
 {

@@ -28,7 +28,7 @@
     <ClCompile Include="src\game\entities\characterList\characterList.cpp" />
     <ClCompile Include="src\game\entities\text\textObject.cpp" />
     <ClCompile Include="src\game\scenes\gameOver\gameOverScene.cpp" />
-    <ClCompile Include="src\game\entities\ui\scoreboard\scoreboard.cpp" />
+    <ClCompile Include="src\game\entities\scoreboard\scoreboard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
@@ -69,8 +69,8 @@
     <ClInclude Include="src\game\components\text.h" />
     <ClInclude Include="src\game\entities\text\textObject.h" />
     <ClInclude Include="src\game\scenes\gameOver\gameOverScene.h" />
-    <ClInclude Include="src\game\entities\ui\scoreboard\scoreboard.h" />
     <ClInclude Include="src\game\layers.h" />
+    <ClInclude Include="src\game\entities\scoreboard\scoreboard.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />
