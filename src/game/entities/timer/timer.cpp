@@ -22,7 +22,7 @@ Timer::Timer()
 	timerTextComp->layer = Layers::UI_TEXT;
 	timerTextComp->color = 0xFF000000;
 	timerTextComp->alignment = TextAlignPosition::H_CENTER | TextAlignPosition::V_CENTER;
-	timerTextComp->font = Context::ResourceManager()->GetFont(Resources::FONT_TYPE, FontConfig { GameSceneData::Timer::TIMER_FONT_SIZE });
+	timerTextComp->font = Context::ResourceManager()->GetFont(Resources::FONT_TYPE, FontConfig { GameSceneData::Timer::TIMER_FONT_SIZE, FontWeight::LIGHT });
 	timerEntity->AttachComponent<TextComponent>(timerTextComp);
 
 	Context::ECSEngine()->AttachEntity(timerEntity);

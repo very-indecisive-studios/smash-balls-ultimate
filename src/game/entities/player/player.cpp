@@ -26,19 +26,21 @@ Player::Player(std::string color, bool isPlayer1)
 
 void Player::Update(float deltaTime)
 {
-	animComp->Stop();
-
 	if (Context::InputManager()->IsKeyDown(rightKey))
 	{
 		posComp->pos.x += deltaTime * velocity.x;
 		spriteComp->texture = rightOffSpritesheetTexture;
 		animComp->Play();
 	}
-	if (Context::InputManager()->IsKeyDown(leftKey))
+	else if (Context::InputManager()->IsKeyDown(leftKey))
 	{
 		posComp->pos.x += deltaTime * -velocity.x;
 		spriteComp->texture = leftOffSpritesheetTexture;
 		animComp->Play();
+	}
+	else
+	{
+		animComp->Stop();
 	}
 
 	if (Context::InputManager()->IsKeyDown(jetpackKey))

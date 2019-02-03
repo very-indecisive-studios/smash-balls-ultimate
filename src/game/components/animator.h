@@ -16,6 +16,9 @@ public:
 
 	void Stop()
 	{
+		currentFrameCol = 0;
+		currentFrameRow = 0;
+
 		this->isPlaying = false;
 	}
 
