@@ -16,6 +16,7 @@ private:
 	bool CheckAABBandCircle(int left, int top, int height, int width, Vector2 center, float radius);
 	void BlockPnA(std::shared_ptr<Entity> passiveEntity, std::shared_ptr<Entity> activeEntity);
 	void Block(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2);
+	void Gravity(float deltaTime);
 	void CheckActiveToPassiveCollision();
 	void CheckActiveToActiveCollision();
 

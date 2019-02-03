@@ -18,7 +18,6 @@ public:
 
 	Vector2 currentPos;
 	float mass;
-	float gravity;
 	Vector2 velocity{0,-0};
 
 	bool collided = false;
@@ -29,6 +28,8 @@ public:
 			this->currentPos = pos;
 		}
 	}
+
+	bool gravityOn = true;
 
 	bool isCollidable = true;
 	bool isPassive;

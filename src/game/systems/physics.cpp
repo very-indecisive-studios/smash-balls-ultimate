@@ -70,6 +70,20 @@ bool PhysicsSystem::CheckAABBandCircle(int left, int right, int top, int bottom,
 	return false;
 }
 
+void PhysicsSystem::Gravity(float deltaTime) 
+{
+	for (auto &entity : *activePhysicsEntities)
+	{
+		const auto posComp = entity->GetComponent<PositionComponent>();
+		const auto physicsComp = entity->GetComponent<PhysicsComponent>();
+
+		if (posComp->pos.y < Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - (physicsComp->bottom - physicsComp->top) && physicsComp->gravityOn)
+		{
+			posComp->pos.y += deltaTime * -physicsComp->velocity.y;
+		}
+	}
+}
+
 void PhysicsSystem::Block(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2)
 {
 	const auto e1PosComp = e1->GetComponent<PositionComponent>();
@@ -121,27 +135,26 @@ void PhysicsSystem::BlockPnA(std::shared_ptr<Entity> passiveEntity, std::shared_
 	// active --><-- passive
 	if (pPosComp->pos.x > aPosComp->pos.x)
 	{
-		aPosComp->pos.x = aPhysicsComp->currentPos.x + 0.5f;
+		aPosComp->pos.x = aPhysicsComp->currentPos.x - 0.5f;
 	}
 
 	// passive --><-- active
 	if (pPosComp->pos.x < aPosComp->pos.x)
 	{
-		aPosComp->pos.x = aPhysicsComp->currentPos.x - 0.5f;
+		aPosComp->pos.x = pPosComp->pos.x + (pPhysicsComp->right - pPhysicsComp->left);
 	}
 
 	// passive above active
 	if (pPosComp->pos.y < aPosComp->pos.y)
 	{
-		aPosComp->pos.y = aPhysicsComp->currentPos.y + 0.5f;
+		aPosComp->pos.y = pPosComp->pos.y + (aPhysicsComp->bottom - aPhysicsComp->top);
 	}
 
 	// active above passive
 	if (pPosComp->pos.y > aPosComp->pos.y)
 	{
-		aPosComp->pos.y = aPhysicsComp->currentPos.y - 0.5f;
+		aPosComp->pos.y = pPosComp->pos.y - (aPhysicsComp->bottom - aPhysicsComp->top);
 	}
-	aPhysicsComp->collided = false;
 }
 
 void PhysicsSystem::CheckActiveToPassiveCollision()
@@ -159,7 +172,6 @@ void PhysicsSystem::CheckActiveToPassiveCollision()
 				if (CheckAABBandAABB(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
 					passivePhysicsComp->left, passivePhysicsComp->right, passivePhysicsComp->top, passivePhysicsComp->bottom)) 
 				{
-					activePhysicsComp->collided = true;
 					BlockPnA(passiveEntity, activeEntity);
 				}
 			}
@@ -169,7 +181,6 @@ void PhysicsSystem::CheckActiveToPassiveCollision()
 				if (CheckCircleandCircle(activePhysicsComp->radius, activePhysicsComp->center,
 					passivePhysicsComp->radius, passivePhysicsComp->center)) 
 				{
-					activePhysicsComp->collided = true;
 					BlockPnA(passiveEntity, activeEntity);
 				}
 			}
@@ -181,7 +192,6 @@ void PhysicsSystem::CheckActiveToPassiveCollision()
 					if (CheckAABBandCircle(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
 						passivePhysicsComp->center, passivePhysicsComp->radius))
 					{
-						activePhysicsComp->collided = true;
 						BlockPnA(passiveEntity, activeEntity);
 					}
 				}
@@ -190,7 +200,6 @@ void PhysicsSystem::CheckActiveToPassiveCollision()
 					if (CheckAABBandCircle(passivePhysicsComp->left, passivePhysicsComp->right, passivePhysicsComp->top, passivePhysicsComp->bottom,
 						activePhysicsComp->center, activePhysicsComp->radius))
 					{
-						activePhysicsComp->collided = true;
 						BlockPnA(passiveEntity, activeEntity);
 					}
 				}
@@ -279,6 +288,8 @@ void PhysicsSystem::Process(float deltaTime)
 			activePhysicsEntities->push_back(entity);
 		}
 	}
+
+	Gravity(deltaTime);
 
 	CheckActiveToPassiveCollision();
 	CheckActiveToActiveCollision();

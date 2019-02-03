@@ -18,7 +18,7 @@ void GameScene::Initialize()
 
 	ball = std::make_unique<Ball>(Resources::BALL_RADIUS);
 
-	floor = std::make_unique<Wall>(0, Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT, Resources::GROUND_HEIGHT, Constants::GAME_WIDTH);
+	//floor = std::make_unique<Wall>(0, Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT, Resources::GROUND_HEIGHT, Constants::GAME_WIDTH);
 	ceiling = std::make_unique<Wall>(0, 0, 0, Constants::GAME_WIDTH);
 	leftWall = std::make_unique<Wall>(0, 0, Constants::GAME_HEIGHT, 0);
 	rightWall = std::make_unique<Wall>(Constants::GAME_WIDTH, 0, Constants::GAME_HEIGHT, 0);

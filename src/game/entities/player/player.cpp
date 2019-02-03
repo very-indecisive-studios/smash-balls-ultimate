@@ -57,17 +57,19 @@ Player::Player(std::string color, bool isPlayer1, Vector2 spawnPt)
 	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
 	phyComp->isPassive = false;
 	phyComp->SetCurrentPos(posComp->pos);
+	phyComp->velocity = Vector2(Resources::P1_SPEED, -Resources::P1_SPEED);
 }
 
 void Player::Update(float deltaTime)
 {
-	phyComp->velocity = velocity;
 	phyComp->left = posComp->pos.x;
 	phyComp->right = posComp->pos.x + Resources::PLAYER_WIDTH;
 	phyComp->top = posComp->pos.y;
 	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
 
 	phyComp->SetCurrentPos(posComp->pos);
+
+	phyComp->gravityOn = true;
 
 	animComp->Stop();
 
@@ -90,6 +92,7 @@ void Player::Update(float deltaTime)
 
 	if (Context::InputManager()->IsKeyDown(jetpackKey))
 	{
+		phyComp->gravityOn = false;
 		if (spriteComp->texture == rightOffSpritesheetTexture)
 		{ 
 			spriteComp->texture = rightOnSpritesheetTexture;
@@ -118,7 +121,6 @@ void Player::Update(float deltaTime)
 			spriteComp->texture = leftOffSpritesheetTexture;
 			animComp->Reset();
 		}
-		posComp->pos.y += deltaTime * -velocity.y;
 	}
 
 	// player on floor
