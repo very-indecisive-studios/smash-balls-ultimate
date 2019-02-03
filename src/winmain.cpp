@@ -134,7 +134,7 @@ bool CreateMainWindow(HWND &hwnd, HINSTANCE hInstance, int nCmdShow)
 	wcx.cbWndExtra = 0;                 // no extra window memory 
 	wcx.hInstance = hInstance;          // handle to instance 
 	wcx.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
-	wcx.hCursor = LoadCursor(NULL, IDC_ARROW);   // predefined arrow 
+	wcx.hCursor = LoadCursor(hInstance, MAKEINTRESOURCE(IDC_POINTER));   // predefined arrow 
 	wcx.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);    // black background 
 	wcx.lpszMenuName = NULL;           // name of menu resource 
 	wcx.lpszClassName = Constants::CLASS_NAME;     // name of window class 

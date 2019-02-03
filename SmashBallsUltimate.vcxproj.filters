@@ -80,4 +80,7 @@
   <ItemGroup>
     <Image Include="icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="cursor.cur" />
+  </ItemGroup>
 </Project>
