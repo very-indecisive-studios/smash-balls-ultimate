@@ -9,7 +9,7 @@
 class Scoreboard : public SceneObject
 {
 private:
-	class Score : public SceneObject
+	class Score
 	{
 	private:
 		std::shared_ptr<PositionComponent> scorePosComp;
@@ -23,8 +23,6 @@ private:
 		Score(const std::string &playerColour, bool alignLeft);
 
 		void SetScore(uint8_t score);
-
-		void Update(float deltaTime) override { };
 	};
 
 private:
