@@ -3,18 +3,18 @@
 #include <d3dx9.h>
 #include <string>
 
-enum class FontWeight : UINT
+namespace FontWeight
 {
-	BOLD = FW_BOLD,
-	THIN = FW_THIN,
-	THICC = BOLD,
-	NORMAL = FW_NORMAL
+	constexpr UINT BOLD = FW_BOLD;
+	constexpr UINT LIGHT = FW_LIGHT;
+	constexpr UINT THICC = BOLD;
+	constexpr UINT NORMAL = FW_NORMAL;
 };
 
 struct FontConfig
 {
 	int height;
-	FontWeight weight = FontWeight::NORMAL;
+	UINT weight = FontWeight::NORMAL;
 	bool italic = false;
 
 	bool operator==(const FontConfig& rhs)

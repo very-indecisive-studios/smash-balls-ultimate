@@ -8,12 +8,12 @@ typedef int TextAlignment;
 
 namespace TextAlignPosition
 {
-	const TextAlignment LEFT = DT_LEFT;
-	const TextAlignment H_CENTER = DT_CENTER;
-	const TextAlignment RIGHT = DT_RIGHT;
-	const TextAlignment V_CENTER = DT_VCENTER;
-	const TextAlignment TOP = DT_TOP;
-	const TextAlignment BOTTOM = DT_BOTTOM;
+	constexpr TextAlignment LEFT = DT_LEFT;
+	constexpr TextAlignment H_CENTER = DT_CENTER;
+	constexpr TextAlignment RIGHT = DT_RIGHT;
+	constexpr TextAlignment V_CENTER = DT_VCENTER;
+	constexpr TextAlignment TOP = DT_TOP;
+	constexpr TextAlignment BOTTOM = DT_BOTTOM;
 };
 
 struct TextComponent : public Component
