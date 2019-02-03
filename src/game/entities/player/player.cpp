@@ -27,7 +27,7 @@ void Player::PlayerTag::SetPlayerPosition(Vector2 playerPosition)
 	posComp->pos = playerPosition + GameSceneData::Tag::TAG_LOCATION_OFFSET;
 }
 
-Player::Player(std::string color, bool isPlayer1)
+Player::Player(std::string color, bool isPlayer1, Vector2 spawnPt)
 	: tag({ isPlayer1 ? Resources::PLAYER_1_TAG : Resources::PLAYER_2_TAG })
 {
 	body->AttachComponent<PositionComponent>(posComp);
@@ -49,15 +49,25 @@ Player::Player(std::string color, bool isPlayer1)
 	animComp->frameHeight = Resources::PLAYER_HEIGHT;
 	animComp->Play();
 
-	phyComp->isPassive = false;
-}
+	posComp->pos = spawnPt;
 
-void Player::Update(float deltaTime)
-{
 	phyComp->left = posComp->pos.x;
 	phyComp->right = posComp->pos.x + Resources::PLAYER_WIDTH;
 	phyComp->top = posComp->pos.y;
 	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
+	phyComp->isPassive = false;
+	phyComp->SetCurrentPos(posComp->pos);
+}
+
+void Player::Update(float deltaTime)
+{
+	phyComp->velocity = velocity;
+	phyComp->left = posComp->pos.x;
+	phyComp->right = posComp->pos.x + Resources::PLAYER_WIDTH;
+	phyComp->top = posComp->pos.y;
+	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
+
+	phyComp->SetCurrentPos(posComp->pos);
 
 	animComp->Stop();
 

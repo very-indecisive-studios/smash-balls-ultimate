@@ -16,7 +16,7 @@ void GameScene::Initialize()
 {
 	background = std::make_unique<Background>(Resources::GAME_SCENE_IMAGE);
 
-	ball = std::make_unique<Ball>();
+	ball = std::make_unique<Ball>(Resources::BALL_RADIUS);
 
 	floor = std::make_unique<Wall>(0, Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT, Resources::GROUND_HEIGHT, Constants::GAME_WIDTH);
 	ceiling = std::make_unique<Wall>(0, 0, 0, Constants::GAME_WIDTH);
@@ -44,18 +44,16 @@ void GameScene::Initialize()
 		[this]() { }
 	);
 
-	player1 = std::make_unique<Player>(p1Color, true);
-	player1->SetX(Resources::P1_SPAWNX);
-	player1->SetY(Resources::P1_SPAWNY);
+	
+	player1 = std::make_unique<Player>(p1Color, true, Vector2(Resources::P1_SPAWNX, Resources::P1_SPAWNY));
+
 	player1->SetLeftKey(Resources::P1_LEFT_KEY);
 	player1->SetRightKey(Resources::P1_RIGHT_KEY);
 	player1->SetJetpackKey(Resources::P1_JETPACK_KEY);
 	player1->SetPowerKey(Resources::P1_POWER_KEY);
 	player1->SetVelocity(Resources::P1_SPEED);
 
-	player2 = std::make_unique<Player>(p2Color, false);
-	player2->SetX(Resources::P2_SPAWNX);
-	player2->SetY(Resources::P2_SPAWNY);
+	player2 = std::make_unique<Player>(p2Color, false, Vector2(Resources::P2_SPAWNX, Resources::P2_SPAWNY));
 	player2->SetLeftKey(Resources::P2_LEFT_KEY);
 	player2->SetRightKey(Resources::P2_RIGHT_KEY);
 	player2->SetJetpackKey(Resources::P2_JETPACK_KEY);

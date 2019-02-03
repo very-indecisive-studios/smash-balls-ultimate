@@ -93,7 +93,7 @@ namespace Resources
 
 	// player 1 settings
 	const int  P1_SPAWNX = Constants::GAME_WIDTH/2 - (PLAYER_WIDTH * 3);
-	const int  P1_SPAWNY = Constants::GAME_HEIGHT - GROUND_HEIGHT;
+	const int  P1_SPAWNY = Constants::GAME_HEIGHT - (GROUND_HEIGHT * 2);
 	const UCHAR P1_LEFT_KEY = 0x41;
 	const UCHAR P1_RIGHT_KEY = 0x44;
 	const UCHAR P1_JETPACK_KEY = 0x57;
@@ -102,7 +102,7 @@ namespace Resources
 
 	// player 2 settings
 	const int  P2_SPAWNX = Constants::GAME_WIDTH/2 + (PLAYER_WIDTH * 2);
-	const int  P2_SPAWNY = Constants::GAME_HEIGHT - GROUND_HEIGHT;
+	const int  P2_SPAWNY = Constants::GAME_HEIGHT - (GROUND_HEIGHT * 2);
 	const UCHAR P2_LEFT_KEY = VK_LEFT;
 	const UCHAR P2_RIGHT_KEY = VK_RIGHT;
 	const UCHAR P2_JETPACK_KEY = VK_UP;
@@ -111,6 +111,7 @@ namespace Resources
 
 	// ball
 	const std::string BALL_IMAGE = "assets\\ball\\big.png";
-	const int BALL_RADIUS = 30;
+	const int BALL_WIDTH = 50;
+	const int BALL_RADIUS = BALL_WIDTH / 2;
 }
 

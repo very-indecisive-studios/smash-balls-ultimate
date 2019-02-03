@@ -19,7 +19,7 @@ private:
 	std::shared_ptr<Entity> ball = std::make_shared<Entity>();
 
 public:
-	Ball();
+	Ball(float radius);
 	void SetX(float newX) { posComp->pos.x = newX; }
 	void SetY(float newY) { posComp->pos.y = newY; }
 	void Update(float deltaTime) override;

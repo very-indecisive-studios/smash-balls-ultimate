@@ -4,7 +4,7 @@
 #include "context/context.h"
 #include <iostream>
 
-Ball::Ball()
+Ball::Ball(float radius)
 {
 	ball->AttachComponent<PositionComponent>(posComp);
 	ball->AttachComponent<SpriteComponent>(spriteComp);
@@ -14,15 +14,18 @@ Ball::Ball()
 	spriteComp->texture = Context::ResourceManager()->GetTexture(Resources::BALL_IMAGE);
 	spriteComp->layer = 10;
 
-	posComp->pos = { 100,100 };
+	posComp->pos = {(Constants::GAME_WIDTH/2) - (Resources::BALL_RADIUS/2), Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::BALL_RADIUS*2};
 
+	phyComp->radius = radius;
 	phyComp->isPassive = false;
+	phyComp->SetCurrentPos(posComp->pos);
+	phyComp->center.x = posComp->pos.x + phyComp->radius;
+	phyComp->center.y = posComp->pos.y + phyComp->radius;
 }
 
 void Ball::Update(float deltaTime)
 {
-	phyComp->left = posComp->pos.x;
-	phyComp->right = posComp->pos.x + Resources::PLAYER_WIDTH;
-	phyComp->top = posComp->pos.y;
-	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
+	phyComp->SetCurrentPos(posComp->pos);
+	phyComp->center.x = posComp->pos.x + phyComp->radius;
+	phyComp->center.y = posComp->pos.y + phyComp->radius;
 }

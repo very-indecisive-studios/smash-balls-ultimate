@@ -16,10 +16,19 @@ public:
 	float radius = 0;
 	Vector2 center = {0,0};
 
+	Vector2 currentPos;
 	float mass;
 	float gravity;
-	int speed;
-	Vector2 velocity{ speed, -speed };
+	Vector2 velocity{0,-0};
+
+	bool collided = false;
+	void SetCurrentPos(Vector2 pos)
+	{
+		if (!collided)
+		{
+			this->currentPos = pos;
+		}
+	}
 
 	bool isCollidable = true;
 	bool isPassive;

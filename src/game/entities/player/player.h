@@ -45,7 +45,7 @@ private:
 
 	PlayerTag tag;
 public:
-	Player(std::string color, bool isPlayer1);
+	Player(std::string color, bool isPlayer1, Vector2 spawnPt);
 	void SetLeftKey(UCHAR leftKey) { this->leftKey = leftKey; }
 	void SetRightKey(UCHAR rightKey) { this->rightKey = rightKey; }
 	void SetJetpackKey(UCHAR jetpackKey) { this->jetpackKey = jetpackKey; }
