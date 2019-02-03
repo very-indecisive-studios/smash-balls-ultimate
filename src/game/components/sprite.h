@@ -7,7 +7,7 @@
 class SpriteComponent : public Component
 {
 public:
-	int scale = 1;
+	float scale = 1.0f;
 	Texture *texture = nullptr;
 	uint8_t layer = 0;
 };

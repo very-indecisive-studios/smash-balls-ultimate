@@ -24,7 +24,7 @@ struct DrawJob
 struct DrawTextureJob : public DrawJob
 {
 	Texture *texture;
-	int scale;
+	float scale;
 
 	DrawTextureJob() { }
 	virtual ~DrawTextureJob() { }
