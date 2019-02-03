@@ -8,6 +8,7 @@ namespace Resources
 	// font name
 	const std::string FONT_NAME = "assets\\fonts\\LemonMilk.otf";
 	const std::string FONT_NAME_BOLD = "assets\\fonts\\LemonMilk-Bold.otf";
+	const std::string FONT_NAME_LIGHT = "assets\\fonts\\LemonMilk-Light.otf";
 	const std::string FONT_TYPE = "Lemon/Milk";
 	const int FONT_SIZE = 23; 
 	const int FONT_COLOR_WHITE = 0xFFFFFFFF; 
