@@ -17,6 +17,7 @@ void GameScene::Initialize()
 	background = std::make_unique<Background>(Resources::BACKGROUND_IMAGE);
 
 	scoreboard = std::make_unique<Scoreboard>(p1Color, p2Color);
+	timer = std::make_unique<Timer>();
 
 	pauseText = std::make_unique<TextObject>(
 		Resources::FONT_TYPE,

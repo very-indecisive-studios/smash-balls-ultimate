@@ -33,6 +33,11 @@ namespace GameSceneData
 		static const Vector2 SCORE_LOCATION_LEFT = BADGE_LOCATION_LEFT + Vector2(Resources::PLAYER_BADGE_SIZE, 0.0f) + Vector2(1.0f, 0.0f) * TILE_SIZE;
 		static const Vector2 SCORE_LOCATION_RIGHT = BADGE_LOCATION_RIGHT - Vector2(SCORE_FONT_WIDTH, 0) - Vector2(1.0f, 0.0f) * TILE_SIZE;
 	}
+
+	namespace Timer
+	{
+		static const int TIMER_FONT_SIZE = TILE_SIZE * 3;
+	}
 }
 
 namespace SelectionSceneData 
