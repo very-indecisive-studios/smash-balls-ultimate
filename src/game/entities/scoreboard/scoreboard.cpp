@@ -20,7 +20,7 @@ Scoreboard::Score::Score(const std::string &playerColour, bool alignLeft)
 	scoreTextComp->width = GameSceneData::Scoreboard::SCORE_FONT_WIDTH;
 	scoreTextComp->height = GameSceneData::Scoreboard::SCORE_FONT_SIZE;
 	scoreTextComp->layer = Layers::UI_TEXT;
-	scoreTextComp->color = 0xFF000000;
+	scoreTextComp->color = alignLeft ? Resources::PLAYER_1_TAG_COLOUR : Resources::PLAYER_2_TAG_COLOUR;
 	scoreTextComp->alignment = alignLeft ? TextAlignPosition::LEFT : TextAlignPosition::RIGHT;
 	scoreTextComp->font = Context::ResourceManager()->GetFont(Resources::FONT_TYPE, FontConfig{ GameSceneData::Scoreboard::SCORE_FONT_SIZE });
 	scoreEntity->AttachComponent<TextComponent>(scoreTextComp);

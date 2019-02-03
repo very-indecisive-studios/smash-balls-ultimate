@@ -38,6 +38,14 @@ namespace GameSceneData
 	{
 		static const int TIMER_FONT_SIZE = TILE_SIZE * 3;
 	}
+
+	namespace Tag
+	{
+		constexpr float TAG_SCALE = 0.5f;
+		static const Vector2 TAG_LOCATION_OFFSET = 
+			Vector2((Resources::PLAYER_WIDTH / 2) - (Resources::PLAYER_TAG_WIDTH * TAG_SCALE / 2), -Resources::PLAYER_TAG_HEIGHT * TAG_SCALE)
+			+ Vector2(0.0f, -1.0f * TAG_SCALE) * TILE_SIZE;
+	}
 }
 
 namespace SelectionSceneData 

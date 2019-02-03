@@ -71,5 +71,13 @@ namespace Resources
 	const float PLAYER_ANIMATION_DELAY = 0.1f; // time between frames of player animation
 	const int  PLAYER_WIDTH = 88;              // width of player image
 	const int  PLAYER_HEIGHT = 100;             // height of player image
+
+	// hud - player tag
+	const std::string PLAYER_1_TAG = "assets\\players\\tag\\p1.png";
+	const std::string PLAYER_2_TAG = "assets\\players\\tag\\p2.png";
+	constexpr int PLAYER_1_TAG_COLOUR = 0xFFE86A17;
+	constexpr int PLAYER_2_TAG_COLOUR = 0xFF1EA7E1;
+	constexpr int PLAYER_TAG_WIDTH = 28;
+	constexpr int PLAYER_TAG_HEIGHT = 42;
 }
 

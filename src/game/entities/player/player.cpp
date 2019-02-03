@@ -2,8 +2,33 @@
 
 #include "player.h"
 #include "context/context.h"
+#include "game/data/data.h"
+#include "game/layers.h"
+
+Player::PlayerTag::PlayerTag(const std::string &tagTexture)
+{
+	tagEntity = std::make_shared<Entity>();
+
+	posComp = std::make_shared<PositionComponent>();
+	posComp->pos = { 0.0f, 0.0f };
+	tagEntity->AttachComponent<PositionComponent>(posComp);
+
+	sprComp = std::make_shared<SpriteComponent>();
+	sprComp->layer = Layers::UI_IMAGE;
+	sprComp->texture = Context::ResourceManager()->GetTexture(tagTexture);
+	sprComp->scale = 0.5f;
+	tagEntity->AttachComponent<SpriteComponent>(sprComp);
+
+	Context::ECSEngine()->AttachEntity(tagEntity);
+}
+
+void Player::PlayerTag::SetPlayerPosition(Vector2 playerPosition)
+{
+	posComp->pos = playerPosition + GameSceneData::Tag::TAG_LOCATION_OFFSET;
+}
 
 Player::Player(std::string color, bool isPlayer1)
+	: tag({ isPlayer1 ? Resources::PLAYER_1_TAG : Resources::PLAYER_2_TAG })
 {
 	body->AttachComponent<PositionComponent>(posComp);
 	body->AttachComponent<SpriteComponent>(spriteComp);
@@ -81,4 +106,6 @@ void Player::Update(float deltaTime)
 	{
 		posComp->pos.y = Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT;
 	}
+
+	tag.SetPlayerPosition(posComp->pos);
 }

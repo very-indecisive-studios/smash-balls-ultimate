@@ -12,6 +12,19 @@
 class Player : public SceneObject
 {
 private:
+	class PlayerTag
+	{
+	private:
+		std::shared_ptr<PositionComponent> posComp;
+		std::shared_ptr<SpriteComponent> sprComp;
+		std::shared_ptr<Entity> tagEntity;
+	public:
+		PlayerTag(const std::string &tagTexture);
+
+		void SetPlayerPosition(Vector2 playerPosition);
+	};
+
+private:
 	std::shared_ptr<PositionComponent> posComp = std::make_shared<PositionComponent>();
 	std::shared_ptr<SpriteComponent> spriteComp = std::make_shared<SpriteComponent>();
 	std::shared_ptr<AnimatorComponent> animComp = std::make_shared<AnimatorComponent>();
@@ -27,6 +40,8 @@ private:
 	Texture *leftOnSpriteheetTexture;
 	Texture *rightOffSpritesheetTexture;
 	Texture *rightOnSpritesheetTexture;
+
+	PlayerTag tag;
 public:
 	Player(std::string color, bool isPlayer1);
 	void SetLeftKey(UCHAR leftKey) { this->leftKey = leftKey; }
