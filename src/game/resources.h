@@ -63,6 +63,10 @@ namespace Resources
 	const std::string PLAYER_RIGHT_OFF_FOLDER = "assets\\players\\right_off\\";
 	const std::string PLAYER_RIGHT_ON_FOLDER = "assets\\players\\right_on\\";
 
+	// hud - scoreboard
+	const std::string PLAYER_BADGE_FOLDER = "assets\\players\\badge\\";
+	const int PLAYER_BADGE_SIZE = 47;
+
 	const float PLAYER_ANIMATION_DELAY = 0.1f; // time between frames of player animation
 	const int  PLAYER_WIDTH = 88;              // width of player image
 	const int  PLAYER_HEIGHT = 100;             // height of player image

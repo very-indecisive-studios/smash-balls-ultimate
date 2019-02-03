@@ -16,6 +16,8 @@ void GameScene::Initialize()
 {
 	background = std::make_unique<Background>(Resources::BACKGROUND_IMAGE);
 
+	scoreboard = std::make_unique<Scoreboard>(p1Color, p2Color);
+
 	pauseText = std::make_unique<TextObject>(
 		Resources::FONT_TYPE,
 		Vector2(0, Constants::GAME_HEIGHT / 2 - (Resources::FONT_SIZE * 3 / 2)),

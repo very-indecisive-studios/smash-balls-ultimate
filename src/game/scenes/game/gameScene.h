@@ -8,6 +8,7 @@
 #include "game/entities/player/player.h"
 #include "game/entities/background/background.h"
 #include "game/entities/text/textObject.h"
+#include "game/entities/ui/scoreboard/scoreboard.h"
 
 class GameScene : public Scene
 {
@@ -15,6 +16,7 @@ private:
 	std::unique_ptr<Background> background;
 	std::unique_ptr<Player> player1;
 	std::unique_ptr<Player> player2;
+	std::unique_ptr<Scoreboard> scoreboard;
 
 	std::unique_ptr<TextObject> pauseText;
 	bool isPaused = false;
