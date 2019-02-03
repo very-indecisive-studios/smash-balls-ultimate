@@ -37,7 +37,7 @@ Player::Player(std::string color, bool isPlayer1, Vector2 spawnPt)
 	Context::ECSEngine()->AttachEntity(body);
 
 	leftOffSpritesheetTexture	= Context::ResourceManager()->GetTexture(Resources::PLAYER_LEFT_OFF_FOLDER + color + ".png");
-	leftOnSpriteheetTexture		= Context::ResourceManager()->GetTexture(Resources::PLAYER_LEFT_ON_FOLDER + color + ".png");
+	leftOnSpritesheetTexture = Context::ResourceManager()->GetTexture(Resources::PLAYER_LEFT_ON_FOLDER + color + ".png");
 	rightOffSpritesheetTexture	= Context::ResourceManager()->GetTexture(Resources::PLAYER_RIGHT_OFF_FOLDER + color + ".png");
 	rightOnSpritesheetTexture	= Context::ResourceManager()->GetTexture(Resources::PLAYER_RIGHT_ON_FOLDER + color + ".png");
 
@@ -56,20 +56,80 @@ Player::Player(std::string color, bool isPlayer1, Vector2 spawnPt)
 	phyComp->top = posComp->pos.y;
 	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
 	phyComp->isPassive = false;
-	phyComp->SetCurrentPos(posComp->pos);
 	phyComp->velocity = Vector2(Resources::P1_SPEED, -Resources::P1_SPEED);
+	phyComp->handleCollision = [this](std::shared_ptr<Entity> e) { this->HandleCollision(e); };
+}
+
+void Player::HandleCollision(std::shared_ptr<Entity> e)
+{
+	const auto otherEntityPhysicsComp = e->GetComponent<PhysicsComponent>();
+	const auto otherEntityPosComp = e->GetComponent<PositionComponent>();
+
+	if (otherEntityPhysicsComp->isPassive)
+	{
+		// left of game
+		if (posComp->pos.x <= 0)
+		{
+			posComp->pos.x = 0;
+		}
+
+		// right of game
+		if (posComp->pos.x >= Constants::GAME_WIDTH - Resources::PLAYER_WIDTH)
+		{
+			posComp->pos.x = Constants::GAME_WIDTH - Resources::PLAYER_WIDTH;
+		}
+
+		// top of game
+		if (posComp->pos.y <= 0)
+		{
+			posComp->pos.y = 0;
+		}
+
+		// bottom of game
+		if (posComp->pos.y >= Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT)
+		{
+			posComp->pos.y = Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT;
+		}
+	}
+	else
+	{
+		// other --><-- current
+		if (posComp->pos.x > otherEntityPosComp->pos.x)
+		{
+			posComp->pos.x = phyComp->currentPos.x + 1;
+		}
+
+		// current --><-- other
+		else if (posComp->pos.x < otherEntityPosComp->pos.x)
+		{
+			posComp->pos.x = phyComp->currentPos.x - 1;
+		}
+
+		// other
+		//--------
+		// current
+		else if (posComp->pos.y > otherEntityPosComp->pos.y)
+		{
+			posComp->pos.y = phyComp->currentPos.y - 1;
+		}
+
+		// current
+		//--------
+		// other
+		else if (posComp->pos.y < otherEntityPosComp->pos.y)
+		{
+			posComp->pos.y = phyComp->currentPos.y + 1;
+		}
+	}
 }
 
 void Player::Update(float deltaTime)
 {
+	phyComp->SetCurrentPos(posComp->pos);
 	phyComp->left = posComp->pos.x;
 	phyComp->right = posComp->pos.x + Resources::PLAYER_WIDTH;
 	phyComp->top = posComp->pos.y;
 	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
-
-	phyComp->SetCurrentPos(posComp->pos);
-
-	phyComp->gravityOn = true;
 
 	animComp->Stop();
 
@@ -92,9 +152,8 @@ void Player::Update(float deltaTime)
 
 	if (Context::InputManager()->IsKeyDown(jetpackKey))
 	{
-		phyComp->gravityOn = false;
 		if (spriteComp->texture == rightOffSpritesheetTexture)
-		{ 
+		{
 			spriteComp->texture = rightOnSpritesheetTexture;
 			animComp->Reset();
 			animComp->Play();
@@ -102,11 +161,11 @@ void Player::Update(float deltaTime)
 
 		if (spriteComp->texture == leftOffSpritesheetTexture)
 		{
-			spriteComp->texture = leftOnSpriteheetTexture;
+			spriteComp->texture = leftOnSpritesheetTexture;
 			animComp->Reset();
 			animComp->Play();
 		}
-		posComp->pos.y += deltaTime * velocity.y;
+		posComp->pos.y += deltaTime * velocity.y * 3;
 	}
 	else
 	{
@@ -116,7 +175,7 @@ void Player::Update(float deltaTime)
 			animComp->Reset();
 		}
 
-		if (spriteComp->texture == leftOnSpriteheetTexture)
+		if (spriteComp->texture == leftOnSpritesheetTexture)
 		{
 			spriteComp->texture = leftOffSpritesheetTexture;
 			animComp->Reset();

@@ -39,7 +39,7 @@ private:
 	Vector2 velocity;
 
 	Texture *leftOffSpritesheetTexture;
-	Texture *leftOnSpriteheetTexture;
+	Texture *leftOnSpritesheetTexture;
 	Texture *rightOffSpritesheetTexture;
 	Texture *rightOnSpritesheetTexture;
 
@@ -53,5 +53,6 @@ public:
 	void SetVelocity(float speed) { velocity = Vector2(speed, -speed); }
 	void SetX(float newX) { posComp->pos.x = newX; }
 	void SetY(float newY) { posComp->pos.y = newY; }
+	void HandleCollision(std::shared_ptr<Entity> e);
 	void Update(float deltaTime) override;
 };

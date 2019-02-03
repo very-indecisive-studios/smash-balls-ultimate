@@ -17,9 +17,6 @@ public:
 	Vector2 center = {0,0};
 
 	Vector2 currentPos;
-	float mass;
-	Vector2 velocity{0,-0};
-
 	bool collided = false;
 	void SetCurrentPos(Vector2 pos)
 	{
@@ -28,8 +25,10 @@ public:
 			this->currentPos = pos;
 		}
 	}
+	std::function<void(std::shared_ptr<Entity> e)> handleCollision;
 
-	bool gravityOn = true;
+	float mass;
+	Vector2 velocity{0,-0};
 
 	bool isCollidable = true;
 	bool isPassive;

@@ -18,14 +18,12 @@ Ball::Ball(float radius)
 
 	phyComp->radius = radius;
 	phyComp->isPassive = false;
-	phyComp->SetCurrentPos(posComp->pos);
 	phyComp->center.x = posComp->pos.x + phyComp->radius;
 	phyComp->center.y = posComp->pos.y + phyComp->radius;
 }
 
 void Ball::Update(float deltaTime)
 {
-	phyComp->SetCurrentPos(posComp->pos);
 	phyComp->center.x = posComp->pos.x + phyComp->radius;
 	phyComp->center.y = posComp->pos.y + phyComp->radius;
 }
