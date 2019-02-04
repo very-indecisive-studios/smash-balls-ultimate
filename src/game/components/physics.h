@@ -16,13 +16,13 @@ public:
 	float radius = 0;
 	Vector2 center = {0,0};
 
-	Vector2 currentPos;
+	Vector2 lastCollidedPos;
 	bool collided = false;
 	void SetCurrentPos(Vector2 pos)
 	{
 		if (!collided)
 		{
-			this->currentPos = pos;
+			this->lastCollidedPos = pos;
 		}
 	}
 	std::function<void(std::shared_ptr<Entity> e)> handleCollision;

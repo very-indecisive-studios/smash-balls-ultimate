@@ -67,42 +67,47 @@ void Player::HandleCollision(std::shared_ptr<Entity> e)
 
 	if (otherEntityPhysicsComp->isPassive)
 	{
-		// left of game
-		if (posComp->pos.x <= 0)
+		if (posComp->pos.x <= otherEntityPosComp->pos.x + otherEntityPhysicsComp->right - otherEntityPhysicsComp->left)
 		{
-			posComp->pos.x = 0;
+			posComp->pos.x = otherEntityPosComp->pos.x + otherEntityPhysicsComp->right - otherEntityPhysicsComp->left;
 		}
+		
+		//// left of game
+		//if (posComp->pos.x <= 0)
+		//{
+		//	posComp->pos.x = 0;
+		//}
 
-		// right of game
-		if (posComp->pos.x >= Constants::GAME_WIDTH - Resources::PLAYER_WIDTH)
-		{
-			posComp->pos.x = Constants::GAME_WIDTH - Resources::PLAYER_WIDTH;
-		}
+		//// right of game
+		//if (posComp->pos.x >= Constants::GAME_WIDTH - Resources::PLAYER_WIDTH)
+		//{
+		//	posComp->pos.x = Constants::GAME_WIDTH - Resources::PLAYER_WIDTH;
+		//}
 
-		// top of game
-		if (posComp->pos.y <= 0)
-		{
-			posComp->pos.y = 0;
-		}
+		//// top of game
+		//if (posComp->pos.y <= 0)
+		//{
+		//	posComp->pos.y = 0;
+		//}
 
-		// bottom of game
-		if (posComp->pos.y >= Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT)
-		{
-			posComp->pos.y = Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT;
-		}
+		//// bottom of game
+		//if (posComp->pos.y >= Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT)
+		//{
+		//	posComp->pos.y = Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT;
+		//}
 	}
 	else
 	{
 		// other --><-- current
 		if (posComp->pos.x > otherEntityPosComp->pos.x)
 		{
-			posComp->pos.x = phyComp->currentPos.x + 1;
+			posComp->pos.x = phyComp->lastCollidedPos.x + 1;
 		}
 
 		// current --><-- other
 		else if (posComp->pos.x < otherEntityPosComp->pos.x)
 		{
-			posComp->pos.x = phyComp->currentPos.x - 1;
+			posComp->pos.x = phyComp->lastCollidedPos.x - 1;
 		}
 
 		// other
@@ -110,7 +115,7 @@ void Player::HandleCollision(std::shared_ptr<Entity> e)
 		// current
 		else if (posComp->pos.y > otherEntityPosComp->pos.y)
 		{
-			posComp->pos.y = phyComp->currentPos.y - 1;
+			posComp->pos.y = phyComp->lastCollidedPos.y - 1;
 		}
 
 		// current
@@ -118,7 +123,7 @@ void Player::HandleCollision(std::shared_ptr<Entity> e)
 		// other
 		else if (posComp->pos.y < otherEntityPosComp->pos.y)
 		{
-			posComp->pos.y = phyComp->currentPos.y + 1;
+			posComp->pos.y = phyComp->lastCollidedPos.y + 1;
 		}
 	}
 }
