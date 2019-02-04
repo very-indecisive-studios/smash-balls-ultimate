@@ -5,7 +5,7 @@
 
 struct CollisionResult
 {
-	enum class CollisionLocation { LEFT, RIGHT, TOP, BOTTOM };
+	enum class CollisionLocation: uint8_t { LEFT, RIGHT, TOP, BOTTOM };
 
 	bool isCollided = false;
 	CollisionLocation location;
@@ -28,7 +28,6 @@ private:
 	void CheckActiveToActiveCollision();
 
 	void ApplyGravityForce();
-	void RecalculateActiveComponents();
 	void Simulate(float deltaTime);
 public:
 	PhysicsSystem();

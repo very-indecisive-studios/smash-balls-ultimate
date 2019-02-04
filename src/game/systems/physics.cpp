@@ -117,21 +117,17 @@ void PhysicsSystem::CheckActiveToPassiveCollision()
 				auto result = TestAABBandAABB(activePhysicsComp, passivePhysicsComp);
 				if (result.isCollided)
 				{
-					if (result.location == CollisionResult::CollisionLocation::LEFT)
+					if (result.location == CollisionResult::CollisionLocation::LEFT || result.location == CollisionResult::CollisionLocation::RIGHT)
 					{
-						passivePhysicsComp->leftwardForce = activePhysicsComp->rightwardForce;
+						activePhysicsComp->velocity.x = 0;
+						activePhysicsComp->leftAcceleration = 0;
+						activePhysicsComp->rightAcceleration = 0;
 					}
-					else if (result.location == CollisionResult::CollisionLocation::RIGHT)
+					else if (result.location == CollisionResult::CollisionLocation::TOP || result.location == CollisionResult::CollisionLocation::BOTTOM)
 					{
-						passivePhysicsComp->rightwardForce = activePhysicsComp->leftwardForce;
-					}
-					else if (result.location == CollisionResult::CollisionLocation::TOP)
-					{
-						passivePhysicsComp->downwardForce = activePhysicsComp->upwardForce;
-					}
-					else if (result.location == CollisionResult::CollisionLocation::BOTTOM)
-					{
-						passivePhysicsComp->upwardForce = activePhysicsComp->downwardForce;
+						activePhysicsComp->velocity.y = 0;
+						activePhysicsComp->upAcceleration = 0;
+						activePhysicsComp->downAcceleration = 0;
 					}
 				}
 			}
@@ -180,21 +176,13 @@ void PhysicsSystem::CheckActiveToActiveCollision()
 					auto result = TestAABBandAABB(currentActivePhysicsComp, activePhysicsComp);
 					if (result.isCollided)
 					{
-						if (result.location == CollisionResult::CollisionLocation::LEFT)
+						if (result.location == CollisionResult::CollisionLocation::LEFT || result.location == CollisionResult::CollisionLocation::RIGHT)
 						{
-							activePhysicsComp->leftwardForce = currentActivePhysicsComp->rightwardForce;
+							activePhysicsComp->velocity.x = 0;
 						}
-						else if (result.location == CollisionResult::CollisionLocation::RIGHT)
+						else if (result.location == CollisionResult::CollisionLocation::TOP || result.location == CollisionResult::CollisionLocation::BOTTOM)
 						{
-							activePhysicsComp->rightwardForce = currentActivePhysicsComp->leftwardForce;
-						}
-						else if (result.location == CollisionResult::CollisionLocation::TOP)
-						{
-							activePhysicsComp->downwardForce = currentActivePhysicsComp->upwardForce;
-						}
-						else if (result.location == CollisionResult::CollisionLocation::BOTTOM)
-						{
-							activePhysicsComp->upwardForce = currentActivePhysicsComp->downwardForce;
+							activePhysicsComp->velocity.y = 0;
 						}
 					}
 				}
@@ -238,56 +226,13 @@ void PhysicsSystem::ApplyGravityForce()
 	for (auto &entity : *activePhysicsEntities)
 	{
 		const auto physicsComp = entity->GetComponent<PhysicsComponent>();
-		physicsComp->SetAcceleration(Vector2(physicsComp->acceleration.x, physicsComp->acceleration.y + 10));
-	}
-}
-
-void PhysicsSystem::RecalculateActiveComponents() 
-{
-	for (auto &entity : *activePhysicsEntities)
-	{
-		const auto physicsComp = entity->GetComponent<PhysicsComponent>();
-		if (physicsComp->isForcesModified) 
-		{
-			if (physicsComp->leftwardForce > physicsComp->rightwardForce)
-			{
-				physicsComp->acceleration.x = (physicsComp->leftwardForce - physicsComp->rightwardForce) / physicsComp->mass;
-			}
-			else 
-			{
-				physicsComp->acceleration.x = (physicsComp->rightwardForce - physicsComp->leftwardForce) / physicsComp->mass;
-			}
-
-			if (physicsComp->upwardForce > physicsComp->downwardForce)
-			{
-				physicsComp->acceleration.y = (physicsComp->upwardForce - physicsComp->downwardForce) / physicsComp->mass;
-			}
-			else
-			{
-				physicsComp->acceleration.y = (physicsComp->downwardForce - physicsComp->upwardForce) / physicsComp->mass;
-			}
-
-			physicsComp->isForcesModified = false;
-		}
-
-		if (physicsComp->isAccelerationModified)
-		{
-			// how would i modify the force :thinking:
-			physicsComp->isAccelerationModified = false;
-		}
-
-		if (physicsComp->isVelocityModified)
-		{
-			// dont think need to?
-			physicsComp->isVelocityModified = false;
-		}
+		physicsComp->downAcceleration = 10;
 	}
 }
 
 //this is to iterate all active and update: 
 // 1) velocity based on acceleration
 // 2) pos based on velocity
-// 3) velcity/oacceleratin based on force?
 void PhysicsSystem::Simulate(float deltaTime)
 {
 	for (auto &entity : *activePhysicsEntities)
@@ -295,12 +240,22 @@ void PhysicsSystem::Simulate(float deltaTime)
 		const auto posComp = entity->GetComponent<PositionComponent>();
 		const auto physicsComp = entity->GetComponent<PhysicsComponent>();
 
-		// probably wrong?
-		physicsComp->xVelocity = physicsComp->acceleration.x * deltaTime;
-		physicsComp->yVelocity = physicsComp->acceleration.y * deltaTime;
+		if (physicsComp->isPassive)
+		{
+			continue;
+		}
 
-		posComp->pos.x += deltaTime * physicsComp->xVelocity;
-		posComp->pos.y += deltaTime * physicsComp->yVelocity;
+		// Update acceleration and then velocity.
+		Vector2 effectiveAccel = { 
+			physicsComp->rightAcceleration - physicsComp->leftAcceleration,
+			physicsComp->upAcceleration - physicsComp->downAcceleration
+		};
+		physicsComp->velocity.x += effectiveAccel.x * deltaTime;
+		physicsComp->velocity.y += effectiveAccel.y * deltaTime;
+		
+		// Update position component from velocity.
+		posComp->pos.x += deltaTime * physicsComp->velocity.x;
+		posComp->pos.y += deltaTime * physicsComp->velocity.y;
 	}
 }
 
@@ -323,7 +278,6 @@ void PhysicsSystem::Process(float deltaTime)
 	}
 
 	ApplyGravityForce();
-	RecalculateActiveComponents();
 
 	CheckActiveToPassiveCollision();
 	CheckActiveToActiveCollision();

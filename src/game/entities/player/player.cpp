@@ -80,7 +80,7 @@ void Player::Update(float deltaTime)
 
 	if (Context::InputManager()->IsKeyDown(jetpackKey))
 	{
-		phyComp->SetUpwardForce(phyComp->GetUpwardForce() * 1.5);
+		phyComp->SetYVelocity(phyComp->GetYVelocity() * 1.5);
 		if (spriteComp->texture == rightOffSpritesheetTexture)
 		{
 			spriteComp->texture = rightOnSpritesheetTexture;
