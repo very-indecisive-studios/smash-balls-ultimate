@@ -67,11 +67,34 @@ void Player::HandleCollision(std::shared_ptr<Entity> e)
 
 	if (otherEntityPhysicsComp->isPassive)
 	{
-		if (posComp->pos.x <= otherEntityPosComp->pos.x + otherEntityPhysicsComp->right - otherEntityPhysicsComp->left)
+		//// player --><-- otherEntity
+		//if ((posComp->pos.y >= otherEntityPosComp->pos.y || posComp->pos.y <= otherEntityPosComp->pos.y)
+		//	&& posComp->pos.x <= otherEntityPhysicsComp->left)
+		//{
+		//	posComp->pos.x = otherEntityPhysicsComp->left;
+		//}
+
+		// otherEntity --><-- player
+
+
+		// player
+		//--------
+		// otherEntity
+		if ((posComp->pos.x >= otherEntityPosComp->pos.x || posComp->pos.x <= otherEntityPosComp->pos.x) 
+			&& posComp->pos.y <= otherEntityPosComp->pos.y && posComp->pos.y > 0)
 		{
-			posComp->pos.x = otherEntityPosComp->pos.x + otherEntityPhysicsComp->right - otherEntityPhysicsComp->left;
+			posComp->pos.y = otherEntityPosComp->pos.y - Resources::PLAYER_HEIGHT;
 		}
-		
+
+		// otherEntity
+		//--------
+		// player
+		else if ((posComp->pos.x >= otherEntityPosComp->pos.x || posComp->pos.x <= otherEntityPosComp->pos.x)
+			&& posComp->pos.y >= otherEntityPhysicsComp->bottom)
+		{
+			posComp->pos.y = otherEntityPhysicsComp->bottom;
+		}
+
 		//// left of game
 		//if (posComp->pos.x <= 0)
 		//{
@@ -90,11 +113,11 @@ void Player::HandleCollision(std::shared_ptr<Entity> e)
 		//	posComp->pos.y = 0;
 		//}
 
-		//// bottom of game
-		//if (posComp->pos.y >= Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT)
-		//{
-		//	posComp->pos.y = Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT;
-		//}
+		// bottom of game
+		/*if (posComp->pos.y >= Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT)
+		{
+			posComp->pos.y = Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT;
+		}*/
 	}
 	else
 	{
@@ -131,10 +154,6 @@ void Player::HandleCollision(std::shared_ptr<Entity> e)
 void Player::Update(float deltaTime)
 {
 	phyComp->SetCurrentPos(posComp->pos);
-	phyComp->left = posComp->pos.x;
-	phyComp->right = posComp->pos.x + Resources::PLAYER_WIDTH;
-	phyComp->top = posComp->pos.y;
-	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
 
 	animComp->Stop();
 
@@ -186,12 +205,10 @@ void Player::Update(float deltaTime)
 			animComp->Reset();
 		}
 	}
-
-	// player on floor
-	if (posComp->pos.y > Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT)
-	{
-		posComp->pos.y = Constants::GAME_HEIGHT - Resources::PLAYER_HEIGHT - Resources::GROUND_HEIGHT;
-	}
+	phyComp->left = posComp->pos.x;
+	phyComp->right = posComp->pos.x + Resources::PLAYER_WIDTH;
+	phyComp->top = posComp->pos.y;
+	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
 
 	tag.SetPlayerPosition(posComp->pos);
 }
