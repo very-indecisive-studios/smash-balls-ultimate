@@ -56,116 +56,20 @@ Player::Player(std::string color, bool isPlayer1, Vector2 spawnPt)
 	phyComp->top = posComp->pos.y;
 	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
 	phyComp->isPassive = false;
-	phyComp->velocity = Vector2(Resources::P1_SPEED, -Resources::P1_SPEED);
-	phyComp->handleCollision = [this](std::shared_ptr<Entity> e) { this->HandleCollision(e); };
-}
-
-void Player::HandleCollision(std::shared_ptr<Entity> e)
-{
-	const auto otherEntityPhysicsComp = e->GetComponent<PhysicsComponent>();
-	const auto otherEntityPosComp = e->GetComponent<PositionComponent>();
-
-	if (otherEntityPhysicsComp->isPassive)
-	{
-		//// player --><-- otherEntity
-		//if ((posComp->pos.y >= otherEntityPosComp->pos.y || posComp->pos.y <= otherEntityPosComp->pos.y)
-		//	&& posComp->pos.x <= otherEntityPhysicsComp->left)
-		//{
-		//	posComp->pos.x = otherEntityPhysicsComp->left;
-		//}
-
-		// otherEntity --><-- player
-
-
-		// player
-		//--------
-		// otherEntity
-		if ((posComp->pos.x >= otherEntityPosComp->pos.x || posComp->pos.x <= otherEntityPosComp->pos.x) 
-			&& posComp->pos.y <= otherEntityPosComp->pos.y && posComp->pos.y > 0)
-		{
-			posComp->pos.y = otherEntityPosComp->pos.y - Resources::PLAYER_HEIGHT;
-		}
-
-		// otherEntity
-		//--------
-		// player
-		else if ((posComp->pos.x >= otherEntityPosComp->pos.x || posComp->pos.x <= otherEntityPosComp->pos.x)
-			&& posComp->pos.y >= otherEntityPhysicsComp->bottom)
-		{
-			posComp->pos.y = otherEntityPhysicsComp->bottom;
-		}
-
-		//// left of game
-		//if (posComp->pos.x <= 0)
-		//{
-		//	posComp->pos.x = 0;
-		//}
-
-		//// right of game
-		//if (posComp->pos.x >= Constants::GAME_WIDTH - Resources::PLAYER_WIDTH)
-		//{
-		//	posComp->pos.x = Constants::GAME_WIDTH - Resources::PLAYER_WIDTH;
-		//}
-
-		//// top of game
-		//if (posComp->pos.y <= 0)
-		//{
-		//	posComp->pos.y = 0;
-		//}
-
-		// bottom of game
-		/*if (posComp->pos.y >= Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT)
-		{
-			posComp->pos.y = Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::PLAYER_HEIGHT;
-		}*/
-	}
-	else
-	{
-		// other --><-- current
-		if (posComp->pos.x > otherEntityPosComp->pos.x)
-		{
-			posComp->pos.x = phyComp->lastCollidedPos.x + 1;
-		}
-
-		// current --><-- other
-		else if (posComp->pos.x < otherEntityPosComp->pos.x)
-		{
-			posComp->pos.x = phyComp->lastCollidedPos.x - 1;
-		}
-
-		// other
-		//--------
-		// current
-		else if (posComp->pos.y > otherEntityPosComp->pos.y)
-		{
-			posComp->pos.y = phyComp->lastCollidedPos.y - 1;
-		}
-
-		// current
-		//--------
-		// other
-		else if (posComp->pos.y < otherEntityPosComp->pos.y)
-		{
-			posComp->pos.y = phyComp->lastCollidedPos.y + 1;
-		}
-	}
+	phyComp->SetAcceleration(Vector2(Resources::PLAYER_CONSTANT_ACC, Resources::PLAYER_CONSTANT_ACC));
 }
 
 void Player::Update(float deltaTime)
 {
-	phyComp->SetCurrentPos(posComp->pos);
-
 	animComp->Stop();
 
 	if (Context::InputManager()->IsKeyDown(rightKey))
 	{
-		posComp->pos.x += deltaTime * velocity.x;
 		spriteComp->texture = rightOffSpritesheetTexture;
 		animComp->Play();
 	}
 	else if (Context::InputManager()->IsKeyDown(leftKey))
 	{
-		posComp->pos.x += deltaTime * -velocity.x;
 		spriteComp->texture = leftOffSpritesheetTexture;
 		animComp->Play();
 	}
@@ -176,6 +80,7 @@ void Player::Update(float deltaTime)
 
 	if (Context::InputManager()->IsKeyDown(jetpackKey))
 	{
+		phyComp->SetUpwardForce(phyComp->GetUpwardForce() * 1.5);
 		if (spriteComp->texture == rightOffSpritesheetTexture)
 		{
 			spriteComp->texture = rightOnSpritesheetTexture;
@@ -189,7 +94,6 @@ void Player::Update(float deltaTime)
 			animComp->Reset();
 			animComp->Play();
 		}
-		posComp->pos.y += deltaTime * velocity.y * 3;
 	}
 	else
 	{

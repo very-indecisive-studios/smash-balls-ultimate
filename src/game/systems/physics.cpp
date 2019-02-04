@@ -11,12 +11,44 @@ PhysicsSystem::PhysicsSystem()
 	physicsBitset.set(Component::GetComponentId<PhysicsComponent>());
 }
 
+CollisionResult PhysicsSystem::TestAABBandAABB(std::shared_ptr<PhysicsComponent> target, std::shared_ptr<PhysicsComponent> other)
+{
+	CollisionResult result;
+
+	if (target->right > other->left)
+	{
+		result.location = CollisionResult::CollisionLocation::RIGHT;
+		result.isCollided = true;
+	}
+
+	if (target->left < other->right)
+	{
+		result.location = CollisionResult::CollisionLocation::LEFT;
+		result.isCollided = true;
+	}
+
+	if (target->top < other->bottom)
+	{
+		result.location = CollisionResult::CollisionLocation::TOP;
+		result.isCollided = true;
+	}
+
+	if (target->bottom > other->top)
+	{
+		result.location = CollisionResult::CollisionLocation::BOTTOM;
+		result.isCollided = true;
+	}
+
+	return result;
+}
+
 bool PhysicsSystem::CheckAABBandAABB(int left1, int right1, int top1, int bottom1, int left2, int right2, int top2, int bottom2)
 {
 	if ((right1 < left2) || (left1 > right2) || (bottom1 < top2) || (top1 > bottom2))
 	{
 		return false;
 	}
+
 	return true;
 }
 
@@ -70,16 +102,6 @@ bool PhysicsSystem::CheckAABBandCircle(int left, int right, int top, int bottom,
 	return false;
 }
 
-void PhysicsSystem::Gravity(float deltaTime) 
-{
-	for (auto &entity : *activePhysicsEntities)
-	{
-		const auto posComp = entity->GetComponent<PositionComponent>();
-		const auto physicsComp = entity->GetComponent<PhysicsComponent>();
-		posComp->pos.y += deltaTime * -physicsComp->velocity.y;
-	}
-}
-
 void PhysicsSystem::CheckActiveToPassiveCollision()
 {
 	for (auto &activeEntity : *activePhysicsEntities) 
@@ -92,23 +114,25 @@ void PhysicsSystem::CheckActiveToPassiveCollision()
 
 			if (activePhysicsComp->radius == 0 && passivePhysicsComp->radius == 0) // both entities AABB
 			{
-				if (CheckAABBandAABB(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
-					passivePhysicsComp->left, passivePhysicsComp->right, passivePhysicsComp->top, passivePhysicsComp->bottom)) 
+				auto result = TestAABBandAABB(activePhysicsComp, passivePhysicsComp);
+				if (result.isCollided)
 				{
-					activePhysicsComp->collided = true;
-					activePhysicsComp->handleCollision(passiveEntity);
-					activePhysicsComp->collided = false;
-				}
-			}
-
-			if (activePhysicsComp->radius != 0 && passivePhysicsComp->radius != 0) // both entities Circle
-			{
-				if (CheckCircleandCircle(activePhysicsComp->radius, activePhysicsComp->center,
-					passivePhysicsComp->radius, passivePhysicsComp->center)) 
-				{
-					activePhysicsComp->collided = true;
-					activePhysicsComp->handleCollision(passiveEntity);
-					activePhysicsComp->collided = false;
+					if (result.location == CollisionResult::CollisionLocation::LEFT)
+					{
+						passivePhysicsComp->leftwardForce = activePhysicsComp->rightwardForce;
+					}
+					else if (result.location == CollisionResult::CollisionLocation::RIGHT)
+					{
+						passivePhysicsComp->rightwardForce = activePhysicsComp->leftwardForce;
+					}
+					else if (result.location == CollisionResult::CollisionLocation::TOP)
+					{
+						passivePhysicsComp->downwardForce = activePhysicsComp->upwardForce;
+					}
+					else if (result.location == CollisionResult::CollisionLocation::BOTTOM)
+					{
+						passivePhysicsComp->upwardForce = activePhysicsComp->downwardForce;
+					}
 				}
 			}
 
@@ -119,9 +143,9 @@ void PhysicsSystem::CheckActiveToPassiveCollision()
 					if (CheckAABBandCircle(activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom,
 						passivePhysicsComp->center, passivePhysicsComp->radius))
 					{
-						activePhysicsComp->collided = true;
+						/*activePhysicsComp->collided = true;
 						activePhysicsComp->handleCollision(passiveEntity);
-						activePhysicsComp->collided = false;
+						activePhysicsComp->collided = false;*/
 					}
 				}
 				else // active = Circle, passive = AABB
@@ -129,9 +153,9 @@ void PhysicsSystem::CheckActiveToPassiveCollision()
 					if (CheckAABBandCircle(passivePhysicsComp->left, passivePhysicsComp->right, passivePhysicsComp->top, passivePhysicsComp->bottom,
 						activePhysicsComp->center, activePhysicsComp->radius))
 					{
-						activePhysicsComp->collided = true;
+						/*activePhysicsComp->collided = true;
 						activePhysicsComp->handleCollision(passiveEntity);
-						activePhysicsComp->collided = false;
+						activePhysicsComp->collided = false;*/
 					}
 				}
 			}
@@ -153,29 +177,25 @@ void PhysicsSystem::CheckActiveToActiveCollision()
 
 				if (currentActivePhysicsComp->radius == 0 && activePhysicsComp->radius == 0) // both entities AABB
 				{
-					if (CheckAABBandAABB(currentActivePhysicsComp->left, currentActivePhysicsComp->right, currentActivePhysicsComp->top, currentActivePhysicsComp->bottom,
-						activePhysicsComp->left, activePhysicsComp->right, activePhysicsComp->top, activePhysicsComp->bottom))
+					auto result = TestAABBandAABB(currentActivePhysicsComp, activePhysicsComp);
+					if (result.isCollided)
 					{
-						currentActivePhysicsComp->collided = true;
-						activePhysicsComp->collided = true;
-						currentActivePhysicsComp->handleCollision(activeEntity);
-						activePhysicsComp->handleCollision(currentActiveEntity);
-						currentActivePhysicsComp->collided = false;
-						activePhysicsComp->collided = false;
-					}
-				}
-
-				if (currentActivePhysicsComp->radius != 0 && activePhysicsComp->radius != 0) // both entities Circle
-				{
-					if (CheckCircleandCircle(currentActivePhysicsComp->radius, currentActivePhysicsComp->center,
-						activePhysicsComp->radius, activePhysicsComp->center))
-					{
-						currentActivePhysicsComp->collided = true;
-						activePhysicsComp->collided = true;
-						currentActivePhysicsComp->handleCollision(activeEntity);
-						activePhysicsComp->handleCollision(currentActiveEntity);
-						currentActivePhysicsComp->collided = false;
-						activePhysicsComp->collided = false;
+						if (result.location == CollisionResult::CollisionLocation::LEFT)
+						{
+							activePhysicsComp->leftwardForce = currentActivePhysicsComp->rightwardForce;
+						}
+						else if (result.location == CollisionResult::CollisionLocation::RIGHT)
+						{
+							activePhysicsComp->rightwardForce = currentActivePhysicsComp->leftwardForce;
+						}
+						else if (result.location == CollisionResult::CollisionLocation::TOP)
+						{
+							activePhysicsComp->downwardForce = currentActivePhysicsComp->upwardForce;
+						}
+						else if (result.location == CollisionResult::CollisionLocation::BOTTOM)
+						{
+							activePhysicsComp->upwardForce = currentActivePhysicsComp->downwardForce;
+						}
 					}
 				}
 
@@ -188,8 +208,8 @@ void PhysicsSystem::CheckActiveToActiveCollision()
 						{
 							currentActivePhysicsComp->collided = true;
 							activePhysicsComp->collided = true;
-							currentActivePhysicsComp->handleCollision(activeEntity);
-							activePhysicsComp->handleCollision(currentActiveEntity);
+							//currentActivePhysicsComp->handleCollision(activeEntity);
+							//activePhysicsComp->handleCollision(currentActiveEntity);
 							currentActivePhysicsComp->collided = false;
 							activePhysicsComp->collided = false;
 						}
@@ -201,8 +221,8 @@ void PhysicsSystem::CheckActiveToActiveCollision()
 						{
 							currentActivePhysicsComp->collided = true;
 							activePhysicsComp->collided = true;
-							currentActivePhysicsComp->handleCollision(activeEntity);
-							activePhysicsComp->handleCollision(currentActiveEntity);
+							//currentActivePhysicsComp->handleCollision(activeEntity);
+							//activePhysicsComp->handleCollision(currentActiveEntity);
 							currentActivePhysicsComp->collided = false;
 							activePhysicsComp->collided = false;
 						}
@@ -213,6 +233,76 @@ void PhysicsSystem::CheckActiveToActiveCollision()
 	}
 }
 
+void PhysicsSystem::ApplyGravityForce()
+{
+	for (auto &entity : *activePhysicsEntities)
+	{
+		const auto physicsComp = entity->GetComponent<PhysicsComponent>();
+		physicsComp->SetAcceleration(Vector2(physicsComp->acceleration.x, physicsComp->acceleration.y + 10));
+	}
+}
+
+void PhysicsSystem::RecalculateActiveComponents() 
+{
+	for (auto &entity : *activePhysicsEntities)
+	{
+		const auto physicsComp = entity->GetComponent<PhysicsComponent>();
+		if (physicsComp->isForcesModified) 
+		{
+			if (physicsComp->leftwardForce > physicsComp->rightwardForce)
+			{
+				physicsComp->acceleration.x = (physicsComp->leftwardForce - physicsComp->rightwardForce) / physicsComp->mass;
+			}
+			else 
+			{
+				physicsComp->acceleration.x = (physicsComp->rightwardForce - physicsComp->leftwardForce) / physicsComp->mass;
+			}
+
+			if (physicsComp->upwardForce > physicsComp->downwardForce)
+			{
+				physicsComp->acceleration.y = (physicsComp->upwardForce - physicsComp->downwardForce) / physicsComp->mass;
+			}
+			else
+			{
+				physicsComp->acceleration.y = (physicsComp->downwardForce - physicsComp->upwardForce) / physicsComp->mass;
+			}
+
+			physicsComp->isForcesModified = false;
+		}
+
+		if (physicsComp->isAccelerationModified)
+		{
+			// how would i modify the force :thinking:
+			physicsComp->isAccelerationModified = false;
+		}
+
+		if (physicsComp->isVelocityModified)
+		{
+			// dont think need to?
+			physicsComp->isVelocityModified = false;
+		}
+	}
+}
+
+//this is to iterate all active and update: 
+// 1) velocity based on acceleration
+// 2) pos based on velocity
+// 3) velcity/oacceleratin based on force?
+void PhysicsSystem::Simulate(float deltaTime)
+{
+	for (auto &entity : *activePhysicsEntities)
+	{
+		const auto posComp = entity->GetComponent<PositionComponent>();
+		const auto physicsComp = entity->GetComponent<PhysicsComponent>();
+
+		// probably wrong?
+		physicsComp->xVelocity = physicsComp->acceleration.x * deltaTime;
+		physicsComp->yVelocity = physicsComp->acceleration.y * deltaTime;
+
+		posComp->pos.x += deltaTime * physicsComp->xVelocity;
+		posComp->pos.y += deltaTime * physicsComp->yVelocity;
+	}
+}
 
 void PhysicsSystem::Process(float deltaTime)
 {
@@ -232,11 +322,14 @@ void PhysicsSystem::Process(float deltaTime)
 		}
 	}
 
-	Gravity(deltaTime);
+	ApplyGravityForce();
+	RecalculateActiveComponents();
 
 	CheckActiveToPassiveCollision();
 	CheckActiveToActiveCollision();
-	
+
+	Simulate(deltaTime); 
+
 	passivePhysicsEntities->clear();
 	activePhysicsEntities->clear();
 }

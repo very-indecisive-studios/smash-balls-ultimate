@@ -36,7 +36,6 @@ private:
 	UCHAR rightKey;
 	UCHAR jetpackKey;
 	UCHAR powerKey;
-	Vector2 velocity;
 
 	Texture *leftOffSpritesheetTexture;
 	Texture *leftOnSpritesheetTexture;
@@ -50,9 +49,8 @@ public:
 	void SetRightKey(UCHAR rightKey) { this->rightKey = rightKey; }
 	void SetJetpackKey(UCHAR jetpackKey) { this->jetpackKey = jetpackKey; }
 	void SetPowerKey(UCHAR powerKey) { this->powerKey = powerKey; }
-	void SetVelocity(float speed) { velocity = Vector2(speed, -speed); }
+	void SetVelocity(float speed) { phyComp->SetXVelocity(speed); phyComp->SetYVelocity(-speed); }
 	void SetX(float newX) { posComp->pos.x = newX; }
 	void SetY(float newY) { posComp->pos.y = newY; }
-	void HandleCollision(std::shared_ptr<Entity> e);
 	void Update(float deltaTime) override;
 };

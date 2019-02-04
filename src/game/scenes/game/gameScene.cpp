@@ -51,14 +51,14 @@ void GameScene::Initialize()
 	player1->SetRightKey(Resources::P1_RIGHT_KEY);
 	player1->SetJetpackKey(Resources::P1_JETPACK_KEY);
 	player1->SetPowerKey(Resources::P1_POWER_KEY);
-	player1->SetVelocity(Resources::P1_SPEED);
+	player1->SetVelocity(Resources::PLAYER_CONSTANT_ACC);
 
 	player2 = std::make_unique<Player>(p2Color, false, Vector2(Resources::P2_SPAWNX, Resources::P2_SPAWNY));
 	player2->SetLeftKey(Resources::P2_LEFT_KEY);
 	player2->SetRightKey(Resources::P2_RIGHT_KEY);
 	player2->SetJetpackKey(Resources::P2_JETPACK_KEY);
 	player2->SetPowerKey(Resources::P2_POWER_KEY);
-	player2->SetVelocity(Resources::P2_SPEED);
+	player2->SetVelocity(Resources::PLAYER_CONSTANT_ACC);
 }
 
 void GameScene::Update(float deltaTime)

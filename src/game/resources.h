@@ -90,6 +90,7 @@ namespace Resources
 	const float PLAYER_ANIMATION_DELAY = 0.1f;	// time between frames of player animation
 	const int  PLAYER_WIDTH = 87;				// width of player image
 	const int  PLAYER_HEIGHT = 100;             // height of player image
+	const int PLAYER_CONSTANT_ACC = 10;
 
 	// player 1 settings
 	const int  P1_SPAWNX = Constants::GAME_WIDTH/2 - (PLAYER_WIDTH * 3);
@@ -98,7 +99,6 @@ namespace Resources
 	const UCHAR P1_RIGHT_KEY = 0x44;
 	const UCHAR P1_JETPACK_KEY = 0x57;
 	const UCHAR P1_POWER_KEY = VK_SPACE;
-	const int P1_SPEED = 200;
 
 	// player 2 settings
 	const int  P2_SPAWNX = Constants::GAME_WIDTH/2 + (PLAYER_WIDTH * 2);
@@ -107,7 +107,6 @@ namespace Resources
 	const UCHAR P2_RIGHT_KEY = VK_RIGHT;
 	const UCHAR P2_JETPACK_KEY = VK_UP;
 	const UCHAR P2_POWER_KEY = VK_SHIFT;
-	const int P2_SPEED = 200;
 
 	// ball
 	const std::string BALL_IMAGE = "assets\\ball\\big.png";
