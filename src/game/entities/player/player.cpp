@@ -33,7 +33,7 @@ Player::Player(std::string color, bool isPlayer1, Vector2 spawnPt)
 	body->AttachComponent<PositionComponent>(posComp);
 	body->AttachComponent<SpriteComponent>(spriteComp);
 	body->AttachComponent<AnimatorComponent>(animComp);
-	body->AttachComponent<PhysicsComponent>(phyComp);
+	body->AttachComponent<GameEntityPhysicsComponent>(physComp);
 	Context::ECSEngine()->AttachEntity(body);
 
 	leftOffSpritesheetTexture	= Context::ResourceManager()->GetTexture(Resources::PLAYER_LEFT_OFF_FOLDER + color + ".png");
@@ -51,36 +51,35 @@ Player::Player(std::string color, bool isPlayer1, Vector2 spawnPt)
 
 	posComp->pos = spawnPt;
 
-	phyComp->left = posComp->pos.x;
-	phyComp->right = posComp->pos.x + Resources::PLAYER_WIDTH;
-	phyComp->top = posComp->pos.y;
-	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
-	phyComp->isPassive = false;
-	phyComp->SetAcceleration(Vector2(Resources::PLAYER_CONSTANT_ACC, Resources::PLAYER_CONSTANT_ACC));
+	physComp->collisionBoxHeight = Resources::PLAYER_HEIGHT;
+	physComp->collisionBoxWidth = Resources::PLAYER_WIDTH;
+	physComp->isPassive = false;
 }
 
 void Player::Update(float deltaTime)
 {
-	animComp->Stop();
-
 	if (Context::InputManager()->IsKeyDown(rightKey))
 	{
+		physComp->velocity.x = 200;
 		spriteComp->texture = rightOffSpritesheetTexture;
 		animComp->Play();
 	}
 	else if (Context::InputManager()->IsKeyDown(leftKey))
 	{
+		physComp->velocity.x = -200;
 		spriteComp->texture = leftOffSpritesheetTexture;
 		animComp->Play();
 	}
 	else
 	{
+		physComp->velocity.x = 0;
 		animComp->Stop();
 	}
 
 	if (Context::InputManager()->IsKeyDown(jetpackKey))
 	{
-		phyComp->SetYVelocity(phyComp->GetYVelocity() * 1.5);
+		physComp->upAcceleration = 175;
+
 		if (spriteComp->texture == rightOffSpritesheetTexture)
 		{
 			spriteComp->texture = rightOnSpritesheetTexture;
@@ -97,6 +96,8 @@ void Player::Update(float deltaTime)
 	}
 	else
 	{
+		physComp->upAcceleration = 0;
+
 		if (spriteComp->texture == rightOnSpritesheetTexture)
 		{
 			spriteComp->texture = rightOffSpritesheetTexture;
@@ -109,10 +110,6 @@ void Player::Update(float deltaTime)
 			animComp->Reset();
 		}
 	}
-	phyComp->left = posComp->pos.x;
-	phyComp->right = posComp->pos.x + Resources::PLAYER_WIDTH;
-	phyComp->top = posComp->pos.y;
-	phyComp->bottom = posComp->pos.y + Resources::PLAYER_HEIGHT;
-
+	
 	tag.SetPlayerPosition(posComp->pos);
 }

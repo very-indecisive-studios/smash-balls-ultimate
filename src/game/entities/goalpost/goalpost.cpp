@@ -1,6 +1,6 @@
 #include "pch.h"
 
-#include "Goalpost.h"
+#include "goalpost.h"
 #include "context/context.h"
 #include <iostream>
 
@@ -8,7 +8,7 @@ Goalpost::Goalpost(std::string pathToImage, float x, float y)
 {
 	goalpost->AttachComponent<PositionComponent>(posComp);
 	goalpost->AttachComponent<SpriteComponent>(spriteComp);
-	goalpost->AttachComponent<PhysicsComponent>(phyComp);
+	goalpost->AttachComponent<GameEntityPhysicsComponent>(phyComp);
 	Context::ECSEngine()->AttachEntity(goalpost);
 
 	posComp->pos.x = x;
@@ -17,10 +17,8 @@ Goalpost::Goalpost(std::string pathToImage, float x, float y)
 	spriteComp->texture = Context::ResourceManager()->GetTexture(pathToImage);
 	spriteComp->layer = 101;
 
-	phyComp->left = posComp->pos.x;
-	phyComp->right = posComp->pos.x + width;
-	phyComp->top = posComp->pos.y;
-	phyComp->bottom = posComp->pos.y + height;
+	phyComp->collisionBoxHeight = height;
+	phyComp->collisionBoxWidth = width;
 	phyComp->isPassive = true;
 	phyComp->isCollidable = false;
 }

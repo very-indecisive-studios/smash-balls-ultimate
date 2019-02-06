@@ -34,6 +34,7 @@
     <ClCompile Include="src\game\entities\wall\wall.cpp" />
     <ClCompile Include="src\game\entities\goalpost\goalpost.cpp" />
     <ClCompile Include="src\game\entities\ball\ball.cpp" />
+    <ClCompile Include="src\game\systems\gameEntityPhysics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
@@ -82,6 +83,8 @@
     <ClInclude Include="src\game\entities\wall\wall.h" />
     <ClInclude Include="src\game\entities\goalpost\goalpost.h" />
     <ClInclude Include="src\game\entities\ball\ball.h" />
+    <ClInclude Include="src\game\systems\gameEntityPhysics.h" />
+    <ClInclude Include="src\game\components\gameEntityPhysics.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />
