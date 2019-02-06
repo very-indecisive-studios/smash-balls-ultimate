@@ -79,6 +79,7 @@ namespace Resources
 	const float PLAYER_ANIMATION_DELAY = 0.1f; // time between frames of player animation
 	const int  PLAYER_WIDTH = 88;              // width of player image
 	const int  PLAYER_HEIGHT = 100;             // height of player image
+	const int PLAYER_CONSTANT_ACC = 10;
 
 	// hud - player tag
 	const std::string PLAYER_1_TAG = "assets\\players\\tag\\p1.png";
@@ -87,10 +88,6 @@ namespace Resources
 	constexpr int PLAYER_2_TAG_COLOUR = 0xFF1EA7E1;
 	constexpr int PLAYER_TAG_WIDTH = 28;
 	constexpr int PLAYER_TAG_HEIGHT = 42;
-	const float PLAYER_ANIMATION_DELAY = 0.1f;	// time between frames of player animation
-	const int  PLAYER_WIDTH = 87;				// width of player image
-	const int  PLAYER_HEIGHT = 100;             // height of player image
-	const int PLAYER_CONSTANT_ACC = 10;
 
 	// player 1 settings
 	const int  P1_SPAWNX = Constants::GAME_WIDTH/2 - (PLAYER_WIDTH * 3);
