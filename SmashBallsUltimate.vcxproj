@@ -109,6 +109,7 @@
     <ClCompile Include="src\game\entities\wall\wall.cpp" />
     <ClCompile Include="src\game\scenes\gameOver\gameOverScene.cpp" />
     <ClCompile Include="src\game\scenes\game\gameScene.cpp" />
+    <ClCompile Include="src\game\systems\ballPhysics.cpp" />
     <ClCompile Include="src\game\systems\gameEntityPhysics.cpp" />
     <ClCompile Include="src\game\systems\physics.cpp" />
     <ClCompile Include="src\game\systems\rendering.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="src\ecs\ecs.h" />
     <ClInclude Include="src\ecs\engine.h" />
     <ClInclude Include="src\game\components\animator.h" />
+    <ClInclude Include="src\game\components\ballPhysics.h" />
     <ClInclude Include="src\game\components\gameEntityPhysics.h" />
     <ClInclude Include="src\game\components\physics.h" />
     <ClInclude Include="src\game\components\position.h" />
@@ -159,6 +161,7 @@
     <ClInclude Include="src\game\entities\wall\wall.h" />
     <ClInclude Include="src\game\scenes\gameOver\gameOverScene.h" />
     <ClInclude Include="src\game\scenes\game\gameScene.h" />
+    <ClInclude Include="src\game\systems\ballPhysics.h" />
     <ClInclude Include="src\game\systems\gameEntityPhysics.h" />
     <ClInclude Include="src\game\systems\physics.h" />
     <ClInclude Include="src\game\systems\rendering.h" />

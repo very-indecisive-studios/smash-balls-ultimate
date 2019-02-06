@@ -15,6 +15,7 @@
 #include "game/components/sprite.h"
 #include "game/systems/rendering.h"
 #include "game/systems/gameEntityPhysics.h"
+#include "game/systems/ballPhysics.h"
 #include "scene/sceneManager.h"
 
 Game::Game()
@@ -33,6 +34,7 @@ void Game::Initialize()
 	Context::ECSEngine()->AttachSystem(std::make_shared<RenderSystem>());
 	//Context::ECSEngine()->AttachSystem(std::make_shared<PhysicsSystem>());
 	Context::ECSEngine()->AttachSystem(std::make_shared<GameEntityPhysicsSystem>());
+	Context::ECSEngine()->AttachSystem(std::make_shared<BallPhysicsSystem>());
 }
 
 void Game::Run()

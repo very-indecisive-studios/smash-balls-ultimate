@@ -6,24 +6,20 @@
 
 Ball::Ball(float radius)
 {
+	ball->SetTag("ball");
+
 	ball->AttachComponent<PositionComponent>(posComp);
 	ball->AttachComponent<SpriteComponent>(spriteComp);
-	ball->AttachComponent<PhysicsComponent>(phyComp);
+	ball->AttachComponent<BallPhysicsComponent>(phyComp);
 	Context::ECSEngine()->AttachEntity(ball);
 
 	spriteComp->texture = Context::ResourceManager()->GetTexture(Resources::BALL_IMAGE);
 	spriteComp->layer = 10;
 
-	posComp->pos = {(Constants::GAME_WIDTH/2) - (Resources::BALL_RADIUS/2), Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::BALL_RADIUS*2};
+	posComp->pos = {(Constants::GAME_WIDTH/2) - (Resources::BALL_RADIUS/2), 20};
 
-	phyComp->radius = radius;
-	phyComp->isPassive = false;
-	phyComp->center.x = posComp->pos.x + phyComp->radius;
-	phyComp->center.y = posComp->pos.y + phyComp->radius;
+	phyComp->collisionCircleRadius = radius;
 }
 
 void Ball::Update(float deltaTime)
-{
-	phyComp->center.x = posComp->pos.x + phyComp->radius;
-	phyComp->center.y = posComp->pos.y + phyComp->radius;
-}
+{ }
