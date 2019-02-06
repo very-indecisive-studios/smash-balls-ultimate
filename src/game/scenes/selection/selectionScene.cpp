@@ -76,7 +76,7 @@ void SelectionScene::Initialize()
 		Vector2((((Constants::GAME_WIDTH / 5) * 4) - Resources::SELECTION_SCENE_EXIT_WIDTH), ((Constants::GAME_HEIGHT / 5) * 4) - Resources::SELECTION_SCENE_EXIT_HEIGHT),
 		Resources::SELECTION_SCENE_EXIT_HEIGHT,
 		Resources::SELECTION_SCENE_EXIT_WIDTH,
-		[this]() { Context::SceneManager()->LoadScene<GameScene>(p1characterList->GetCurrentCharacterColor(), p2characterList->GetCurrentCharacterColor(), gameModesList[gameModeCounter]); }
+		[this]() { Context::SceneManager()->LoadScene<GameScene>(p1characterList->GetCurrentCharacterColor(), p2characterList->GetCurrentCharacterColor(), currentGM); }
 	);
 
 	p1characterList = std::make_unique<CharacterList>(Vector2(Resources::SELECTION_SCENE_P1_X, Resources::SELECTION_SCENE_P1_Y));
@@ -143,4 +143,26 @@ void SelectionScene::Update(float deltaTime)
 	p2characterList->Update(deltaTime);
 
 	gameModesText->SetText(gameModesList[gameModeCounter]);
+
+
+	if (gameModesList[gameModeCounter] == Resources::SELECTION_SCENE_GAMEMODE_1)
+	{
+		currentGM.isTimed = true;
+		currentGM.limit = 3 * 60;
+	}
+	else if (gameModesList[gameModeCounter] == Resources::SELECTION_SCENE_GAMEMODE_2)
+	{
+		currentGM.isTimed = true;
+		currentGM.limit = 5 * 60;
+	}
+	else if (gameModesList[gameModeCounter] == Resources::SELECTION_SCENE_GAMEMODE_3)
+	{
+		currentGM.isTimed = false;
+		currentGM.limit = 5;
+	}
+	else if (gameModesList[gameModeCounter] == Resources::SELECTION_SCENE_GAMEMODE_4)
+	{
+		currentGM.isTimed = false;
+		currentGM.limit = 10;
+	}
 }

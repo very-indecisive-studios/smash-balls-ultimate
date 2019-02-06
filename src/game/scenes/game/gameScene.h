@@ -14,6 +14,12 @@
 #include "game/entities/goalpost/goalpost.h"
 #include "game/entities/ball/ball.h"
 
+struct GameMode
+{
+	bool isTimed = false;
+	float limit = 0;
+};
+
 class GameScene : public Scene
 {
 private:
@@ -36,19 +42,29 @@ private:
 	std::unique_ptr<Scoreboard> scoreboard;
 	std::unique_ptr<Timer> timer;
 
-	std::unique_ptr<TextObject> pauseText;
-	bool isPaused = false;
+	std::unique_ptr<TextObject> middleText;
 
 	std::string p1Color;
 	std::string p2Color;
-	std::string gameMode;
 
-	bool resetRound = false;
+	float timeLimit = 0;
+	float goalLimit = 0;
+
+	float totalTime = 0;
+	bool toReset = false;
+	float currentTime = 0;
+
+	int p1Score = 0;
+	int p2Score = 0;
 
 public:
-	GameScene(std::string p1Color, std::string p2Color, std::string gameMode);
+	GameScene(std::string p1Color, std::string p2Color, GameMode gm);
 	~GameScene();
 
 	void Initialize() override;
+	bool P1Score();
+	bool P2Score();
+	void ResetRound();
+	void CheckGameOver();
 	void Update(float deltaTime) override;
 };

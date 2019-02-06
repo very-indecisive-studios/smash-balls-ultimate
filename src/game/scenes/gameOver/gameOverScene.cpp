@@ -14,7 +14,15 @@ GameOverScene::~GameOverScene()
 
 void GameOverScene::Initialize()
 {
-	std::string winnerString = "PLAYER " + std::to_string(winnerPlayerNo) + " WINS";
+	if (winnerPlayerNo == 0) 
+	{
+		winnerString = "ITS A DRAW";
+	}
+	else 
+	{
+		winnerString = "PLAYER " + std::to_string(winnerPlayerNo) + " WINS";
+	}
+
 	background = std::make_unique<Background>(Resources::BACKGROUND_IMAGE_GAME_OVER);
 
 	winnerText = std::make_unique<TextObject>(

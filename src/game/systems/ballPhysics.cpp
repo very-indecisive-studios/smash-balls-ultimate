@@ -34,6 +34,7 @@ BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::s
 	gameEntityRect.top = gameEntityPosComp->pos.y;
 	gameEntityRect.bottom = gameEntityPosComp->pos.y + gameEntityPhyComp->collisionBoxHeight;
 
+	// Collision detection for AABB & Circle.
 	float closeX = ballCenterX;
 	float closeY = ballCenterY;
 
@@ -61,11 +62,13 @@ BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::s
 	float distanceSquared = std::powf(closeX - ballCenterX, 2) + std::powf(closeY - ballCenterY, 2);
 	bool collided = distanceSquared < std::powf(ballPhyComp->collisionCircleRadius, 2);
 
+	// Get the collision location.
 	if (collided)
 	{
 		int deltaRight = gameEntityRect.left - ballCenterX;
 		if (deltaRight >= 0 && deltaRight < ballPhyComp->collisionCircleRadius)
 		{
+			std::cout << "right" << std::endl;
 			//Ciricle --><-- AABB 
 			result.set(RIGHT);
 		}
@@ -73,6 +76,7 @@ BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::s
 		int deltaLeft = ballCenterX - gameEntityRect.right;
 		if (deltaLeft >= 0 && deltaLeft < ballPhyComp->collisionCircleRadius)
 		{
+			std::cout << "left" << std::endl;
 			//AABB --><-- Circle
 			result.set(LEFT);
 		}
@@ -80,6 +84,7 @@ BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::s
 		int deltaBottom = gameEntityRect.top - ballCenterY;
 		if (deltaBottom >= 0 && deltaBottom < ballPhyComp->collisionCircleRadius)
 		{
+			std::cout << "bottom" << std::endl;
 			/*
 			Circle
 			-----
@@ -91,6 +96,7 @@ BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::s
 		int deltaTop = ballCenterY - gameEntityRect.bottom;
 		if (deltaTop >= 0 && deltaTop < ballPhyComp->collisionCircleRadius)
 		{
+			std::cout << "top" << std::endl;
 			/*
 			AABB
 			-----
@@ -111,27 +117,52 @@ void BallPhysicsSystem::CollisionDetection()
 	{
 		CollisionResult result = TestEntityCollision(gameEntity);
 
-		/* Collision response */
+		/* Collision responses. */
+		if (!gameEntity->GetComponent<GameEntityPhysicsComponent>()->isCollidable) // For goalposts.
+		{
+			continue;
+		}
+
 		if (result.test(LEFT))
 		{
-			physicsComp->leftAcceleration = 120;
-			physicsComp->rightAcceleration = 0;
+			physicsComp->velocity.x = -physicsComp->velocity.x;
+			//if (physicsComp->velocity.x < 0) 
+			//{
+			//	physicsComp->velocity.x = -physicsComp->velocity.x;
+			//}
+			physicsComp->rightAcceleration = 50;
+			physicsComp->leftAcceleration = 0;
+			physicsComp->velocity.x += 50;
 		}
 		else if (result.test(RIGHT))
 		{
-			physicsComp->rightAcceleration = 120;
-			physicsComp->leftAcceleration = 0;
+			physicsComp->velocity.x = -physicsComp->velocity.x;
+			/*if (physicsComp->velocity.x >= 0)
+			{
+				physicsComp->velocity.x = -physicsComp->velocity.x;
+			}*/
+			physicsComp->leftAcceleration = 50;
+			physicsComp->rightAcceleration = 0;
+			physicsComp->velocity.x -= 50;
+
 		}
 		
 		// Negate the x and y respectively.
-		if (result.test(LEFT) || result.test(RIGHT)) // -->| then <--|
-		{ 
-			physicsComp->velocity.x = -physicsComp->velocity.x;
-		}
+		//if (result.test(LEFT) || result.test(RIGHT)) // -->| then <--|
+		//{ 
+		//	physicsComp->velocity.x = -physicsComp->velocity.x;
+		//}
 
-		if (result.test(TOP) || result.test(BOTTOM))
+		if (result.test(TOP))
 		{
 			physicsComp->velocity.y = -physicsComp->velocity.y;
+			physicsComp->velocity.y += 10;
+		}
+		
+		if (result.test(BOTTOM))
+		{
+			physicsComp->velocity.y = -physicsComp->velocity.y;
+			physicsComp->velocity.y -= 10;
 		}
 	}
 }
@@ -166,7 +197,7 @@ void BallPhysicsSystem::Process(float deltaTime)
 
 	ballEntity = Context::ECSEngine()->GetTaggedEntity("ball");
 	
-	// No balls to process. Pussy.
+	// No balls to process
 	if (ballEntity == nullptr)
 	{
 		return;

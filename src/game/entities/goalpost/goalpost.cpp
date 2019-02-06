@@ -23,6 +23,18 @@ Goalpost::Goalpost(std::string pathToImage, float x, float y)
 	phyComp->isCollidable = false;
 }
 
+Vector2 Goalpost::GetGoalLine(bool isLeft) 
+{
+	Vector2 goalLine = posComp->pos;
+	
+	if (isLeft)
+	{
+		goalLine.x += width;
+	}
+
+	return goalLine;
+}
+
 void Goalpost::Update(float deltaTime)
 {
 }

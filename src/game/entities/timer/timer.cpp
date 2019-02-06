@@ -34,7 +34,7 @@ void Timer::SetSeconds(float totalSeconds)
 	int seconds = static_cast<int>(totalSeconds) % 60;
 
 	std::string minutesText = minutes > 10 ? std::to_string(minutes) : "0" + std::to_string(minutes);
-	std::string secondsText = seconds > 10 ? std::to_string(seconds) : "0" + std::to_string(seconds);
+	std::string secondsText = seconds >= 10 ? std::to_string(seconds) : "0" + std::to_string(seconds);
 
 	timerTextComp->text = minutesText + ":" + secondsText;
 }

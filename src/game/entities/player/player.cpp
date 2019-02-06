@@ -60,13 +60,13 @@ void Player::Update(float deltaTime)
 {
 	if (Context::InputManager()->IsKeyDown(rightKey))
 	{
-		physComp->velocity.x = 200;
+		physComp->velocity.x = Resources::PLAYER_SPEED;
 		spriteComp->texture = rightOffSpritesheetTexture;
 		animComp->Play();
 	}
 	else if (Context::InputManager()->IsKeyDown(leftKey))
 	{
-		physComp->velocity.x = -200;
+		physComp->velocity.x = -Resources::PLAYER_SPEED;
 		spriteComp->texture = leftOffSpritesheetTexture;
 		animComp->Play();
 	}
@@ -78,7 +78,7 @@ void Player::Update(float deltaTime)
 
 	if (Context::InputManager()->IsKeyDown(jetpackKey))
 	{
-		physComp->upAcceleration = 175;
+		physComp->upAcceleration = Resources::PLAYER_SPEED;
 
 		if (spriteComp->texture == rightOffSpritesheetTexture)
 		{

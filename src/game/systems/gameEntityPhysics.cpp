@@ -41,12 +41,13 @@ GameEntityPhysicsSystem::CollisionResult GameEntityPhysicsSystem::TestEntityColl
 	otherRect.top = otherPosComp->pos.y;
 	otherRect.bottom = otherPosComp->pos.y + otherPhysicsComp->collisionBoxHeight;
 
-	// Check collision using AABB.
+	// Collision detection for AABB.
 	bool isCollided = !(targetRect.right <= otherRect.left ||
 		targetRect.left >= otherRect.right ||
 		targetRect.bottom <= otherRect.top ||
 		targetRect.top >= otherRect.bottom);
-	// TODO: Get the collision location.
+
+	// Get the collision location.
 	if (isCollided)
 	{
 		int deltaRight = targetRect.right - otherRect.left;

@@ -9,6 +9,7 @@
 #include "game/entities/button/button.h"
 #include "game/entities/characterList/characterList.h"
 #include "game/entities/text/textObject.h"
+#include "game/scenes/game/gameScene.h"
 
 class SelectionScene : public Scene
 {
@@ -32,6 +33,8 @@ private:
 	std::unique_ptr<TextObject> gameModesText;
 	std::vector<std::string> gameModesList;
 	int gameModeCounter = 0;
+
+	GameMode currentGM;
 
 public:
 	SelectionScene();

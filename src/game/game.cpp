@@ -10,7 +10,6 @@
 #include "game/resources.h"
 #include "game/resources.h"
 #include "game/systems/rendering.h"
-#include "game/systems/physics.h"
 #include "game/components/position.h"
 #include "game/components/sprite.h"
 #include "game/systems/rendering.h"
@@ -32,7 +31,6 @@ void Game::Initialize()
 	Context::SceneManager()->Initialize();
 
 	Context::ECSEngine()->AttachSystem(std::make_shared<RenderSystem>());
-	//Context::ECSEngine()->AttachSystem(std::make_shared<PhysicsSystem>());
 	Context::ECSEngine()->AttachSystem(std::make_shared<GameEntityPhysicsSystem>());
 	Context::ECSEngine()->AttachSystem(std::make_shared<BallPhysicsSystem>());
 }

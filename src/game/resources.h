@@ -79,7 +79,7 @@ namespace Resources
 	const float PLAYER_ANIMATION_DELAY = 0.1f; // time between frames of player animation
 	const int  PLAYER_WIDTH = 88;              // width of player image
 	const int  PLAYER_HEIGHT = 100;             // height of player image
-	const int PLAYER_CONSTANT_ACC = 10;
+	const int PLAYER_SPEED= 200;
 
 	// hud - player tag
 	const std::string PLAYER_1_TAG = "assets\\players\\tag\\p1.png";
@@ -109,5 +109,7 @@ namespace Resources
 	const std::string BALL_IMAGE = "assets\\ball\\big.png";
 	const int BALL_WIDTH = 50;
 	const int BALL_RADIUS = BALL_WIDTH / 2;
+	const float BALL_SPAWN_X = (Constants::GAME_WIDTH / 2) - (Resources::BALL_RADIUS / 2);
+	const float BALL_SPAWN_Y = 100;
 }
 

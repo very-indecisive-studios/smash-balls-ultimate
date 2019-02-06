@@ -22,5 +22,6 @@ private:
 
 public:
 	Goalpost(std::string pathToImage, float x, float y);
+	Vector2 GetGoalLine(bool isLeft);
 	void Update(float deltaTime) override;
 };

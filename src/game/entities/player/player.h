@@ -5,7 +5,6 @@
 #include "game/components/position.h"
 #include "game/components/animator.h"
 #include "game/components/sprite.h"
-#include "game/components/physics.h"
 #include "game/components/gameEntityPhysics.h"
 #include <memory>
 #include "math/math.h"

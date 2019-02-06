@@ -22,5 +22,7 @@ public:
 	Ball(float radius);
 	void SetX(float newX) { posComp->pos.x = newX; }
 	void SetY(float newY) { posComp->pos.y = newY; }
+	void Reset();
+	Vector2 GetPos() { return posComp->pos; }
 	void Update(float deltaTime) override;
 };
