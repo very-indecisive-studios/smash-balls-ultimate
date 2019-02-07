@@ -14,4 +14,5 @@ struct BallPhysicsComponent : public Component
 	float rightAcceleration = 0;
 
 	Vector2 velocity = { 0, 0 };
+	Vector2 maxVelocity = {0, 0};
 };

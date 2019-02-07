@@ -19,6 +19,7 @@ Ball::Ball(float radius)
 	posComp->pos = {Resources::BALL_SPAWN_X, Resources::BALL_SPAWN_Y};
 
 	phyComp->collisionCircleRadius = radius;
+	phyComp->maxVelocity = Resources::BALL_MAX_VEL;
 }
 
 void Ball::Reset() 

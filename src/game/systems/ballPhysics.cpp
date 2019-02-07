@@ -124,37 +124,42 @@ void BallPhysicsSystem::CollisionDetection()
 		}
 
 		// Negate the x and y respectively.
-		//std::cout << "velocity x: " << physicsComp->velocity.x << std::endl;
-		//std::cout << "velocity y: " << physicsComp->velocity.y << std::endl;
 		if (result.test(LEFT))
 		{
 			if (physicsComp->velocity.x < 0)
 			{
 				physicsComp->velocity.x = -physicsComp->velocity.x;
 			}
-			physicsComp->velocity.x += 50;
+			physicsComp->velocity.x += 30;
 			physicsComp->velocity.y = 0;
 		}
-		else if (result.test(RIGHT))
+		
+		if (result.test(RIGHT))
 		{
 			if (physicsComp->velocity.x >= 0)
 			{
 				physicsComp->velocity.x = -physicsComp->velocity.x;
 			}
-			physicsComp->velocity.x -= 50;
+			physicsComp->velocity.x -= 30;
 			physicsComp->velocity.y = 0;
 		}
 
 		if (result.test(TOP))
 		{
-			physicsComp->velocity.y = -physicsComp->velocity.y;
-			physicsComp->velocity.y += 10;
+			if (physicsComp->velocity.y < 0)
+			{
+				physicsComp->velocity.y = -physicsComp->velocity.y;
+			}
+			physicsComp->velocity.y += 30;
 		}
 		
 		if (result.test(BOTTOM))
 		{
-			physicsComp->velocity.y = -physicsComp->velocity.y;
-			physicsComp->velocity.y -= 10;
+			if (physicsComp->velocity.y >= 0)
+			{
+				physicsComp->velocity.y = -physicsComp->velocity.y;
+			}
+			physicsComp->velocity.y -= 30;
 		}
 	}
 }
@@ -173,9 +178,54 @@ void BallPhysicsSystem::Simulate(float deltaTime)
 	physicsComp->velocity.x += effectiveAccel.x * deltaTime;
 	physicsComp->velocity.y += effectiveAccel.y * deltaTime;
 
-	// Update position component from velocity.
+	/*Limit ball's velocity*/
+	if (physicsComp->velocity.x > 0 && physicsComp->velocity.x > physicsComp->maxVelocity.x)
+	{
+		physicsComp->velocity.x = physicsComp->maxVelocity.x; // Limit right
+	}
+
+	if (physicsComp->velocity.x < 0 && physicsComp->velocity.x < -physicsComp->maxVelocity.x)
+	{
+		physicsComp->velocity.x = -physicsComp->maxVelocity.x; // Limit left
+	}
+
+	if (physicsComp->velocity.y < 0 && physicsComp->velocity.y < -physicsComp->maxVelocity.y)
+	{
+		physicsComp->velocity.y = -physicsComp->maxVelocity.y; // Limit up
+	}
+
+	if (physicsComp->velocity.y > 0 && physicsComp->velocity.y > physicsComp->maxVelocity.y)
+	{
+		physicsComp->velocity.y = physicsComp->maxVelocity.y; // Limit down
+	}
+
+	/*Update position component from velocity*/
+
+	// x-axis
+	if (posComp->pos.x + deltaTime * physicsComp->velocity.x < 0) 
+	{
+		posComp->pos.x = 0; // avoid ball to escape from left wall
+	}
+	else if (posComp->pos.x + deltaTime * physicsComp->velocity.x > Constants::GAME_WIDTH - Resources::BALL_WIDTH) 
+	{
+		posComp->pos.x = Constants::GAME_WIDTH - Resources::BALL_WIDTH; // avoid ball to escape from right wall
+	}
+	
 	posComp->pos.x += deltaTime * physicsComp->velocity.x;
+	
+
+	// y-axis
+	if (posComp->pos.y + deltaTime * physicsComp->velocity.y < 0)
+	{
+		posComp->pos.y = 0; // avoid ball to escape from top wall
+	}
+	else if (posComp->pos.y + deltaTime * physicsComp->velocity.y > Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::BALL_WIDTH)
+	{
+		posComp->pos.y = Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::BALL_WIDTH; // avoid ball to escape from bottom wall
+	}
+	
 	posComp->pos.y += deltaTime * physicsComp->velocity.y;
+	
 }
 
 BallPhysicsSystem::BallPhysicsSystem()
