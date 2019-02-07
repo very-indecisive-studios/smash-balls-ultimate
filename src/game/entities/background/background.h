@@ -1,13 +1,13 @@
 #pragma once
 #include "ecs/ecs.h"
-#include "game/entities/sceneObject.h"
+#include "game/entities/gameEntity.h"
 #include "ecs/components/position.h"
 #include "ecs/components/sprite.h"
 #include <memory>
 #include "math/math.h"
 #include "game/resources.h"
 
-class Background : public SceneObject
+class Background : public GameEntity
 {
 private:
 	std::shared_ptr<PositionComponent> posComp = std::make_shared<PositionComponent>();

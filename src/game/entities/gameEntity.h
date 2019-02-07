@@ -1,12 +1,12 @@
 #pragma once
 
-class SceneObject
+class GameEntity
 {
 protected:
-	SceneObject() { }
+	GameEntity() { }
 
 public:
-	virtual ~SceneObject() { }
+	virtual ~GameEntity() { }
 
 	virtual void Update(float deltaTime) = 0;
 };

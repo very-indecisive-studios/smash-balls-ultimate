@@ -4,9 +4,9 @@
 #include "ecs/components/position.h"
 #include "ecs/components/text.h"
 #include "ecs/components/sprite.h"
-#include "game/entities/sceneObject.h"
+#include "game/entities/gameEntity.h"
 
-class Scoreboard : public SceneObject
+class Scoreboard : public GameEntity
 {
 private:
 	class Score

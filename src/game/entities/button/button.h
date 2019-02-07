@@ -1,6 +1,6 @@
 #pragma once
 #include "ecs/ecs.h"
-#include "game/entities/sceneObject.h"
+#include "game/entities/gameEntity.h"
 #include "ecs/components/position.h"
 #include "ecs/components/animator.h"
 #include "ecs/components/sprite.h"
@@ -9,7 +9,7 @@
 #include "math/math.h"
 #include "game/resources.h"
 
-class Button : public SceneObject
+class Button : public GameEntity
 {
 private:
 	std::shared_ptr<PositionComponent> posComp = std::make_shared<PositionComponent>();

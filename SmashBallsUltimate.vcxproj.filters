@@ -57,7 +57,6 @@
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\game\scenes\game\gameScene.h" />
     <ClInclude Include="src\game\entities\player\player.h" />
-    <ClInclude Include="src\game\entities\sceneObject.h" />
     <ClInclude Include="src\game\entities\background\background.h" />
     <ClInclude Include="src\game\data\data.h" />
     <ClInclude Include="src\game\entities\button\button.h" />
@@ -80,6 +79,7 @@
     <ClInclude Include="src\ecs\systems\ballPhysics.h" />
     <ClInclude Include="src\ecs\systems\gameEntityPhysics.h" />
     <ClInclude Include="src\ecs\systems\rendering.h" />
+    <ClInclude Include="src\game\entities\gameEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

@@ -148,7 +148,7 @@
     <ClInclude Include="src\game\entities\characterList\characterList.h" />
     <ClInclude Include="src\game\entities\goalpost\goalpost.h" />
     <ClInclude Include="src\game\entities\player\player.h" />
-    <ClInclude Include="src\game\entities\sceneObject.h" />
+    <ClInclude Include="src\game\entities\gameEntity.h" />
     <ClInclude Include="src\ecs\components\text.h" />
     <ClInclude Include="src\game\entities\text\textObject.h" />
     <ClInclude Include="src\game\entities\scoreboard\scoreboard.h" />
