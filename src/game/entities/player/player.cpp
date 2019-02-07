@@ -2,7 +2,7 @@
 
 #include "player.h"
 #include "context/context.h"
-#include "game/data/data.h"
+#include "game/data.h"
 #include "game/layers.h"
 
 Player::PlayerTag::PlayerTag(const std::string &tagTexture)

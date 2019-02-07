@@ -141,7 +141,7 @@
     <ClInclude Include="src\ecs\components\gameEntityPhysics.h" />
     <ClInclude Include="src\ecs\components\position.h" />
     <ClInclude Include="src\ecs\components\sprite.h" />
-    <ClInclude Include="src\game\data\data.h" />
+    <ClInclude Include="src\game\data.h" />
     <ClInclude Include="src\game\entities\background\background.h" />
     <ClInclude Include="src\game\entities\ball\ball.h" />
     <ClInclude Include="src\game\entities\button\button.h" />

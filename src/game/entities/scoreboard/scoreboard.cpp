@@ -4,7 +4,7 @@
 #include "context/context.h"
 #include "game/resources.h"
 #include "game/layers.h"
-#include "game/data/data.h"
+#include "game/data.h"
 
 Scoreboard::Score::Score(const std::string &playerColour, bool alignLeft)
 {
