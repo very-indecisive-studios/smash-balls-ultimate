@@ -11,11 +11,6 @@ constexpr size_t MAX_COMPONENTS = sizeof(ComponentId) * 8;
 
 typedef std::bitset<MAX_COMPONENTS> ComponentBitset;
 
-// Forward declaration.
-class Entity;
-
-typedef std::vector<std::shared_ptr<Entity>> EntityList;
-
 class Component
 {
 private:
@@ -23,8 +18,6 @@ private:
 
 	static std::map<size_t, ComponentId> componentIdMap;
 public:
-	Entity *attachedEntity;
-
 	template <typename T>
 	static ComponentId GetComponentId()
 	{
@@ -59,8 +52,6 @@ public:
         componentBitset.set(compId);
 
         components[compId] = component;
-
-        component->attachedEntity = this;
     }
 	
     template <typename T>
@@ -69,8 +60,6 @@ public:
         const ComponentId compId = Component::GetComponentId<T>();
 
         componentBitset.reset(compId);
-
-        components[compId]->attachedEntity = nullptr;
 
         components[compId] = nullptr;
     }
@@ -98,6 +87,8 @@ public:
         return this->tag;
     }
 };
+
+typedef std::vector<std::shared_ptr<Entity>> EntityList;
 
 class System
 {
