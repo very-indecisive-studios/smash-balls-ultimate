@@ -1,6 +1,7 @@
 #pragma once
 
 #include <bitset>
+#include "collision.h"
 #include "ecs/ecs.h"
 #include "ecs/components/gameEntityPhysics.h"
 

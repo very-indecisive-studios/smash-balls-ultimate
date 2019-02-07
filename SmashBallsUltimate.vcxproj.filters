@@ -29,9 +29,9 @@
     <ClCompile Include="src\game\entities\wall\wall.cpp" />
     <ClCompile Include="src\game\entities\goalpost\goalpost.cpp" />
     <ClCompile Include="src\game\entities\ball\ball.cpp" />
-    <ClCompile Include="src\ecs\systems\ballPhysics.cpp" />
-    <ClCompile Include="src\ecs\systems\gameEntityPhysics.cpp" />
     <ClCompile Include="src\ecs\systems\rendering.cpp" />
+    <ClCompile Include="src\ecs\systems\physics\gameEntityPhysics.cpp" />
+    <ClCompile Include="src\ecs\systems\physics\ballPhysics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
@@ -75,11 +75,13 @@
     <ClInclude Include="src\ecs\components\position.h" />
     <ClInclude Include="src\ecs\components\sprite.h" />
     <ClInclude Include="src\ecs\components\text.h" />
-    <ClInclude Include="src\ecs\systems\ballPhysics.h" />
-    <ClInclude Include="src\ecs\systems\gameEntityPhysics.h" />
     <ClInclude Include="src\ecs\systems\rendering.h" />
     <ClInclude Include="src\game\entities\gameEntity.h" />
     <ClInclude Include="src\game\data.h" />
+    <ClInclude Include="src\ecs\systems\physics\gameEntityPhysics.h" />
+    <ClInclude Include="src\ecs\systems\physics\physics.h" />
+    <ClInclude Include="src\ecs\systems\physics\collision.h" />
+    <ClInclude Include="src\ecs\systems\physics\ballPhysics.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

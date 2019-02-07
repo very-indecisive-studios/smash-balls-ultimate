@@ -17,7 +17,7 @@ void GameEntityPhysicsSystem::ApplyGravity()
 	}
 }
 
-GameEntityPhysicsSystem::CollisionResult GameEntityPhysicsSystem::TestEntityCollision(std::shared_ptr<Entity> target, std::shared_ptr<Entity> other)
+CollisionResult GameEntityPhysicsSystem::TestEntityCollision(std::shared_ptr<Entity> target, std::shared_ptr<Entity> other)
 {
 	CollisionResult result;
 

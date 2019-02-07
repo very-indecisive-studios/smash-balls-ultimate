@@ -11,8 +11,7 @@
 #include "ecs/components/sprite.h"
 #include "ecs/systems/rendering.h"
 #include "ecs/systems/rendering.h"
-#include "ecs/systems/gameEntityPhysics.h"
-#include "ecs/systems/ballPhysics.h"
+#include "ecs/systems/physics/physics.h"
 #include "context/context.h"
 
 Game::Game()
@@ -29,8 +28,7 @@ void Game::Initialize()
 	Context::SceneManager()->Initialize();
 
 	Context::ECSEngine()->AttachSystem(std::make_shared<RenderSystem>());
-	Context::ECSEngine()->AttachSystem(std::make_shared<GameEntityPhysicsSystem>());
-	Context::ECSEngine()->AttachSystem(std::make_shared<BallPhysicsSystem>());
+	Context::ECSEngine()->AttachSystem(std::make_shared<PhysicsSystem>());
 }
 
 void Game::Run()

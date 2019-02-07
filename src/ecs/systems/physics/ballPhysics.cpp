@@ -13,7 +13,7 @@ void BallPhysicsSystem::ApplyGravity()
 	physicsComp->downAcceleration = 100;
 }
 
-BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::shared_ptr<Entity> gameEntity)
+CollisionResult BallPhysicsSystem::TestEntityCollision(std::shared_ptr<Entity> gameEntity)
 {
 	CollisionResult result;
 
