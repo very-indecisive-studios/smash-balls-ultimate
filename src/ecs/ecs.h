@@ -92,6 +92,11 @@ typedef std::vector<std::shared_ptr<Entity>> EntityList;
 
 class System
 {
+private:
+	bool isActive = true;
 public:
+	void SetIsActive(bool active) { this->isActive = active;  }
+	bool GetIsActive() { return this->isActive; };
+
 	virtual void Process(float deltaTime) = 0;
 };

@@ -68,6 +68,9 @@ void ECSEngine::Update(float deltaTime)
 {
 	for (auto &system : systems)
 	{
-		system->Process(deltaTime);
+		if (system->GetIsActive())
+		{
+			system->Process(deltaTime);
+		}
 	}
 }
