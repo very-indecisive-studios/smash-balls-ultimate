@@ -68,7 +68,6 @@ BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::s
 		int deltaRight = gameEntityRect.left - ballCenterX;
 		if (deltaRight >= 0 && deltaRight < ballPhyComp->collisionCircleRadius)
 		{
-			std::cout << "right" << std::endl;
 			//Ciricle --><-- AABB 
 			result.set(RIGHT);
 		}
@@ -76,7 +75,6 @@ BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::s
 		int deltaLeft = ballCenterX - gameEntityRect.right;
 		if (deltaLeft >= 0 && deltaLeft < ballPhyComp->collisionCircleRadius)
 		{
-			std::cout << "left" << std::endl;
 			//AABB --><-- Circle
 			result.set(LEFT);
 		}
@@ -84,7 +82,6 @@ BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::s
 		int deltaBottom = gameEntityRect.top - ballCenterY;
 		if (deltaBottom >= 0 && deltaBottom < ballPhyComp->collisionCircleRadius)
 		{
-			std::cout << "bottom" << std::endl;
 			/*
 			Circle
 			-----
@@ -96,7 +93,6 @@ BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::s
 		int deltaTop = ballCenterY - gameEntityRect.bottom;
 		if (deltaTop >= 0 && deltaTop < ballPhyComp->collisionCircleRadius)
 		{
-			std::cout << "top" << std::endl;
 			/*
 			AABB
 			-----
@@ -109,9 +105,17 @@ BallPhysicsSystem::CollisionResult BallPhysicsSystem::TestEntityCollision(std::s
 	return result;
 }
 
+void BallPhysicsSystem::AvoidEatingBall(Entity *player) 
+{
+	const auto posComp = ballEntity->GetComponent<PositionComponent>();
+
+	posComp->pos.x;
+}
+
 void BallPhysicsSystem::CollisionDetection()
 {
 	const auto physicsComp = ballEntity->GetComponent<BallPhysicsComponent>();
+	const auto posComp = ballEntity->GetComponent<PositionComponent>();
 
 	for (auto gameEntity : *gameEntities)
 	{
@@ -132,6 +136,11 @@ void BallPhysicsSystem::CollisionDetection()
 			}
 			physicsComp->velocity.x += 30;
 			physicsComp->velocity.y = 0;
+
+			if (!gameEntity->GetComponent<GameEntityPhysicsComponent>()->isPassive) // To move player away from ball (knockback)
+			{
+				gameEntity->GetComponent<PositionComponent>()->pos.x = posComp->pos.x - Resources::PLAYER_WIDTH;
+			}
 		}
 		
 		if (result.test(RIGHT))
@@ -142,6 +151,11 @@ void BallPhysicsSystem::CollisionDetection()
 			}
 			physicsComp->velocity.x -= 30;
 			physicsComp->velocity.y = 0;
+
+			if (!gameEntity->GetComponent<GameEntityPhysicsComponent>()->isPassive) // To move player away from ball (knockback)
+			{
+				gameEntity->GetComponent<PositionComponent>()->pos.x = posComp->pos.x + Resources::BALL_WIDTH;
+			}
 		}
 
 		if (result.test(TOP))
@@ -210,9 +224,7 @@ void BallPhysicsSystem::Simulate(float deltaTime)
 	{
 		posComp->pos.x = Constants::GAME_WIDTH - Resources::BALL_WIDTH; // avoid ball to escape from right wall
 	}
-	
 	posComp->pos.x += deltaTime * physicsComp->velocity.x;
-	
 
 	// y-axis
 	if (posComp->pos.y + deltaTime * physicsComp->velocity.y < 0)
@@ -223,7 +235,6 @@ void BallPhysicsSystem::Simulate(float deltaTime)
 	{
 		posComp->pos.y = Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT - Resources::BALL_WIDTH; // avoid ball to escape from bottom wall
 	}
-	
 	posComp->pos.y += deltaTime * physicsComp->velocity.y;
 	
 }

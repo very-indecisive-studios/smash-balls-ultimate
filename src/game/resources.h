@@ -112,6 +112,6 @@ namespace Resources
 	const int BALL_RADIUS = BALL_WIDTH / 2;
 	const float BALL_SPAWN_X = (Constants::GAME_WIDTH / 2) - (Resources::BALL_RADIUS / 2);
 	const float BALL_SPAWN_Y = 100;
-	const Vector2 BALL_MAX_VEL = { 400,400 };
+	const Vector2 BALL_MAX_VEL = { 450,450 };
 }
 

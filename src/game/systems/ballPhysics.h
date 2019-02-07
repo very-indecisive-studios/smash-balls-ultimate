@@ -18,6 +18,7 @@ private:
 	void ApplyGravity();
 
 	CollisionResult TestEntityCollision(std::shared_ptr<Entity> other);
+	void AvoidEatingBall(Entity *player);
 	void CollisionDetection();
 
 	void Simulate(float deltaTime);
