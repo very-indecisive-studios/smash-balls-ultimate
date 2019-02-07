@@ -36,7 +36,7 @@ namespace Resources
 	const std::string BUTTON_IMAGE = "assets\\buttons\\button.png";
 	const int BUTTON_HEIGHT = 45;
 	const int BUTTON_WIDTH = 190;
-	const std::wstring BUTTON_CLICK_AUDIO = L"assets/audio/button_click.mp3";
+	const std::wstring BUTTON_CLICK_AUDIO = L"assets/audio/button_click.wav";
 
 	// selectionScene
 	const std::string SELECTION_SCENE_BACKGROUND_IMAGE = "assets\\selectionScene\\background.png";
