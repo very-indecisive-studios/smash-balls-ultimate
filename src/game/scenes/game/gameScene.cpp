@@ -28,7 +28,7 @@ void GameScene::Initialize()
 	ball = std::make_unique<Ball>(Resources::BALL_RADIUS);
 
 	floor = std::make_unique<Wall>(0, Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT, Resources::GROUND_HEIGHT, Constants::GAME_WIDTH);
-	ceiling = std::make_unique<Wall>(0, 0, 0, Constants::GAME_WIDTH);
+	ceiling = std::make_unique<Wall>(0, 0, 0, Constants::GAME_WIDTH + 100);
 	leftWall = std::make_unique<Wall>(0, 0, Constants::GAME_HEIGHT, 10);
 	rightWall = std::make_unique<Wall>(Constants::GAME_WIDTH, 0, Constants::GAME_HEIGHT, 10);
 
@@ -72,7 +72,7 @@ bool GameScene::P1Score()
 	Vector2 ballPos = ball->GetPos();
 	Vector2 oppGoalLine = rightGoalpost->GetGoalLine(false); // right goalpost
 
-	if (ballPos.x >= oppGoalLine.x + Resources::BALL_RADIUS * 2 && ballPos.y > oppGoalLine.y)
+	if (ballPos.x >= oppGoalLine.x && ballPos.y > oppGoalLine.y)
 	{
 		return true;
 	}

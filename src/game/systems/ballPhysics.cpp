@@ -123,35 +123,27 @@ void BallPhysicsSystem::CollisionDetection()
 			continue;
 		}
 
+		// Negate the x and y respectively.
+		//std::cout << "velocity x: " << physicsComp->velocity.x << std::endl;
+		//std::cout << "velocity y: " << physicsComp->velocity.y << std::endl;
 		if (result.test(LEFT))
 		{
-			physicsComp->velocity.x = -physicsComp->velocity.x;
-			//if (physicsComp->velocity.x < 0) 
-			//{
-			//	physicsComp->velocity.x = -physicsComp->velocity.x;
-			//}
-			physicsComp->rightAcceleration = 50;
-			physicsComp->leftAcceleration = 0;
+			if (physicsComp->velocity.x < 0)
+			{
+				physicsComp->velocity.x = -physicsComp->velocity.x;
+			}
 			physicsComp->velocity.x += 50;
+			physicsComp->velocity.y = 0;
 		}
 		else if (result.test(RIGHT))
 		{
-			physicsComp->velocity.x = -physicsComp->velocity.x;
-			/*if (physicsComp->velocity.x >= 0)
+			if (physicsComp->velocity.x >= 0)
 			{
 				physicsComp->velocity.x = -physicsComp->velocity.x;
-			}*/
-			physicsComp->leftAcceleration = 50;
-			physicsComp->rightAcceleration = 0;
+			}
 			physicsComp->velocity.x -= 50;
-
+			physicsComp->velocity.y = 0;
 		}
-		
-		// Negate the x and y respectively.
-		//if (result.test(LEFT) || result.test(RIGHT)) // -->| then <--|
-		//{ 
-		//	physicsComp->velocity.x = -physicsComp->velocity.x;
-		//}
 
 		if (result.test(TOP))
 		{
