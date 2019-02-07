@@ -2,8 +2,6 @@
 
 #include "scene/scene.h"
 #include "audio/audio.h"
-#include "text/text.h"
-#include "sprites/sprite.h"
 #include "constants.h"
 #include "game/entities/background/background.h"
 #include "game/entities/button/button.h"

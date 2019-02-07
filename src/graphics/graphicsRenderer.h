@@ -5,9 +5,10 @@
 #include <string>
 #include <vector>
 #include "texture.h"
-#include "sprites/sprite.h"
 #include "font.h"
 #include "math/math.h"
+
+typedef RECT DrawingArea;
 
 struct DrawJob
 {

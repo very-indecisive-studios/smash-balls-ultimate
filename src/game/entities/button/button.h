@@ -1,7 +1,6 @@
 #pragma once
 #include "ecs/ecs.h"
 #include "game/entities/sceneObject.h"
-#include "sprites/animatedSprite.h"
 #include "ecs/components/position.h"
 #include "ecs/components/animator.h"
 #include "ecs/components/sprite.h"

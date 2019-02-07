@@ -12,9 +12,6 @@
     <ClCompile Include="src\resource\resourceManager.cpp" />
     <ClCompile Include="src\scene\scene.cpp" />
     <ClCompile Include="src\scene\sceneManager.cpp" />
-    <ClCompile Include="src\sprites\animatedSprite.cpp" />
-    <ClCompile Include="src\sprites\sprite.cpp" />
-    <ClCompile Include="src\text\text.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\context\context.cpp" />
     <ClCompile Include="src\game\scenes\mainMenu\mainMenuScene.cpp" />
@@ -50,9 +47,6 @@
     <ClInclude Include="src\resource\resourceManager.h" />
     <ClInclude Include="src\scene\scene.h" />
     <ClInclude Include="src\scene\sceneManager.h" />
-    <ClInclude Include="src\sprites\animatedSprite.h" />
-    <ClInclude Include="src\sprites\sprite.h" />
-    <ClInclude Include="src\text\text.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\game\gameException.h" />
     <ClInclude Include="src\context\context.h" />
