@@ -19,7 +19,6 @@
     <ClCompile Include="src\context\context.cpp" />
     <ClCompile Include="src\game\scenes\mainMenu\mainMenuScene.cpp" />
     <ClCompile Include="src\game\scenes\selection\selectionScene.cpp" />
-    <ClCompile Include="src\game\systems\rendering.cpp" />
     <ClCompile Include="src\game\scenes\game\gameScene.cpp" />
     <ClCompile Include="src\game\entities\player\player.cpp" />
     <ClCompile Include="src\game\entities\background\background.cpp" />
@@ -33,8 +32,9 @@
     <ClCompile Include="src\game\entities\wall\wall.cpp" />
     <ClCompile Include="src\game\entities\goalpost\goalpost.cpp" />
     <ClCompile Include="src\game\entities\ball\ball.cpp" />
-    <ClCompile Include="src\game\systems\gameEntityPhysics.cpp" />
-    <ClCompile Include="src\game\systems\ballPhysics.cpp" />
+    <ClCompile Include="src\ecs\systems\ballPhysics.cpp" />
+    <ClCompile Include="src\ecs\systems\gameEntityPhysics.cpp" />
+    <ClCompile Include="src\ecs\systems\rendering.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
@@ -57,13 +57,9 @@
     <ClInclude Include="src\game\gameException.h" />
     <ClInclude Include="src\context\context.h" />
     <ClInclude Include="src\math\math.h" />
-    <ClInclude Include="src\game\components\position.h" />
-    <ClInclude Include="src\game\components\sprite.h" />
-    <ClInclude Include="src\game\systems\rendering.h" />
     <ClInclude Include="src\game\scenes\mainMenu\mainMenuScene.h" />
     <ClInclude Include="src\game\scenes\selection\selectionScene.h" />
     <ClInclude Include="src\game\resources.h" />
-    <ClInclude Include="src\game\components\animator.h" />
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\game\scenes\game\gameScene.h" />
     <ClInclude Include="src\game\entities\player\player.h" />
@@ -72,7 +68,6 @@
     <ClInclude Include="src\game\data\data.h" />
     <ClInclude Include="src\game\entities\button\button.h" />
     <ClInclude Include="src\game\entities\characterList\characterList.h" />
-    <ClInclude Include="src\game\components\text.h" />
     <ClInclude Include="src\game\entities\text\textObject.h" />
     <ClInclude Include="src\game\scenes\gameOver\gameOverScene.h" />
     <ClInclude Include="src\game\layers.h" />
@@ -81,10 +76,16 @@
     <ClInclude Include="src\game\entities\wall\wall.h" />
     <ClInclude Include="src\game\entities\goalpost\goalpost.h" />
     <ClInclude Include="src\game\entities\ball\ball.h" />
-    <ClInclude Include="src\game\systems\gameEntityPhysics.h" />
-    <ClInclude Include="src\game\components\gameEntityPhysics.h" />
-    <ClInclude Include="src\game\components\ballPhysics.h" />
-    <ClInclude Include="src\game\systems\ballPhysics.h" />
+    <ClInclude Include="src\audio\audio.h" />
+    <ClInclude Include="src\ecs\components\animator.h" />
+    <ClInclude Include="src\ecs\components\ballPhysics.h" />
+    <ClInclude Include="src\ecs\components\gameEntityPhysics.h" />
+    <ClInclude Include="src\ecs\components\position.h" />
+    <ClInclude Include="src\ecs\components\sprite.h" />
+    <ClInclude Include="src\ecs\components\text.h" />
+    <ClInclude Include="src\ecs\systems\ballPhysics.h" />
+    <ClInclude Include="src\ecs\systems\gameEntityPhysics.h" />
+    <ClInclude Include="src\ecs\systems\rendering.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

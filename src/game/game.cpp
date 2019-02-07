@@ -5,17 +5,15 @@
 #include <iostream>
 #include <string>
 #include "game.h"
-#include "sprites/sprite.h"
-#include "context/context.h"
 #include "game/resources.h"
-#include "game/resources.h"
-#include "game/systems/rendering.h"
-#include "game/components/position.h"
-#include "game/components/sprite.h"
-#include "game/systems/rendering.h"
-#include "game/systems/gameEntityPhysics.h"
-#include "game/systems/ballPhysics.h"
 #include "scene/sceneManager.h"
+#include "ecs/components/position.h"
+#include "ecs/components/sprite.h"
+#include "ecs/systems/rendering.h"
+#include "ecs/systems/rendering.h"
+#include "ecs/systems/gameEntityPhysics.h"
+#include "ecs/systems/ballPhysics.h"
+#include "context/context.h"
 
 Game::Game()
 {}

@@ -2,8 +2,8 @@
 
 #include <memory>
 #include "game/entities/sceneObject.h"
-#include "game/components/text.h"
-#include "game/components/position.h"
+#include "ecs/components/text.h"
+#include "ecs/components/position.h"
 #include "ecs/ecs.h"
 
 class Timer : public SceneObject

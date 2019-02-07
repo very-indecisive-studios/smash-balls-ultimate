@@ -2,9 +2,9 @@
 
 #include <cmath>
 #include "ballPhysics.h"
-#include "game/components/ballPhysics.h"
-#include "game/components/gameEntityPhysics.h"
-#include "game/components/position.h"
+#include "ecs/components/ballPhysics.h"
+#include "ecs/components/gameEntityPhysics.h"
+#include "ecs/components/position.h"
 #include "context/context.h"
 
 void BallPhysicsSystem::ApplyGravity()

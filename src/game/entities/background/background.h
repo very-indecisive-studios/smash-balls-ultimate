@@ -1,8 +1,8 @@
 #pragma once
 #include "ecs/ecs.h"
 #include "game/entities/sceneObject.h"
-#include "game/components/position.h"
-#include "game/components/sprite.h"
+#include "ecs/components/position.h"
+#include "ecs/components/sprite.h"
 #include <memory>
 #include "math/math.h"
 #include "game/resources.h"

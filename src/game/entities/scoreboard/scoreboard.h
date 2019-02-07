@@ -1,9 +1,9 @@
 #pragma once
 
 #include "ecs/ecs.h"
-#include "game/components/position.h"
-#include "game/components/text.h"
-#include "game/components/sprite.h"
+#include "ecs/components/position.h"
+#include "ecs/components/text.h"
+#include "ecs/components/sprite.h"
 #include "game/entities/sceneObject.h"
 
 class Scoreboard : public SceneObject

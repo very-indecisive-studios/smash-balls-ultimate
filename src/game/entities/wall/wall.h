@@ -2,8 +2,8 @@
 #include "ecs/ecs.h"
 #include "game/entities/sceneObject.h"
 #include "sprites/animatedSprite.h"
-#include "game/components/position.h"
-#include "game/components/gameEntityPhysics.h"
+#include "ecs/components/position.h"
+#include "ecs/components/gameEntityPhysics.h"
 #include <memory>
 #include "math/math.h"
 #include "game/resources.h"

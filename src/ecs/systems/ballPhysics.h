@@ -2,7 +2,7 @@
 
 #include <bitset>
 #include "ecs/ecs.h"
-#include "game/components/gameEntityPhysics.h"
+#include "ecs/components/gameEntityPhysics.h"
 
 class BallPhysicsSystem : public System
 {

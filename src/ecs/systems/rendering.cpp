@@ -1,10 +1,10 @@
 #include "pch.h"
 
 #include "rendering.h"
-#include "game/components/position.h"
-#include "game/components/sprite.h"
-#include "game/components/animator.h"
-#include "game/components/text.h"
+#include "ecs/components/position.h"
+#include "ecs/components/sprite.h"
+#include "ecs/components/animator.h"
+#include "ecs/components/text.h"
 #include "context/context.h"
 
 RenderSystem::RenderSystem()
