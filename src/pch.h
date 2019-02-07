@@ -35,7 +35,9 @@
 #include "math/math.h"
 #include "input/inputManager.h"
 #include "resource/resourceManager.h"
-// Include ECS once stable.
-// Include Scene once API changes done.
-// Include Audio once API changes done.
-// Include Context once API changes done and everything on top is stable.
+#include "ecs/ecs.h"
+#include "ecs/engine.h"
+#include "audio/audio.h"
+#include "scene/scene.h"
+#include "scene/sceneManager.h"
+#include "context/context.h"
