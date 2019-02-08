@@ -100,9 +100,21 @@ public:
 	Microsoft::WRL::ComPtr<IMFSourceReader> pAsyncSourceReader = nullptr;
 };
 
-struct AudioBufferState
+class AudioBufferState
 {
+public:
 	bool isFree = true;
+	HANDLE eventBufferEnd;
+
+	AudioBufferState()
+	{
+		eventBufferEnd = CreateEvent(NULL, FALSE, FALSE, NULL);
+	}
+
+	~AudioBufferState()
+	{
+		CloseHandle(eventBufferEnd);
+	}
 };
 
 class AudioPlayer
@@ -163,6 +175,7 @@ private:
 		{
 			auto pAudioBufferState = static_cast<AudioBufferState *>(pBufferContext);
 
+			SetEvent(pAudioBufferState->eventBufferEnd);
 			pAudioBufferState->isFree = true;
 		}
 	};
