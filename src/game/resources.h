@@ -36,7 +36,6 @@ namespace Resources
 	const std::string BUTTON_IMAGE = "assets\\buttons\\button.png";
 	const int BUTTON_HEIGHT = 45;
 	const int BUTTON_WIDTH = 190;
-	const std::wstring BUTTON_CLICK_AUDIO = L"assets/audio/button_click.wav";
 
 	// selectionScene
 	const std::string SELECTION_SCENE_BACKGROUND_IMAGE = "assets\\selectionScene\\background.png";
@@ -113,5 +112,15 @@ namespace Resources
 	const float BALL_SPAWN_X = (Constants::GAME_WIDTH / 2) - (Resources::BALL_RADIUS / 2);
 	const float BALL_SPAWN_Y = 100;
 	const Vector2 BALL_MAX_VEL = { 450,350 };
+
+	// audio
+	const std::wstring BG_MUSIC_AUDIO = L"assets\\audio\\bg_music.mp3";
+	const std::string BG_MUSIC_AUDIO_TAG = "BG_MUSIC";
+	const std::wstring BUTTON_CLICK_AUDIO = L"assets\\audio\\button_click.wav";
+	const std::wstring CROWD_BG_AUDIO = L"assets\\audio\\crowd_bg.wav";
+	const std::wstring CROWD_CHEER_AUDIO = L"assets\\audio\\crowd_cheer.wav";
+	const std::wstring GOALPOST_NET_AUDIO = L"assets\\audio\\goalpost_net.wav";
+	const std::wstring SHOOT_AUDIO = L"assets\\audio\\shoot.wav";
+	const std::wstring WHISTLE_AUDIO = L"assets\\audio\\whistle.wav";
 }
 

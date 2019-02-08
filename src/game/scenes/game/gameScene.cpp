@@ -83,6 +83,17 @@ void GameScene::Initialize()
 	player2->SetRightKey(Resources::P2_RIGHT_KEY);
 	player2->SetJetpackKey(Resources::P2_JETPACK_KEY);
 	player2->SetPowerKey(Resources::P2_POWER_KEY);
+
+	Context::ResourceManager()->GetPersistentAudioPlayer(Resources::BG_MUSIC_AUDIO_TAG)->Stop();
+
+	crowdBgAudioPlayer = Context::ResourceManager()->CreateAudioPlayer(Resources::CROWD_BG_AUDIO);
+	crowdBgAudioPlayer->SetVolume(0.5f);
+	crowdBgAudioPlayer->SetLooping(true);
+	crowdBgAudioPlayer->Play();
+
+	crowdCheerAudioPlayer = Context::ResourceManager()->CreateAudioPlayer(Resources::CROWD_CHEER_AUDIO);
+	whistleAudioPlayer = Context::ResourceManager()->CreateAudioPlayer(Resources::WHISTLE_AUDIO);
+	goalNetAudioPlayer = Context::ResourceManager()->CreateAudioPlayer(Resources::GOALPOST_NET_AUDIO);
 }
 
 bool GameScene::P1Score() 
@@ -132,11 +143,13 @@ void GameScene::CheckGameOver()
 	{
 		if (p1Score == goalLimit) 
 		{
+			crowdCheerAudioPlayer->Play();
 			Context::SceneManager()->LoadScene<GameOverScene>(1);
 		}
 
 		if (p2Score == goalLimit)
 		{
+			crowdCheerAudioPlayer->Play();
 			Context::SceneManager()->LoadScene<GameOverScene>(2);
 		}
 	}
@@ -146,14 +159,17 @@ void GameScene::CheckGameOver()
 		{
 			if (p1Score > p2Score)
 			{
+				crowdCheerAudioPlayer->Play();
 				Context::SceneManager()->LoadScene<GameOverScene>(1);
 			}
 			else if (p2Score > p1Score)
 			{
+				crowdCheerAudioPlayer->Play();
 				Context::SceneManager()->LoadScene<GameOverScene>(2);
 			}
 			else if (p1Score == p2Score)
 			{
+				crowdCheerAudioPlayer->Play();
 				Context::SceneManager()->LoadScene<GameOverScene>(0);
 			}
 		}
@@ -214,6 +230,9 @@ void GameScene::Update(float deltaTime)
 	// Check if player 1 scored
 	if (P1Score() && !toReset)
 	{
+		goalNetAudioPlayer->Play();
+		crowdCheerAudioPlayer->Play();
+
 		currentTime = totalTime;
 		p1Score++;
 		scoreboard->SetLeftPlayerScore(p1Score);
@@ -224,6 +243,9 @@ void GameScene::Update(float deltaTime)
 	// Check if player 2 scored
 	if (P2Score() && !toReset)
 	{
+		goalNetAudioPlayer->Play();
+		crowdCheerAudioPlayer->Play();
+
 		currentTime = totalTime;
 		p2Score++;
 		scoreboard->SetRightPlayerScore(p2Score);
@@ -234,6 +256,8 @@ void GameScene::Update(float deltaTime)
 	// Reset round after 3 seconds
 	if (toReset && totalTime - currentTime >= 3)
 	{
+		whistleAudioPlayer->Play();
+
 		ResetRound();
 		toReset = false;
 	}

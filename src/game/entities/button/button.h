@@ -16,6 +16,8 @@ private:
 	std::shared_ptr<SpriteComponent> spriteComp = std::make_shared<SpriteComponent>();
 	std::shared_ptr<Entity> button = std::make_shared<Entity>();
 
+	std::shared_ptr<AudioPlayer> buttonClickAudioPlayer;
+
 	int height;
 	int width;
 	bool mouseDown = false;

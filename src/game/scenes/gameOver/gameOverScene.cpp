@@ -59,6 +59,8 @@ void GameOverScene::Initialize()
 		true,
 		[this]() { this->HandleButtonHover(); }
 	);
+
+	Context::ResourceManager()->GetPersistentAudioPlayer(Resources::BG_MUSIC_AUDIO_TAG)->Play();
 }
 
 void GameOverScene::HandleButtonHover()

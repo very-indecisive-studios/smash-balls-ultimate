@@ -57,6 +57,13 @@ void MainMenuScene::Initialize()
 		Resources::BUTTON_WIDTH,
 		[this]() { Context::SceneManager()->LoadScene<SelectionScene>(); }
 	);
+
+	if (!(bgMusicAudioPlayer = Context::ResourceManager()->GetPersistentAudioPlayer(Resources::BG_MUSIC_AUDIO_TAG)))
+	{
+		bgMusicAudioPlayer = Context::ResourceManager()->CreatePersistentAudioPlayer(Resources::BG_MUSIC_AUDIO, Resources::BG_MUSIC_AUDIO_TAG);
+	}
+	bgMusicAudioPlayer->SetLooping(true);
+	bgMusicAudioPlayer->Play();
 }
 
 void MainMenuScene::HandleButtonHover() 

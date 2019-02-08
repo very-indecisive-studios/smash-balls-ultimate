@@ -1,6 +1,8 @@
 #include "pch.h"
+
 #include "button.h"
 #include "context/context.h"
+#include "game/resources.h"
 
 Button::Button(std::string pathToTexture, Vector2 pointToDraw, int height, int width, std::function<void()> callbackClicked)
 {
@@ -15,6 +17,8 @@ Button::Button(std::string pathToTexture, Vector2 pointToDraw, int height, int w
 	spriteComp->texture = Context::ResourceManager()->GetTexture(pathToTexture);
 	spriteComp->layer = 100;
 	posComp->pos = pointToDraw;
+
+	buttonClickAudioPlayer = Context::ResourceManager()->CreateAudioPlayer(Resources::BUTTON_CLICK_AUDIO);
 }
 
 bool Button::MouseOverButton()
@@ -49,6 +53,7 @@ void Button::PerformMouseAction()
 
 	if (mouseClicked && MouseOverButton())
 	{
+		buttonClickAudioPlayer->Play();
 		callbackClicked();
 	}
 

@@ -16,6 +16,8 @@ private:
 
 	std::unique_ptr<TextObject> playText;
 	std::unique_ptr<TextObject> creditsText;
+	
+	std::shared_ptr<AudioPlayer> bgMusicAudioPlayer;
 
 public:
 	MainMenuScene();

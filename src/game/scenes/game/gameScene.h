@@ -43,6 +43,11 @@ private:
 	std::unique_ptr<TextObject> middleText;
 	std::unique_ptr<TextObject> instructionText;
 
+	std::shared_ptr<AudioPlayer> crowdBgAudioPlayer;
+	std::shared_ptr<AudioPlayer> crowdCheerAudioPlayer;
+	std::shared_ptr<AudioPlayer> whistleAudioPlayer;
+	std::shared_ptr<AudioPlayer> goalNetAudioPlayer;
+	
 	std::string p1Color;
 	std::string p2Color;
 
