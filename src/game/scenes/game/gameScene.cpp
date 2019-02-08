@@ -161,7 +161,7 @@ void GameScene::Update(float deltaTime)
 		currentTime = totalTime;
 		p1Score++;
 		scoreboard->SetLeftPlayerScore(p1Score);
-		middleText->SetText("PLAYER 1 SCORED");
+		middleText->SetText("PLAYER 1 SCORES!");
 		toReset = true;
 	}
 
@@ -170,7 +170,7 @@ void GameScene::Update(float deltaTime)
 		currentTime = totalTime;
 		p2Score++;
 		scoreboard->SetRightPlayerScore(p2Score);
-		middleText->SetText("PLAYER 2 SCORED");
+		middleText->SetText("PLAYER 2 SCORES!");
 		toReset = true;
 	}
 

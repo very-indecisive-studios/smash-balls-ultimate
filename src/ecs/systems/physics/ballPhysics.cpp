@@ -13,6 +13,21 @@ void BallPhysicsSystem::ApplyGravity()
 	physicsComp->downAcceleration = 100;
 }
 
+// To slow down ball x-axis velocity
+void BallPhysicsSystem::AirResistance()
+{
+	const auto physicsComp = ballEntity->GetComponent<BallPhysicsComponent>();
+
+	if (physicsComp->velocity.x >= 0)
+	{
+		physicsComp->velocity.x -= 0.25f;
+	}
+	else
+	{
+		physicsComp->velocity.x += 0.25f;
+	}
+}
+
 CollisionResult BallPhysicsSystem::TestEntityCollision(std::shared_ptr<Entity> gameEntity)
 {
 	CollisionResult result;
@@ -105,11 +120,50 @@ CollisionResult BallPhysicsSystem::TestEntityCollision(std::shared_ptr<Entity> g
 	return result;
 }
 
-void BallPhysicsSystem::AvoidEatingBall(Entity *player) 
+void BallPhysicsSystem::KickBall(std::shared_ptr<Entity> player, CollisionResult result)
 {
+	const auto physicsComp = ballEntity->GetComponent<BallPhysicsComponent>();
 	const auto posComp = ballEntity->GetComponent<PositionComponent>();
+	
+	if (result.test(LEFT) || result.test(RIGHT)) 
+	{
+		if (result.test(LEFT))
+		{
+			/*Knockback player - to ensure ball will not get 'eaten' (only for x-axis)*/
+			player->GetComponent<PositionComponent>()->pos.x = posComp->pos.x - Resources::PLAYER_WIDTH;
 
-	posComp->pos.x;
+			/*Kick the ball by giving adding velocity*/
+			physicsComp->velocity.x += 50;
+		}
+
+		if (result.test(RIGHT))
+		{
+			player->GetComponent<PositionComponent>()->pos.x = posComp->pos.x + Resources::BALL_WIDTH;
+			physicsComp->velocity.x -= 50;
+		}
+
+		/*Angle the ball slightly to simulate a kick*/
+		if (physicsComp->velocity.y >= 0)
+		{
+			// ball coming downwards
+			physicsComp->velocity.y -= 200;
+		}
+		else
+		{
+			// ball coming upwards
+			physicsComp->velocity.y += 200;
+		}
+	}
+
+	if (result.test(TOP))
+	{
+		physicsComp->velocity.y += 50;
+	}
+
+	if (result.test(BOTTOM))
+	{
+		physicsComp->velocity.y -= 50;
+	}
 }
 
 void BallPhysicsSystem::CollisionDetection()
@@ -134,12 +188,10 @@ void BallPhysicsSystem::CollisionDetection()
 			{
 				physicsComp->velocity.x = -physicsComp->velocity.x;
 			}
-			physicsComp->velocity.x += 30;
-			physicsComp->velocity.y = 0;
 
-			if (!gameEntity->GetComponent<GameEntityPhysicsComponent>()->isPassive) // To move player away from ball (knockback)
+			if (!gameEntity->GetComponent<GameEntityPhysicsComponent>()->isPassive) // If ball hit player
 			{
-				gameEntity->GetComponent<PositionComponent>()->pos.x = posComp->pos.x - Resources::PLAYER_WIDTH;
+				KickBall(gameEntity, result);
 			}
 		}
 		
@@ -149,12 +201,10 @@ void BallPhysicsSystem::CollisionDetection()
 			{
 				physicsComp->velocity.x = -physicsComp->velocity.x;
 			}
-			physicsComp->velocity.x -= 30;
-			physicsComp->velocity.y = 0;
 
-			if (!gameEntity->GetComponent<GameEntityPhysicsComponent>()->isPassive) // To move player away from ball (knockback)
+			if (!gameEntity->GetComponent<GameEntityPhysicsComponent>()->isPassive) // If ball hit player
 			{
-				gameEntity->GetComponent<PositionComponent>()->pos.x = posComp->pos.x + Resources::BALL_WIDTH;
+				KickBall(gameEntity, result);
 			}
 		}
 
@@ -164,7 +214,11 @@ void BallPhysicsSystem::CollisionDetection()
 			{
 				physicsComp->velocity.y = -physicsComp->velocity.y;
 			}
-			physicsComp->velocity.y += 30;
+
+			if (!gameEntity->GetComponent<GameEntityPhysicsComponent>()->isPassive) // If ball hit player
+			{
+				KickBall(gameEntity, result);
+			}
 		}
 		
 		if (result.test(BOTTOM))
@@ -173,7 +227,11 @@ void BallPhysicsSystem::CollisionDetection()
 			{
 				physicsComp->velocity.y = -physicsComp->velocity.y;
 			}
-			physicsComp->velocity.y -= 30;
+
+			if (!gameEntity->GetComponent<GameEntityPhysicsComponent>()->isPassive) // If ball hit player
+			{
+				KickBall(gameEntity, result);
+			}
 		}
 	}
 }
@@ -256,6 +314,8 @@ void BallPhysicsSystem::Process(float deltaTime)
 		return;
 	}
 	ApplyGravity();
+
+	AirResistance();
 	
 	CollisionDetection();
 	

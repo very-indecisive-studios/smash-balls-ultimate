@@ -17,9 +17,10 @@ private:
 	std::shared_ptr<EntityList> gameEntities;
 
 	void ApplyGravity();
+	void AirResistance();
 
 	CollisionResult TestEntityCollision(std::shared_ptr<Entity> other);
-	void AvoidEatingBall(Entity *player);
+	void KickBall(std::shared_ptr<Entity> player, CollisionResult result);
 	void CollisionDetection();
 
 	void Simulate(float deltaTime);
