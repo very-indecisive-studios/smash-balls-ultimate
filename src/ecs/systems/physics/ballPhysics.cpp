@@ -148,12 +148,12 @@ void BallPhysicsSystem::KickBall(std::shared_ptr<Entity> player, CollisionResult
 		if (physicsComp->velocity.y >= 0)
 		{
 			// ball coming downwards
-			physicsComp->velocity.y -= 200;
+			physicsComp->velocity.y -= 225;
 		}
 		else
 		{
 			// ball coming upwards
-			physicsComp->velocity.y += 200;
+			physicsComp->velocity.y += 225;
 		}
 	}
 

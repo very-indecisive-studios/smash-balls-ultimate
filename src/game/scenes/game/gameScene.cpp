@@ -131,7 +131,7 @@ void GameScene::CheckGameOver()
 			{
 				Context::SceneManager()->LoadScene<GameOverScene>(1);
 			}
-			else if (p1Score > p2Score)
+			else if (p2Score > p1Score)
 			{
 				Context::SceneManager()->LoadScene<GameOverScene>(2);
 			}
