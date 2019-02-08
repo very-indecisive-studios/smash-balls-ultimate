@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "gameEntityPhysics.h"
+#include "ecs/components/position.h"
 #include "context/context.h"
 
 GameEntityPhysicsSystem::GameEntityPhysicsSystem()

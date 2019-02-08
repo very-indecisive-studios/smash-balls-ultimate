@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "mainMenuScene.h"
+#include "game/scenes/selection/selectionScene.h"
 #include "context/context.h"
 #include "constants.h"
 #include "game/resources.h"

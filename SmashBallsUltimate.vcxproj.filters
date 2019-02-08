@@ -10,7 +10,6 @@
     <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\input\inputManager.cpp" />
     <ClCompile Include="src\resource\resourceManager.cpp" />
-    <ClCompile Include="src\scene\scene.cpp" />
     <ClCompile Include="src\scene\sceneManager.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\context\context.cpp" />

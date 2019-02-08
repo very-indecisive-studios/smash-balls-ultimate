@@ -6,6 +6,7 @@
 #include <string>
 #include "game.h"
 #include "game/resources.h"
+#include "game/scenes/mainMenu/mainMenuScene.h"
 #include "scene/sceneManager.h"
 #include "ecs/components/position.h"
 #include "ecs/components/sprite.h"
@@ -25,7 +26,7 @@ void Game::Initialize()
 	QueryPerformanceFrequency(&timerFreq);
 	QueryPerformanceCounter(&timeStart);
 
-	Context::SceneManager()->Initialize();
+	Context::SceneManager()->LoadScene<MainMenuScene>();
 
 	Context::ECSEngine()->AttachSystem(std::make_shared<RenderSystem>());
 	Context::ECSEngine()->AttachSystem(std::make_shared<PhysicsSystem>());

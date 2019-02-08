@@ -6,6 +6,8 @@
 #include "ecs/components/gameEntityPhysics.h"
 #include "ecs/components/position.h"
 #include "context/context.h"
+#include "constants.h"
+#include "game/resources.h"
 
 void BallPhysicsSystem::ApplyGravity()
 {

@@ -4,6 +4,7 @@
 #include "context/context.h"
 #include "constants.h"
 #include "game/resources.h"
+#include "game/scenes/gameOver/gameOverScene.h"
 
 GameScene::GameScene(std::string p1Color, std::string p2Color, GameMode gm)
 	: p1Color(p1Color), p2Color(p2Color)

@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "sceneManager.h"
-#include "context/context.h"
+#include "context/context.h" 
 
 SceneManager::SceneManager()
 { }
@@ -11,11 +11,6 @@ SceneManager::~SceneManager()
 { 
 	delete currentScene;
 	delete pendingSceneToLoad;
-}
-
-void SceneManager::Initialize()
-{
-	LoadScene<MainMenuScene>();
 }
 
 void SceneManager::Update(float deltaTime) 
