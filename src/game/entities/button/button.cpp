@@ -15,8 +15,6 @@ Button::Button(std::string pathToTexture, Vector2 pointToDraw, int height, int w
 	spriteComp->texture = Context::ResourceManager()->GetTexture(pathToTexture);
 	spriteComp->layer = 100;
 	posComp->pos = pointToDraw;
-
-	buttonClickPlayer = AudioPlayer::CreatePersistent(Resources::BUTTON_CLICK_AUDIO, "button_click");
 }
 
 bool Button::MouseOverButton()
@@ -51,7 +49,6 @@ void Button::PerformMouseAction()
 
 	if (mouseClicked && MouseOverButton())
 	{
-		buttonClickPlayer->Play();
 		callbackClicked();
 	}
 

@@ -19,11 +19,7 @@ ResourceManager::~ResourceManager()
 		delete font;
 	}
 
-	// Deallocate all persistent audio.
-	for (const auto& pair : persistentAudioPlayerMap)
-	{
-		delete pair.second;
-	}
+	persistentAudioPlayerMap.clear();
 }
 
 Texture * ResourceManager::GetTexture(const std::string &textureName)
@@ -60,7 +56,31 @@ Font * ResourceManager::GetFont(const std::string& fontName, FontConfig config)
 	return loadedFont;
 }
 
-AudioPlayer * ResourceManager::GetPersistentAudioPlayer(const std::string& tag)
+std::shared_ptr<AudioPlayer> ResourceManager::CreateAudioPlayer(const std::wstring& audioFileName)
+{
+	std::shared_ptr<AudioPlayer> audioPlayer(Context::AudioEngine()->CreateAudioPlayer(audioFileName));
+	
+	return audioPlayer;
+}
+
+
+std::shared_ptr<AudioPlayer> ResourceManager::CreatePersistentAudioPlayer(const std::wstring& audioFileName, const std::string& tag)
+{
+	auto itr = persistentAudioPlayerMap.find(tag);
+
+	if (itr != persistentAudioPlayerMap.end())
+	{
+		return itr->second;
+	}
+
+	std::shared_ptr<AudioPlayer> audioPlayer(Context::AudioEngine()->CreateAudioPlayer(audioFileName));
+
+	persistentAudioPlayerMap[tag] = audioPlayer;
+
+	return audioPlayer;
+}
+
+std::shared_ptr<AudioPlayer> ResourceManager::GetPersistentAudioPlayer(const std::string& tag)
 {
 	auto itr = persistentAudioPlayerMap.find(tag);
 
@@ -70,9 +90,4 @@ AudioPlayer * ResourceManager::GetPersistentAudioPlayer(const std::string& tag)
 	}
 
 	return nullptr;
-}
-
-void ResourceManager::StorePersistentAudioPlayer(AudioPlayer* pAudioPlayer, const std::string& tag)
-{
-	persistentAudioPlayerMap[tag] = pAudioPlayer;
 }

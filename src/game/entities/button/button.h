@@ -21,7 +21,6 @@ private:
 	bool mouseDown = false;
 	bool mouseClicked = false;
 	std::function<void()> callbackClicked;
-	AudioPlayer *buttonClickPlayer;
 
 public:
 	Button(std::string pathToTexture, Vector2 pointToDraw, int height, int width, std::function<void()> callbackClicked);

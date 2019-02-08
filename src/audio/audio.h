@@ -151,10 +151,6 @@ public:
 	void SetLooping(bool willLoop);
 
 	void SetVolume(float level);
-
-	static AudioPlayer * Create(const std::wstring &audioFileName);
-	static AudioPlayer * CreatePersistent(const std::wstring &audioFileName, const std::string &tag);
-	static AudioPlayer * GetPersistent(const std::string &tag);
 };
 
 class AudioEngine
