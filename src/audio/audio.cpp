@@ -199,11 +199,11 @@ void AudioPlayer::Work()
 		auto &rCurrentBufferState = bufferStates[bufferIndex];
         if (!rCurrentBufferState.isFree)
         {
-			WaitForSingleObject(rCurrentBufferState.eventBufferEnd, INFINITE);
+			bufferIndex++;
+			bufferIndex %= MAX_BUFFERS;
+
+			continue;
         }
-		
-		bufferIndex++;
-		bufferIndex %= MAX_BUFFERS;
 
 		/*
 		 *  Reading samples from media file.
