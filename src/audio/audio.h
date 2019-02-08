@@ -124,8 +124,6 @@ private:
 	bool				isPlaying	= false;
 	bool				isLooping	= false;
 
-	float volumeLevel = 1.0f;
-
 	void Work();
 public:
 	AudioPlayer(IXAudio2SourceVoice *pSourceVoice, AudioData *pAudioData);
