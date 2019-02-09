@@ -18,6 +18,9 @@ private:
 
 	static std::map<size_t, ComponentId> componentIdMap;
 public:
+	Component() { };
+	virtual ~Component() { }
+
 	template <typename T>
 	static ComponentId GetComponentId()
 	{
@@ -44,6 +47,9 @@ private:
 	std::shared_ptr<Component> components[MAX_COMPONENTS];
 	std::string tag;
 public:
+	Entity() { }
+	~Entity() { }
+
 	template <typename T>
 	void AttachComponent(std::shared_ptr<T> component)
     {
@@ -95,6 +101,9 @@ class System
 private:
 	bool isActive = true;
 public:
+	System() { }
+	virtual ~System() { }
+
 	void SetIsActive(bool active) { this->isActive = active;  }
 	bool GetIsActive() { return this->isActive; };
 

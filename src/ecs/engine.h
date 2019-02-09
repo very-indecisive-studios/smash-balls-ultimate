@@ -5,7 +5,7 @@
 #include <memory>
 #include "ecs.h"
 
-class ECSEngine
+class ECSEngine final
 {
 private:
 	std::map<std::size_t, std::shared_ptr<System>> systemsMap;
