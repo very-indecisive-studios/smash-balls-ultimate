@@ -4,6 +4,7 @@
 #include "context/context.h"
 #include "constants.h"
 #include "game/resources.h"
+#include "game/scenes/selection/selectionScene.h"
 #include "game/scenes/gameOver/gameOverScene.h"
 #include "ecs/systems/physics/physics.h"
 
@@ -29,8 +30,8 @@ void GameScene::Initialize()
 
 	ball = std::make_unique<Ball>(Resources::BALL_RADIUS);
 
-	floor = std::make_unique<Wall>(0, Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT, Resources::GROUND_HEIGHT, Constants::GAME_WIDTH);
-	ceiling = std::make_unique<Wall>(0, 0, 0, Constants::GAME_WIDTH + 100);
+	floor = std::make_unique<Wall>(-10, Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT, Resources::GROUND_HEIGHT, Constants::GAME_WIDTH);
+	ceiling = std::make_unique<Wall>(-10, 0, 0, Constants::GAME_WIDTH + 100);
 	leftWall = std::make_unique<Wall>(0, 0, Constants::GAME_HEIGHT, 10);
 	rightWall = std::make_unique<Wall>(Constants::GAME_WIDTH, 0, Constants::GAME_HEIGHT, 10);
 
@@ -53,6 +54,19 @@ void GameScene::Initialize()
 		Resources::FONT_COLOR_BLACK,
 		false,
 		[this]() { }
+	);
+
+	instructionText = std::make_unique<TextObject>(
+		Resources::FONT_TYPE,
+		Vector2(0, Constants::GAME_HEIGHT / 2 + (Resources::FONT_SIZE)),
+		"",
+		Constants::GAME_HEIGHT,
+		Constants::GAME_WIDTH,
+		TextAlignPosition::H_CENTER,
+		Resources::FONT_SIZE,
+		Resources::FONT_COLOR_BLACK,
+		false,
+		[this]() {}
 	);
 	
 	player1 = std::make_unique<Player>(p1Color, true, Vector2(Resources::P1_SPAWNX, Resources::P1_SPAWNY));
@@ -150,19 +164,32 @@ void GameScene::Pause(float deltaTime)
 	{
 		Context::InputManager()->ClearAll();
 		isPaused = !isPaused;
+
+		if (!isPaused) 
+		{
+			Context::ECSEngine()->GetSystem<PhysicsSystem>()->SetIsActive(true); // Reactivate physics system
+			instructionText->SetText("");
+			middleText->SetText("");
+		}
 	}
+
 	if (isPaused)
 	{
-		totalTime -= deltaTime;
+		totalTime -= deltaTime; // Stop time
+
 		Context::ECSEngine()->GetSystem<PhysicsSystem>()->SetIsActive(false); // Deactivate physics system
-		totalTime = totalTime;
+		
 		middleText->SetText("PAUSED");
+		instructionText->SetText("Esc - Resume | R - Restart");
+
+		// Restart game
+		if (Context::InputManager()->IsKeyDown(0x52))
+		{
+			Context::InputManager()->ClearAll();
+			Context::SceneManager()->LoadScene<SelectionScene>();
+		}
+
 		return;
-	}
-	else
-	{
-		Context::ECSEngine()->GetSystem<PhysicsSystem>()->SetIsActive(true); // Reactivate physics system
-		middleText->SetText("");
 	}
 }
 

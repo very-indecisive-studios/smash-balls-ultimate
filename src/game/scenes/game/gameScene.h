@@ -29,9 +29,9 @@ private:
 	std::unique_ptr<Wall> ceiling;
 	std::unique_ptr<Wall> leftWall;
 	std::unique_ptr<Wall> rightWall;
-
 	std::unique_ptr<Wall> leftGoalpostCeiling;
 	std::unique_ptr<Wall> rightGoalpostCeiling;
+
 	std::unique_ptr<Goalpost> leftGoalpost;
 	std::unique_ptr<Goalpost> rightGoalpost;
 
@@ -41,6 +41,7 @@ private:
 	std::unique_ptr<Timer> timer;
 
 	std::unique_ptr<TextObject> middleText;
+	std::unique_ptr<TextObject> instructionText;
 
 	std::string p1Color;
 	std::string p2Color;
