@@ -94,6 +94,8 @@ void GameScene::Initialize()
 	crowdCheerAudioPlayer = Context::ResourceManager()->CreateAudioPlayer(Resources::CROWD_CHEER_AUDIO);
 	whistleAudioPlayer = Context::ResourceManager()->CreateAudioPlayer(Resources::WHISTLE_AUDIO);
 	goalNetAudioPlayer = Context::ResourceManager()->CreateAudioPlayer(Resources::GOALPOST_NET_AUDIO);
+
+	whistleAudioPlayer->Play();
 }
 
 bool GameScene::P1Score() 
@@ -143,13 +145,17 @@ void GameScene::CheckGameOver()
 	{
 		if (p1Score == goalLimit) 
 		{
+			whistleAudioPlayer->Play();
 			crowdCheerAudioPlayer->Play();
+
 			Context::SceneManager()->LoadScene<GameOverScene>(1);
 		}
 
 		if (p2Score == goalLimit)
 		{
+			whistleAudioPlayer->Play();
 			crowdCheerAudioPlayer->Play();
+
 			Context::SceneManager()->LoadScene<GameOverScene>(2);
 		}
 	}
@@ -157,19 +163,19 @@ void GameScene::CheckGameOver()
 	{
 		if (timeLimit - totalTime <= 0)
 		{
+			whistleAudioPlayer->Play();
+			crowdCheerAudioPlayer->Play();
+
 			if (p1Score > p2Score)
 			{
-				crowdCheerAudioPlayer->Play();
 				Context::SceneManager()->LoadScene<GameOverScene>(1);
 			}
 			else if (p2Score > p1Score)
 			{
-				crowdCheerAudioPlayer->Play();
 				Context::SceneManager()->LoadScene<GameOverScene>(2);
 			}
 			else if (p1Score == p2Score)
 			{
-				crowdCheerAudioPlayer->Play();
 				Context::SceneManager()->LoadScene<GameOverScene>(0);
 			}
 		}
