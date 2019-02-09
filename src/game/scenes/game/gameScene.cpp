@@ -26,6 +26,8 @@ GameScene::~GameScene()
 
 void GameScene::Initialize()
 {
+	Context::ECSEngine()->GetSystem<PhysicsSystem>()->SetIsActive(true);
+
 	background = std::make_unique<Background>(Resources::GAME_SCENE_IMAGE);
 
 	ball = std::make_unique<Ball>(Resources::BALL_RADIUS);
