@@ -74,6 +74,11 @@ CollisionResult GameEntityPhysicsSystem::TestEntityCollision(std::shared_ptr<Ent
 		{
 			result.set(CollisionLocation::BOTTOM);
 		}
+
+		if (targetPhysicsComp->onCollisionCallback)
+		{
+			targetPhysicsComp->onCollisionCallback(other);
+		}
 	}
 
 	return result;

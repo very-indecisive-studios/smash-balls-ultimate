@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+#include <memory>
 #include "ecs/ecs.h"
 #include "math/math.h"
 
@@ -15,4 +17,7 @@ struct BallPhysicsComponent : public Component
 
 	Vector2 velocity = { 0, 0 };
 	Vector2 maxVelocity = {0, 0};
+
+	// Callback
+	std::function<void(std::shared_ptr<Entity> entity)> onCollisionCallback;
 };

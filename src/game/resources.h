@@ -117,10 +117,12 @@ namespace Resources
 	const std::wstring BG_MUSIC_AUDIO = L"assets\\audio\\bg_music.mp3";
 	const std::string BG_MUSIC_AUDIO_TAG = "BG_MUSIC";
 	const std::wstring BUTTON_CLICK_AUDIO = L"assets\\audio\\button_click.wav";
+	const std::string BUTTON_CLICK_AUDIO_TAG = "BUTTON_CLICK";
 	const std::wstring CROWD_BG_AUDIO = L"assets\\audio\\crowd_bg.wav";
 	const std::wstring CROWD_CHEER_AUDIO = L"assets\\audio\\crowd_cheer.wav";
 	const std::wstring GOALPOST_NET_AUDIO = L"assets\\audio\\goalpost_net.wav";
-	const std::wstring SHOOT_AUDIO = L"assets\\audio\\shoot.wav";
+	const std::wstring GOALPOST_HIT_AUDIO = L"assets\\audio\\goalpost_hit.wav";
+	const std::wstring BALL_HIT_AUDIO = L"assets\\audio\\ball_hit.wav";
 	const std::wstring WHISTLE_AUDIO = L"assets\\audio\\whistle.wav";
 }
 

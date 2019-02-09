@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+#include <memory>
 #include "ecs/ecs.h"
 #include "math/math.h"
 
@@ -19,4 +21,7 @@ struct GameEntityPhysicsComponent : public Component
 	float rightAcceleration = 0;
 
 	Vector2 velocity = { 0, 0 };
+
+	// Callback
+	std::function<void(std::shared_ptr<Entity> entity)> onCollisionCallback;
 };

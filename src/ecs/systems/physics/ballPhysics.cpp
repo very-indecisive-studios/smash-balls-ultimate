@@ -117,6 +117,11 @@ CollisionResult BallPhysicsSystem::TestEntityCollision(std::shared_ptr<Entity> g
 			*/
 			result.set(TOP);
 		}
+
+		if (ballPhyComp->onCollisionCallback)
+		{
+			ballPhyComp->onCollisionCallback(gameEntity);
+		}
 	}
 
 	return result;

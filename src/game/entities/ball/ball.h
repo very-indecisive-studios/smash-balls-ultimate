@@ -1,4 +1,6 @@
 #pragma once
+
+#include "audio/audio.h"
 #include "ecs/ecs.h"
 #include "game/entities/gameEntity.h"
 #include "ecs/components/position.h"
@@ -16,7 +18,7 @@ private:
 	std::shared_ptr<SpriteComponent> spriteComp = std::make_shared<SpriteComponent>();
 	std::shared_ptr<BallPhysicsComponent> phyComp = std::make_shared<BallPhysicsComponent>();
 	std::shared_ptr<Entity> ball = std::make_shared<Entity>();
-
+	std::shared_ptr<AudioPlayer> ballHitAudioPlayer;
 public:
 	Ball(float radius);
 	void SetX(float newX) { posComp->pos.x = newX; }

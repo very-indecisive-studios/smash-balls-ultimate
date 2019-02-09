@@ -2,6 +2,7 @@
 
 #include "ball.h"
 #include "context/context.h"
+#include "game/resources.h"
 #include <iostream>
 
 Ball::Ball(float radius)
@@ -20,6 +21,13 @@ Ball::Ball(float radius)
 
 	phyComp->collisionCircleRadius = radius;
 	phyComp->maxVelocity = Resources::BALL_MAX_VEL;
+
+	ballHitAudioPlayer = Context::ResourceManager()->CreateAudioPlayer(Resources::BALL_HIT_AUDIO);
+	ballHitAudioPlayer->SetVolume(0.25f);
+	phyComp->onCollisionCallback = [&ballHitAudioPlayer = ballHitAudioPlayer](std::shared_ptr<Entity> e)
+	{
+		ballHitAudioPlayer->Play();
+	};
 }
 
 void Ball::Reset() 
