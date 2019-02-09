@@ -28,8 +28,8 @@ void Game::Initialize()
 
 	Context::SceneManager()->LoadScene<MainMenuScene>();
 
-	Context::ECSEngine()->AttachSystem(std::make_shared<RenderSystem>());
-	Context::ECSEngine()->AttachSystem(std::make_shared<PhysicsSystem>());
+	Context::ECSEngine()->AttachSystem<RenderSystem>(std::make_shared<RenderSystem>());
+	Context::ECSEngine()->AttachSystem<PhysicsSystem>(std::make_shared<PhysicsSystem>());
 }
 
 void Game::Run()

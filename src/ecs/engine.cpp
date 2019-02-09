@@ -2,11 +2,6 @@
 
 #include "engine.h"
 
-void ECSEngine::AttachSystem(std::shared_ptr<System> system)
-{
-	systems.push_back(system);
-}
-
 void ECSEngine::AttachEntity(std::shared_ptr<Entity> entity)
 {
 	entities.push_back(entity);
@@ -66,11 +61,11 @@ std::shared_ptr<Entity> ECSEngine::GetTaggedEntity(const std::string & tag)
 
 void ECSEngine::Update(float deltaTime)
 {
-	for (auto &system : systems)
+	for (auto &system : systemsMap)
 	{
-		if (system->GetIsActive())
+		if (system.second->GetIsActive())
 		{
-			system->Process(deltaTime);
+			system.second->Process(deltaTime);
 		}
 	}
 }
