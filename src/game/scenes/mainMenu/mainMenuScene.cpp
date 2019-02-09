@@ -61,9 +61,13 @@ void MainMenuScene::Initialize()
 	if (!(bgMusicAudioPlayer = Context::ResourceManager()->GetPersistentAudioPlayer(Resources::BG_MUSIC_AUDIO_TAG)))
 	{
 		bgMusicAudioPlayer = Context::ResourceManager()->CreatePersistentAudioPlayer(Resources::BG_MUSIC_AUDIO, Resources::BG_MUSIC_AUDIO_TAG);
+		bgMusicAudioPlayer->SetLooping(true);
 	}
-	bgMusicAudioPlayer->SetLooping(true);
-	bgMusicAudioPlayer->Play();
+
+	if (!bgMusicAudioPlayer->IsPlaying())
+	{
+		bgMusicAudioPlayer->Play();
+	}
 }
 
 void MainMenuScene::HandleButtonHover() 
