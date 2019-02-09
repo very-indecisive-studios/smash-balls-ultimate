@@ -17,7 +17,7 @@ void GameOverScene::Initialize()
 {
 	if (winnerPlayerNo == 0) 
 	{
-		winnerString = "ITS A DRAW";
+		winnerString = "DRAW";
 	}
 	else 
 	{
@@ -28,12 +28,12 @@ void GameOverScene::Initialize()
 
 	winnerText = std::make_unique<TextObject>(
 		Resources::FONT_TYPE,
-		Vector2(0, Constants::GAME_HEIGHT / 2 - (Resources::FONT_SIZE / 2)),
+		Vector2(0, Constants::GAME_HEIGHT / 2 - (Resources::FONT_SIZE * 3 / 2)),
 		winnerString,
 		Constants::GAME_HEIGHT,
 		Constants::GAME_WIDTH,
 		TextAlignPosition::H_CENTER,
-		Resources::FONT_SIZE,
+		Resources::FONT_SIZE * 3,
 		Resources::FONT_COLOR_BLACK,
 		false,
 		[this]() {}
