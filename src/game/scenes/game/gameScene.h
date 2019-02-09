@@ -45,6 +45,8 @@ private:
 	std::string p1Color;
 	std::string p2Color;
 
+	bool isPaused = false;
+
 	float timeLimit = 0;
 	float goalLimit = 0;
 
@@ -62,6 +64,7 @@ public:
 	void Initialize() override;
 	bool P1Score();
 	bool P2Score();
+	void Pause(float deltaTime);
 	void ResetRound();
 	void CheckGameOver();
 	void Update(float deltaTime) override;

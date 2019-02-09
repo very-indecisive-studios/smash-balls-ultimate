@@ -5,6 +5,7 @@
 #include "constants.h"
 #include "game/resources.h"
 #include "game/scenes/gameOver/gameOverScene.h"
+#include "ecs/systems/physics/physics.h"
 
 GameScene::GameScene(std::string p1Color, std::string p2Color, GameMode gm)
 	: p1Color(p1Color), p2Color(p2Color)
@@ -143,11 +144,35 @@ void GameScene::CheckGameOver()
 	}
 }
 
+void GameScene::Pause(float deltaTime)
+{
+	if (Context::InputManager()->IsKeyDown(VK_ESCAPE))
+	{
+		Context::InputManager()->ClearAll();
+		isPaused = !isPaused;
+	}
+	if (isPaused)
+	{
+		totalTime -= deltaTime;
+		Context::ECSEngine()->GetSystem<PhysicsSystem>()->SetIsActive(false); // Deactivate physics system
+		totalTime = totalTime;
+		middleText->SetText("PAUSED");
+		return;
+	}
+	else
+	{
+		Context::ECSEngine()->GetSystem<PhysicsSystem>()->SetIsActive(true); // Reactivate physics system
+		middleText->SetText("");
+	}
+}
+
 void GameScene::Update(float deltaTime)
 {
 	totalTime += deltaTime;
 	
-	// Set timer.
+	Pause(deltaTime);
+
+	// Set timer
 	if (timeLimit != 0)
 	{
 		timer->SetSeconds(timeLimit - totalTime);
@@ -157,6 +182,7 @@ void GameScene::Update(float deltaTime)
 		timer->SetSeconds(totalTime);
 	}
 
+	// Check if player 1 scored
 	if (P1Score() && !toReset)
 	{
 		currentTime = totalTime;
@@ -166,6 +192,7 @@ void GameScene::Update(float deltaTime)
 		toReset = true;
 	}
 
+	// Check if player 2 scored
 	if (P2Score() && !toReset)
 	{
 		currentTime = totalTime;
@@ -175,6 +202,7 @@ void GameScene::Update(float deltaTime)
 		toReset = true;
 	}
 
+	// Reset round after 3 seconds
 	if (toReset && totalTime - currentTime >= 3)
 	{
 		ResetRound();
