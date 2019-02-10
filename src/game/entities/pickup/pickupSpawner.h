@@ -7,6 +7,8 @@
 #include "game/resources.h"
 #include "pch.h"
 #include "pickup.h"
+#include "math/math.h"
+#include "constants.h"
 
 class PickupSpawner
 {
@@ -15,7 +17,7 @@ private:
 	float elapsedTime = 0;
 	float spawnTime = 3.0;
 
-	int x = rand() % Constants::GAME_WIDTH;
+	int x = rand() % 1280;
 
 public:
 	PickupSpawner();

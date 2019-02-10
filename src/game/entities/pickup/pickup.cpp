@@ -3,6 +3,7 @@
 #include "game/data.h"
 #include "context/context.h"
 #include "game/resources.h"
+#include "game/layers.h"
 
 Pickup::Pickup(Vector2 spawnpt)
 {
@@ -14,6 +15,7 @@ Pickup::Pickup(Vector2 spawnpt)
 	pickupSpeedTexture = Context::ResourceManager()->GetTexture(Resources::SPEED_PICKUP);
 
 	spriteComp->texture = pickupSpeedTexture;
+	spriteComp->layer = Layers::UI_IMAGE;
 
 	posComp->pos = spawnpt;
 
@@ -24,5 +26,6 @@ Pickup::Pickup(Vector2 spawnpt)
 
 void Pickup::Update(float deltaTime)
 {
+	if (onCollissionCallBack)
 	physComp->velocity.x = Resources::PICKUP_SPEED;
 }

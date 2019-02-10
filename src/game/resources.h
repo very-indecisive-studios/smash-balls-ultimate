@@ -70,7 +70,7 @@ namespace Resources
 	const std::string SPEED_PICKUP = "assets\\pickup\\speed.png";
 	const float PICKUP_ANIMATION_DELAY = 0.1f;
 	const int PICKUP_LENGTH = 50;     
-	const int PICKUP_SPAWNY = Constants::GAME_HEIGHT * 3 / 4;
+	const int PICKUP_SPAWNY = Constants::GAME_HEIGHT/4;
 	const int PICKUP_SPEED = 100;
 
 	// player
