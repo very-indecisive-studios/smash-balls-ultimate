@@ -32,6 +32,8 @@ void GameScene::Initialize()
 
 	ball = std::make_unique<Ball>(Resources::BALL_RADIUS);
 
+	pickups = std::make_unique<PickupSpawner>(Resources::PICKUP_SPEED);
+
 	floor = std::make_unique<Wall>(-10, Constants::GAME_HEIGHT - Resources::GROUND_HEIGHT, Resources::GROUND_HEIGHT, Constants::GAME_WIDTH);
 	ceiling = std::make_unique<Wall>(-10, 0, 0, Constants::GAME_WIDTH + 100);
 	leftWall = std::make_unique<Wall>(0, 0, Constants::GAME_HEIGHT, 10);

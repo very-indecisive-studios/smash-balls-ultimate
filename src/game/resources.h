@@ -65,6 +65,14 @@ namespace Resources
 	const int SELECTION_SCENE_P1_Y = Constants::GAME_WIDTH / 6;
 	const int SELECTION_SCENE_P2_X = (Constants::GAME_WIDTH * 0.5f) + (Constants::GAME_WIDTH / 8);
 	const int SELECTION_SCENE_P2_Y = Constants::GAME_WIDTH / 6;
+	
+	//pickup
+	const std::string PICKUP_SPEED = "assets\\pickup\\speed.png";
+	const float PICKUP_ANIMATION_DELAY = 0.1f;
+	const int PICKUP_LENGTH = 50;     
+	const int PICKUP_SPAWNX = Constants::GAME_WIDTH / 2;
+	const int PICKUP_SPAWNY = Constants::GAME_HEIGHT * 3 / 4;
+	const int PICKUP_SPEED = 100;
 
 	// player
 	const std::string PLAYER_LEFT_OFF_FOLDER = "assets\\players\\left_off\\";
@@ -77,8 +85,8 @@ namespace Resources
 	const int PLAYER_BADGE_SIZE = 47;
 
 	const float PLAYER_ANIMATION_DELAY = 0.1f; // time between frames of player animation
-	const int  PLAYER_WIDTH = 88;              // width of player image
-	const int  PLAYER_HEIGHT = 100;             // height of player image
+	const int PLAYER_WIDTH = 88;              // width of player image
+	const int PLAYER_HEIGHT = 100;             // height of player image
 	const int PLAYER_SPEED= 200;
 
 	// hud - player tag

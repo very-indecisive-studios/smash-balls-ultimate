@@ -10,6 +10,8 @@
 #include "game/entities/timer/timer.h"
 #include "game/entities/wall/wall.h"
 #include "game/entities/goalpost/goalpost.h"
+#include "game/entities/pickup/pickup.h"
+#include "game/entities/pickup/pickupSpawner.h"
 #include "game/entities/ball/ball.h"
 
 struct GameMode
@@ -34,6 +36,8 @@ private:
 
 	std::unique_ptr<Goalpost> leftGoalpost;
 	std::unique_ptr<Goalpost> rightGoalpost;
+
+	std::unique_ptr<PickupSpawner> pickups;
 
 	std::unique_ptr<Player> player1;
 	std::unique_ptr<Player> player2;

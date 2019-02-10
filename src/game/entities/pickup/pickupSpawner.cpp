@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include "pch.h"
 #include "pickupSpawner.h"
 #include "pickup.h"
 #include "math/math.h"
@@ -22,15 +23,12 @@ PickupSpawner::~PickupSpawner()
 	DestroyPool(pickupPool);
 }
 
-
 void PickupSpawner::InitializePool(std::queue<Pickup*>& pool)
 {
 	for (int i = 0; i < TOTAL_PICKUPS_POOLED; i++)
 	{
-		int x = rand() % 3;
-
 		Pickup *p = nullptr;
-		p = new Pickup(3);
+		p = new Pickup();
 		pool.push(p);
 	}
 }
@@ -62,9 +60,9 @@ void PickupSpawner::Update(float deltaTime)
 		spawnTime -= 0.2;
 		totalTime = 0;
 	}
-	elapsedTime1 += deltaTime;
-	if (elapsedTime1 >= spawnTime)
+	elapsedTime += deltaTime;
+	if (elapsedTime >= spawnTime)
 	{
-		elapsedTime1 = 0;
+		elapsedTime = 0;
 	}
 }
