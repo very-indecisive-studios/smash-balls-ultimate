@@ -269,6 +269,7 @@ void GameScene::Update(float deltaTime)
 		toReset = false;
 	}
 
+	ps->Update(deltaTime);
 	ball->Update(deltaTime);
 	player1->Update(deltaTime);
 	player2->Update(deltaTime);

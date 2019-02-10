@@ -54,6 +54,7 @@ private:
 	std::string p1Color;
 	std::string p2Color;
 
+	PickupSpawner *ps = new PickupSpawner();
 	bool isPaused = false;
 
 	float timeLimit = 0;

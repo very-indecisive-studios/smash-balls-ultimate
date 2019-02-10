@@ -9,8 +9,6 @@
 class PickupSpawner
 {
 private:
-	static const int TOTAL_PICKUPS_POOLED = 12;
-
 	float totalTime = 0;
 	float elapsedTime = 0;
 	float spawnTime = 3.0;
