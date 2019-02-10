@@ -1,9 +1,11 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
 #include <queue>
 #include <deque>
 #include "game/resources.h"
+#include "pch.h"
 #include "pickup.h"
 
 class PickupSpawner
@@ -14,10 +16,8 @@ private:
 	float spawnTime = 3.0;
 
 	int x = rand() % Constants::GAME_WIDTH;
-	std::queue<Pickup *> pickups;
 
 public:
 	PickupSpawner();
-	void Reset();
 	void Update(float deltaTime);
 };

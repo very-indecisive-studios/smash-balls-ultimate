@@ -27,15 +27,7 @@ void PickupSpawner::Update(float deltaTime)
 	if (elapsedTime >= spawnTime)
 	{
 		Pickup *p = new Pickup(Vector2(x, Resources::PICKUP_SPAWNY));
-		pickups.push(p);
+		p->Update(deltaTime);
 		elapsedTime = 0;
-	}
-}
-
-void PickupSpawner::Reset()
-{
-	for (int i=0; i<pickups.size();i++)
-	{
-		pickups.pop();
 	}
 }
