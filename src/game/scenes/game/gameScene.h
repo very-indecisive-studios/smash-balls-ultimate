@@ -37,7 +37,6 @@ private:
 	std::unique_ptr<Goalpost> leftGoalpost;
 	std::unique_ptr<Goalpost> rightGoalpost;
 
-	std::unique_ptr<PickupSpawner> pickups;
 
 	std::unique_ptr<Player> player1;
 	std::unique_ptr<Player> player2;

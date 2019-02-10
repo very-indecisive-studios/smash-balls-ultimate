@@ -6,7 +6,6 @@
 #include "game/resources.h"
 #include "pickup.h"
 
-
 class PickupSpawner
 {
 private:
@@ -16,14 +15,11 @@ private:
 	float elapsedTime = 0;
 	float spawnTime = 3.0;
 
-	std::queue<Pickup *> pickupPool;
-	void InitializePool(std::queue<Pickup *> &pool);
-	void DestroyPool(std::queue<Pickup *> &pool);
-	void DestroyPool(std::deque<Pickup *> &pool);
+	int x = rand() % Constants::GAME_WIDTH;
+	std::queue<Pickup *> pickups;
 
 public:
 	PickupSpawner();
-	~PickupSpawner();
 	void Reset();
 	void Update(float deltaTime);
 };

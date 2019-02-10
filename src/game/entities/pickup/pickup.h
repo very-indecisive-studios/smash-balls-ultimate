@@ -20,11 +20,9 @@ private:
 	
 	Vector2 velocity;
 	Texture *pickupSpeedTexture;
+	int x = rand() % Constants::GAME_WIDTH;
 
 public:
 	Pickup(Vector2 spawnpt);
-	void SetX(float newX) { posComp->pos.x = newX; }
-	void SetY(float newY) { posComp->pos.y = newY; }
-	void SetVelocity(float speed) { velocity = Vector2(speed, -speed); }
 	void Update(float deltaTime) override;
 };
