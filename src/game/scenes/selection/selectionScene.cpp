@@ -16,6 +16,9 @@ void SelectionScene::Initialize()
 {
 	background = std::make_unique<Background>(Resources::SELECTION_SCENE_BACKGROUND_IMAGE);
 
+	p1characterList = std::make_unique<CharacterList>(Vector2(Resources::SELECTION_SCENE_P1_X, Resources::SELECTION_SCENE_P1_Y));
+	p2characterList = std::make_unique<CharacterList>(Vector2(Resources::SELECTION_SCENE_P2_X, Resources::SELECTION_SCENE_P2_Y));
+
 	p1LeftButton = std::make_unique<Button>(
 		Resources::SELECTION_SCENE_LEFT_ARROW_WHITE,
 		Vector2(Resources::SELECTION_SCENE_P1_X - Resources::SELECTION_SCENE_CHAR_SIZE, Resources::SELECTION_SCENE_P1_Y),
@@ -80,9 +83,6 @@ void SelectionScene::Initialize()
 		[this]() { Context::SceneManager()->LoadScene<GameScene>(p1characterList->GetCurrentCharacterColor(), p2characterList->GetCurrentCharacterColor(), currentGM); }
 	);
 
-	p1characterList = std::make_unique<CharacterList>(Vector2(Resources::SELECTION_SCENE_P1_X, Resources::SELECTION_SCENE_P1_Y));
-	p2characterList = std::make_unique<CharacterList>(Vector2(Resources::SELECTION_SCENE_P2_X, Resources::SELECTION_SCENE_P2_Y));
-
 	gameModesText = std::make_unique<TextObject>(
 		Resources::FONT_TYPE,
 		Vector2(0, Constants::GAME_HEIGHT / 2 - Resources::FONT_SIZE / 2),
@@ -93,7 +93,7 @@ void SelectionScene::Initialize()
 		Resources::FONT_SIZE,
 		Resources::FONT_COLOR_BLACK,
 		false,
-		[this]() { Context::SceneManager()->LoadScene<MainMenuScene>(); }
+		[this]() {}
 	);
 
 	gameModesList.push_back(Resources::SELECTION_SCENE_GAMEMODE_1);
