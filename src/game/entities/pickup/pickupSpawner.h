@@ -20,8 +20,10 @@ private:
 	void InitializePool(std::queue<Pickup *> &pool);
 	void DestroyPool(std::queue<Pickup *> &pool);
 	void DestroyPool(std::deque<Pickup *> &pool);
+
 public:
 	PickupSpawner();
 	~PickupSpawner();
+	void Reset();
 	void Update(float deltaTime);
 };

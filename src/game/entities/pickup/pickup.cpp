@@ -2,23 +2,18 @@
 #include "pickup.h"
 #include "game/data.h"
 #include "context/context.h"
+#include "game/resources.h"
 
 Pickup::Pickup(Vector2 spawnpt)
 {
-	body->AttachComponent<PositionComponent>(posComp);
-	body->AttachComponent<SpriteComponent>(spriteComp);
-	body->AttachComponent<AnimatorComponent>(animComp);
-	body->AttachComponent<GameEntityPhysicsComponent>(physComp);
-	Context::ECSEngine()->AttachEntity(body);
+	pickup->AttachComponent<PositionComponent>(posComp);
+	pickup->AttachComponent<SpriteComponent>(spriteComp);
+	pickup->AttachComponent<GameEntityPhysicsComponent>(physComp);
+	Context::ECSEngine()->AttachEntity(pickup);
 
-	pickupSpeedTexture = Context::ResourceManager()->GetTexture(Resources::PICKUP_SPEED);
+	pickupSpeedTexture = Context::ResourceManager()->GetTexture(Resources::SPEED_PICKUP);
 
 	spriteComp->texture = pickupSpeedTexture;
-
-	animComp->secondsPerFrame = Resources::PICKUP_ANIMATION_DELAY;
-	animComp->frameWidth = Resources::PICKUP_LENGTH;
-	animComp->frameHeight = Resources::PICKUP_LENGTH;
-	animComp->Play();
 
 	posComp->pos = spawnpt;
 
@@ -29,5 +24,5 @@ Pickup::Pickup(Vector2 spawnpt)
 
 void Pickup::Update(float deltaTime)
 {
-
+	physComp->velocity.x = Resources::PICKUP_SPEED;
 }

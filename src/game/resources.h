@@ -67,10 +67,9 @@ namespace Resources
 	const int SELECTION_SCENE_P2_Y = Constants::GAME_WIDTH / 6;
 	
 	//pickup
-	const std::string PICKUP_SPEED = "assets\\pickup\\speed.png";
+	const std::string SPEED_PICKUP = "assets\\pickup\\speed.png";
 	const float PICKUP_ANIMATION_DELAY = 0.1f;
 	const int PICKUP_LENGTH = 50;     
-	const int PICKUP_SPAWNX = Constants::GAME_WIDTH / 2;
 	const int PICKUP_SPAWNY = Constants::GAME_HEIGHT * 3 / 4;
 	const int PICKUP_SPEED = 100;
 

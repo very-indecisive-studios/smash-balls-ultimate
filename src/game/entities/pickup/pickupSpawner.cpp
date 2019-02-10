@@ -5,6 +5,8 @@
 #include "pickup.h"
 #include "math/math.h"
 #include "game/scenes/game/gameScene.h"
+#include "game/resources.h"
+#include "constants.h"
 
 
 PickupSpawner::PickupSpawner()
@@ -25,10 +27,12 @@ PickupSpawner::~PickupSpawner()
 
 void PickupSpawner::InitializePool(std::queue<Pickup*>& pool)
 {
+	int x = rand() % Constants::GAME_WIDTH;
 	for (int i = 0; i < TOTAL_PICKUPS_POOLED; i++)
 	{
+
 		Pickup *p = nullptr;
-		p = new Pickup();
+		p = new Pickup(Vector2(x, Resources::PICKUP_SPAWNY));
 		pool.push(p);
 	}
 }
@@ -65,4 +69,9 @@ void PickupSpawner::Update(float deltaTime)
 	{
 		elapsedTime = 0;
 	}
+}
+
+void PickupSpawner::Reset()
+{
+	DestroyPool(pickupPool);
 }

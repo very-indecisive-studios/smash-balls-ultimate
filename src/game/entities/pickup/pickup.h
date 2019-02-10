@@ -15,9 +15,8 @@ class Pickup : public GameEntity
 private:
 	std::shared_ptr<PositionComponent> posComp = std::make_shared<PositionComponent>();
 	std::shared_ptr<SpriteComponent> spriteComp = std::make_shared<SpriteComponent>();
-	std::shared_ptr<AnimatorComponent> animComp = std::make_shared<AnimatorComponent>();
 	std::shared_ptr<GameEntityPhysicsComponent> physComp = std::make_shared<GameEntityPhysicsComponent>();
-	std::shared_ptr<Entity> body = std::make_shared<Entity>();
+	std::shared_ptr<Entity> pickup = std::make_shared<Entity>();
 	
 	Vector2 velocity;
 	Texture *pickupSpeedTexture;
