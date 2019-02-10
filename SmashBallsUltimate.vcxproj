@@ -94,6 +94,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\entities\pickup\pickupSpawner.cpp" />
     <ClCompile Include="src\audio\audio.cpp" />
     <ClCompile Include="src\ecs\ecs.cpp" />
     <ClCompile Include="src\ecs\engine.cpp" />
@@ -102,6 +103,7 @@
     <ClCompile Include="src\game\entities\button\button.cpp" />
     <ClCompile Include="src\game\entities\characterList\characterList.cpp" />
     <ClCompile Include="src\game\entities\goalpost\goalpost.cpp" />
+    <ClCompile Include="src\game\entities\pickup\pickup.cpp" />
     <ClCompile Include="src\game\entities\player\player.cpp" />
     <ClCompile Include="src\game\entities\text\textObject.cpp" />
     <ClCompile Include="src\game\entities\scoreboard\scoreboard.cpp" />
@@ -129,6 +131,7 @@
     <ClCompile Include="src\winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\entities\pickup\pickupSpawner.h" />
     <ClInclude Include="src\audio\audio.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resources\resource.h" />
@@ -148,6 +151,7 @@
     <ClInclude Include="src\game\entities\button\button.h" />
     <ClInclude Include="src\game\entities\characterList\characterList.h" />
     <ClInclude Include="src\game\entities\goalpost\goalpost.h" />
+    <ClInclude Include="src\game\entities\pickup\pickup.h" />
     <ClInclude Include="src\game\entities\player\player.h" />
     <ClInclude Include="src\game\entities\gameEntity.h" />
     <ClInclude Include="src\ecs\components\text.h" />
