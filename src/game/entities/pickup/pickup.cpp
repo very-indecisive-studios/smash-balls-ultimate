@@ -26,6 +26,5 @@ Pickup::Pickup(Vector2 spawnpt)
 
 void Pickup::Update(float deltaTime)
 {
-	if (onCollissionCallBack)
 	physComp->velocity.x = Resources::PICKUP_SPEED;
 }
