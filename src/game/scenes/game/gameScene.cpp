@@ -128,6 +128,8 @@ bool GameScene::P2Score()
 
 void GameScene::ResetRound() 
 {
+	//reset pickups
+	pickups->Reset();
 
 	// reset ball
 	ball->Reset();

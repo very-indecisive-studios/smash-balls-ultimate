@@ -34,6 +34,7 @@
     <ClCompile Include="src\game\entities\pickup\pickup.cpp" />
     <ClCompile Include="src\game\entities\pickup\pickupSpawner.h" />
     <ClCompile Include="src\game\entities\pickup\pickupSpawner.cpp" />
+    <ClCompile Include="src\ecs\systems\physics\pickupPhysics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
@@ -85,6 +86,7 @@
     <ClInclude Include="src\ecs\systems\physics\collision.h" />
     <ClInclude Include="src\ecs\systems\physics\ballPhysics.h" />
     <ClInclude Include="src\game\entities\pickup\pickup.h" />
+    <ClInclude Include="src\ecs\systems\physics\pickupPhysics.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SmashBallsUltimate.rc" />

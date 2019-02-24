@@ -21,5 +21,6 @@ private:
 
 public:
 	PickupSpawner();
+	void Reset();
 	void Update(float deltaTime);
 };

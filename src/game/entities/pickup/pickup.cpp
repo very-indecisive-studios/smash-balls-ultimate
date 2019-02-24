@@ -22,10 +22,10 @@ Pickup::Pickup(Vector2 spawnpt)
 	physComp->collisionBoxHeight = Resources::PICKUP_LENGTH;
 	physComp->collisionBoxWidth = Resources::PICKUP_LENGTH;
 	physComp->isPassive = false;
+	physComp->isCollidable = false;
 }
 
 void Pickup::Update(float deltaTime)
 {
-	if (onCollissionCallBack)
 	physComp->velocity.x = Resources::PICKUP_SPEED;
 }

@@ -14,6 +14,10 @@ PickupSpawner::PickupSpawner()
 	srand(time(nullptr));
 }
 
+void PickupSpawner::Reset()
+{
+
+}
 void PickupSpawner::Update(float deltaTime)
 {
 	totalTime += deltaTime;
