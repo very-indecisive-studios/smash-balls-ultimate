@@ -174,10 +174,10 @@ void GameEntityPhysicsSystem::Process(float deltaTime)
 {
 	physicsEntities = Context::ECSEngine()->GetEntities(physicsBitset);
 	activePhysicsEntities = std::make_shared<EntityList>();
-
 	for (auto &entity : *physicsEntities)
 	{
-		if (!entity->GetComponent<GameEntityPhysicsComponent>()->isPassive)
+		const auto physComp = entity->GetComponent<GameEntityPhysicsComponent>();
+		if (!physComp->isPickup && !physComp->isPassive)
 		{
 			activePhysicsEntities->push_back(entity);
 		}

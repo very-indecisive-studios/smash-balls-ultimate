@@ -16,10 +16,12 @@ private:
 	float totalTime = 0;
 	float elapsedTime = 0;
 	float spawnTime = 3.0;
-
-	int x = rand() % 1280;
+	float pickupTime = -1;
+	std::vector<Pickup*>pickups;
+	int x = rand() % 100;
 
 public:
 	PickupSpawner();
+	void Reset();
 	void Update(float deltaTime);
 };

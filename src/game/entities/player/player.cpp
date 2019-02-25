@@ -34,6 +34,7 @@ Player::Player(std::string color, bool isPlayer1, Vector2 spawnPt)
 	body->AttachComponent<SpriteComponent>(spriteComp);
 	body->AttachComponent<AnimatorComponent>(animComp);
 	body->AttachComponent<GameEntityPhysicsComponent>(physComp);
+	body->SetTag("player");
 	Context::ECSEngine()->AttachEntity(body);
 
 	leftOffSpritesheetTexture	= Context::ResourceManager()->GetTexture(Resources::PLAYER_LEFT_OFF_FOLDER + color + ".png");

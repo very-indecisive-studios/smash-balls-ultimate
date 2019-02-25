@@ -44,5 +44,9 @@ public:
 
 	std::shared_ptr<Entity> GetTaggedEntity(const std::string &tag);
 
+	std::shared_ptr<EntityList> GetEntities(const std::string &listTag);
+
 	void Update(float deltaTime);
+
+	void RemoveEntity(std::shared_ptr<Entity> entity);
 };

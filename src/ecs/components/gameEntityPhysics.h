@@ -14,6 +14,7 @@ struct GameEntityPhysicsComponent : public Component
 	bool isCollidable = true;
 
 	bool isPassive = true;
+	bool isPickup = false;
 
 	float upAcceleration = 0;
 	float downAcceleration = 0;

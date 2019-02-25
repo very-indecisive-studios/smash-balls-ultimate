@@ -97,6 +97,7 @@
     <ClCompile Include="src\audio\audio.cpp" />
     <ClCompile Include="src\ecs\ecs.cpp" />
     <ClCompile Include="src\ecs\engine.cpp" />
+    <ClCompile Include="src\ecs\systems\physics\pickupPhysics.cpp" />
     <ClCompile Include="src\game\entities\background\background.cpp" />
     <ClCompile Include="src\game\entities\ball\ball.cpp" />
     <ClCompile Include="src\game\entities\button\button.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="src\ecs\components\sprite.h" />
     <ClInclude Include="src\ecs\systems\physics\collision.h" />
     <ClInclude Include="src\ecs\systems\physics\physics.h" />
+    <ClInclude Include="src\ecs\systems\physics\pickupPhysics.h" />
     <ClInclude Include="src\game\data.h" />
     <ClInclude Include="src\game\entities\background\background.h" />
     <ClInclude Include="src\game\entities\ball\ball.h" />

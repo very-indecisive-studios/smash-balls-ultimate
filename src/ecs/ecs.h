@@ -46,6 +46,7 @@ private:
 	ComponentBitset componentBitset;
 	std::shared_ptr<Component> components[MAX_COMPONENTS];
 	std::string tag;
+	std::string listTag;
 public:
 	Entity() { }
 	~Entity() { }
@@ -88,10 +89,20 @@ public:
         this->tag = tagName;
     }
 	
+	void SetListTag(const std::string &listTag)
+	{
+		this->listTag = listTag;
+	}
+
 	const std::string & GetTag()
     {
         return this->tag;
     }
+
+	const std::string & GetListTag()
+	{
+		return this->listTag;
+	}
 };
 
 typedef std::vector<std::shared_ptr<Entity>> EntityList;

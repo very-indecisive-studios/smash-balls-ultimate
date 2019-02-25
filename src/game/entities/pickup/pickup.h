@@ -21,8 +21,12 @@ private:
 	Vector2 velocity;
 	Texture *pickupSpeedTexture;
 	int x = rand() % Constants::GAME_WIDTH;
+	bool collidedPlayer = false;
 
 public:
 	Pickup(Vector2 spawnpt);
+	~Pickup();
+	void ResetPlayer(bool collided);
+	bool CheckCollided();
 	void Update(float deltaTime) override;
 };

@@ -46,6 +46,20 @@ std::shared_ptr<EntityList> ECSEngine::GetEntities(ComponentBitset attachedBitse
 	return matchedEntities;
 }
 
+std::shared_ptr<EntityList> ECSEngine::GetEntities(const std::string &listTag)
+{
+	auto matchedEntities = std::make_shared<EntityList>();
+
+	for (auto &entity: entities)
+	{
+		if (entity->GetListTag() == listTag)
+		{
+			matchedEntities->push_back(entity);
+		}
+	}
+	return matchedEntities;
+}
+
 std::shared_ptr<Entity> ECSEngine::GetTaggedEntity(const std::string & tag)
 {
 	for (auto &entity : entities)
@@ -67,5 +81,23 @@ void ECSEngine::Update(float deltaTime)
 		{
 			system.second->Process(deltaTime);
 		}
+	}
+}
+
+void ECSEngine::RemoveEntity(std::shared_ptr<Entity> entity)
+{
+	int foundIndex = -1;
+	for (int i = 0; i < entities.size(); i++)
+	{
+		if (entities[i] == entity)
+		{
+			foundIndex = i;
+			break;
+		}
+	}
+
+	if (foundIndex >= 0)
+	{
+		entities.erase(entities.begin() + foundIndex);
 	}
 }
